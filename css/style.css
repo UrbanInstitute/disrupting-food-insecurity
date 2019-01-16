@@ -64,7 +64,7 @@ button {
 
 
 /************ SUBNAV ***************/
-
+/*
 .subnav {
     width: 100%;
     position: fixed;
@@ -87,8 +87,75 @@ button {
     padding-left: 24px;
     padding-top: 10px;
 }
+*/
 
+.peerGroupMenu {
+    width: 100%;
+    height: 616px;
+    background-color: #f9f9f9;
+    border: 1px solid #f9f9f9;
+    position: fixed;
+    top: 54px;
+    right: 0;
+    z-index: 150;
+    padding: 40px 80px;
+}
 
+/*.arrow_box {
+    position: relative;
+    background: #f9f9f9;
+    border: 1px solid #f9f9f9;
+}*/
+.peerGroupMenu:after, .peerGroupMenu:before {
+    bottom: 100%;
+    right: 115px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.peerGroupMenu:after {
+    border-color: rgba(249, 249, 249, 0);
+    border-bottom-color: #f9f9f9;
+    border-width: 20px;
+    margin-left: -20px;
+}
+
+.peerGroupMenu:before {
+    border-color: rgba(249, 249, 249, 0);
+    border-bottom-color: #f9f9f9;
+    border-width: 21px;
+    margin-left: -21px;
+}
+
+.peerGroupRow {
+    width: 100%;
+    max-width: 1138px;
+    margin: 0 auto 30px;
+}
+
+.peerGroupLink {
+    display: inline-block;
+    width: 49%;
+    min-height: 45px;
+    vertical-align: top;
+    padding: 0 40px 0 10px;
+}
+
+.peerGroupLink a {
+    color: #000;
+    font-size: 18px;
+    font-weight: lighter;
+}
+
+.peerGroupMenu hr {
+    border: 1px solid #d2d2d2;
+    max-width: 1138px;
+    margin: 40px auto;
+}
 
 
 /***************** mobile chapter (replacing the subnav for smaller screens) ******************/
@@ -132,8 +199,46 @@ ul#menu li:hover ul a {
 
 
 
+/*********** PEER GROUP STYLES **********/
+.peerGroup1 {
+    border-left: 7px solid #A4201D;
+}
 
+.peerGroup2 {
+    border-left: 7px solid #DB2B27;
+}
 
+.peerGroup3 {
+    border-left: 7px solid #CA5800;
+}
+
+.peerGroup4 {
+    border-left: 7px solid #E88E2D;
+}
+
+.peerGroup5 {
+    border-left: 7px solid #FDBF11;
+}
+
+.peerGroup6 {
+    border-left: 7px solid #FDD870;
+}
+
+.peerGroup7 {
+    border-left: 7px solid #FCE39E;
+}
+
+.peerGroup8 {
+    border-left: 7px solid #12719E;
+}
+
+.peerGroup9 {
+    border-left: 7px solid #1696D2;
+}
+
+.peerGroup10 {
+    border-left: 7px solid #73BFE2;
+}
 /*********** STRUCTURE ***********/
 
 .wrapper {
