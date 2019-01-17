@@ -7,6 +7,10 @@ d3.select(".peerGroupMenu").on("mouseover", showPeerGroupMenu);
 // close peer group menu when user stops hovering over it
 d3.select(".peerGroupMenu").on("mouseout", hidePeerGroupMenu);
 
+// mousing over HOME link or social share button also hides the peer group menu
+d3.select(".homeLinkDiv").on("mouseover", hidePeerGroupMenu);
+d3.select(".share-icons").on("mouseover", hidePeerGroupMenu);
+
 function showPeerGroupMenu() {
     // open peer group menu
     d3.select(".peerGroupMenu").classed("hidden", false);

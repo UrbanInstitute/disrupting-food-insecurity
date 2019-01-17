@@ -93,6 +93,10 @@ body{
     margin-right: 60px;
 }
 
+#header-pinned .navLinkDiv {
+    display: inline-block;
+}
+
 #header-pinned .navLink {
     padding: 0 10px;
 }
