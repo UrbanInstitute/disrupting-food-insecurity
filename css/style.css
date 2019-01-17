@@ -57,13 +57,21 @@ h1 {
     font-size: 60px;
     font-weight: bold;
     text-align: center;
+    margin-top: 100px;
+}
+
+h2 {
+    font-size: 48px;
+    font-weight: lighter;
+    color: #353535;
+    text-align: center;
 }
 
 /* needed for IE so images with transparent backgrounds used in buttons don't show up with a grey background */
 button {
     /*background: transparent;*/
     background-color: #fff;
-    border: 1px solid #353535;
+    border: 0.5px solid #353535;
     height: 45px;
     font-size: 18px;
     text-transform: uppercase;
@@ -176,6 +184,28 @@ button:hover, button:focus {
     margin: 40px auto;
 }
 
+/**************** Intro section styles **************/
+section.intro {
+    padding: 40px 0;
+    border-bottom: 1px solid #d2d2d2;
+}
+
+.publishedDate {
+    color: #353535;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: lighter;
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.intro p {
+    font-size: 24px;
+    font-style: italic;
+    font-weight: lighter;
+    color: #353535;
+    max-width: 100%;
+}
 
 /***************** mobile chapter (replacing the subnav for smaller screens) ******************/
 
