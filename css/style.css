@@ -49,6 +49,16 @@ p {
     max-width: 700px;
 }
 
+.hidden {
+    display: none;
+}
+
+h1 {
+    font-size: 60px;
+    font-weight: bold;
+    text-align: center;
+}
+
 /* needed for IE so images with transparent backgrounds used in buttons don't show up with a grey background */
 button {
     /*background: transparent;*/
@@ -60,8 +70,14 @@ button {
     color: #353535;
     padding: 10px 15px;
     margin: 10px 10px 50px 0;
+    cursor: pointer;
 }
 
+button:hover, button:focus {
+    background-color: #1696d2;
+    color: #fff;
+    border-color: #1696d2;
+}
 
 /************ SUBNAV ***************/
 /*
@@ -150,7 +166,7 @@ button {
     font-size: 18px;
 }
 
-.peerGroupLink a:hover {
+.peerGroupLink a:hover, .peerGroupLink a:focus {
     font-weight: bold;
 }
 
