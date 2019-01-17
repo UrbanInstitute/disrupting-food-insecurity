@@ -148,7 +148,10 @@ button {
 .peerGroupLink a {
     color: #000;
     font-size: 18px;
-    font-weight: lighter;
+}
+
+.peerGroupLink a:hover {
+    font-weight: bold;
 }
 
 .peerGroupMenu hr {
