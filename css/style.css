@@ -522,6 +522,7 @@ section.dashboardDrawers {
     line-height: 50px;
     padding-left: 20px;
     cursor: pointer;
+    border-bottom: 1px solid #fff;
 }
 
 .metricDrawerContent {
