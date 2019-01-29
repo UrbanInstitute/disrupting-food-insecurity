@@ -142,7 +142,7 @@ button:hover, button:focus {
     background-color: #f9f9f9;
     border: 1px solid #f9f9f9;
     position: fixed;
-    top: 54px;
+    top: 52px;
     right: 0;
     z-index: 150;
     padding: 40px 80px;
@@ -440,6 +440,13 @@ section.peerGroupSummary {
     vertical-align: top;
 }
 
+
+
+
+section.dashboardDrawers {
+    margin-top: 50px;
+}
+
 .metricDrawer {
     width: 100%;
     background-color: #f9f9f9;
@@ -456,10 +463,15 @@ section.peerGroupSummary {
     text-transform: uppercase;
     line-height: 50px;
     padding-left: 20px;
+    cursor: pointer;
 }
 
 .metricDrawerContent {
     width: 100%;
+}
+
+.metricDrawerContent.closed {
+    height: 0;
 }
 
 .legend {
@@ -604,7 +616,7 @@ footer {
     border-top: 1px solid #d2d2d2;
 }
 
-@media (max-height: 880px){
+@media screen and (max-height: 880px){
     footer{
         margin-top: 50px;
     }
@@ -612,6 +624,7 @@ footer {
 
 .peerGroupProfile footer {
     border-top: none;
+    margin-top: 0;
 }
 
 footer .content{

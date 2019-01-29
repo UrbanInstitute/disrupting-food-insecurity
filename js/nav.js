@@ -34,3 +34,53 @@ function hidePeerGroupMenu() {
         d3.select(".menuLink").classed("selected", true);
     }
 }
+
+
+
+
+// functions for opening/closing dashboard drawers
+var drawerNames = ["Food_Insecurity", "Physical_Health", "Housing_Costs", "Income_and_Employment",
+                    "Financial_Health", "Demographics", "Geography"];
+
+var drawerFullHeights = {};
+
+getMenuHeights();
+
+// store drawer heights
+function getMenuHeights() {
+    drawerNames.forEach(function(d) {
+        var drawerHeight = d3.select(".metricDrawer." + d + " .metricDrawerContent").node().getBoundingClientRect().height;
+
+        // store menu heights when in fully opened state so we know what heights to transition these to
+        drawerFullHeights[d] = drawerHeight;
+
+        // also store these heights as style properties in the DOM elements so we can use d3 to transition the heights
+        d3.select(".metricDrawer." + d + " .metricDrawerContent").style("height", drawerHeight + "px");
+    })
+}
+
+d3.selectAll(".peerGroupProfile .metricDrawer.Food_Insecurity .metricDrawerTitle").on("click", function() { toggleDrawer(".peerGroupProfile", "Food_Insecurity"); });
+d3.selectAll(".peerGroupProfile .metricDrawer.Physical_Health .metricDrawerTitle").on("click", function() { toggleDrawer(".peerGroupProfile", "Physical_Health"); });
+d3.selectAll(".peerGroupProfile .metricDrawer.Housing_Costs .metricDrawerTitle").on("click", function() { toggleDrawer(".peerGroupProfile", "Housing_Costs"); });
+d3.selectAll(".peerGroupProfile .metricDrawer.Income_and_Employment .metricDrawerTitle").on("click", function() { toggleDrawer(".peerGroupProfile", "Income_and_Employment"); });
+d3.selectAll(".peerGroupProfile .metricDrawer.Financial_Health .metricDrawerTitle").on("click", function() { toggleDrawer(".peerGroupProfile", "Financial_Health"); });
+d3.selectAll(".peerGroupProfile .metricDrawer.Demographics .metricDrawerTitle").on("click", function() { toggleDrawer(".peerGroupProfile", "Demographics"); });
+d3.selectAll(".peerGroupProfile .metricDrawer.Geography .metricDrawerTitle").on("click", function() { toggleDrawer(".peerGroupProfile", "Geography"); });
+
+// toggle opening and closing drawers
+function toggleDrawer(page_name, drawer_name) {
+    var drawerIsClosed = d3.select(page_name + " .metricDrawer." + drawer_name).classed("closed");
+
+    if(drawerIsClosed) {
+        d3.select(page_name + " .metricDrawer." + drawer_name).classed("closed", false);
+        d3.select(page_name + " .metricDrawer." + drawer_name + " .metricDrawerContent")
+            .transition(500)
+            .style("height", drawerFullHeights[drawer_name] + "px");
+    }
+    else {
+        d3.select(page_name + " .metricDrawer." + drawer_name).classed("closed", true);
+        d3.select(page_name + " .metricDrawer." + drawer_name + " .metricDrawerContent")
+            .transition(500)
+            .style("height", "0px");
+    }
+}
