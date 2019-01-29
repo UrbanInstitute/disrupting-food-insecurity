@@ -486,6 +486,25 @@ section.dashboardDrawers {
     margin-top: 50px;
 }
 
+.expandDrawers {
+    position: relative;
+    height: 30px;
+}
+
+.expandDrawersLink {
+    position: absolute;
+    right: 0;
+    text-align: right;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.expandDrawersLink:hover {
+    font-weight: bold;
+    color: #1696d2;
+}
+
 .metricDrawer {
     width: 100%;
     background-color: #f9f9f9;

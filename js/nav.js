@@ -84,3 +84,42 @@ function toggleDrawer(page_name, drawer_name) {
             .style("height", "0px");
     }
 }
+
+d3.select(".peerGroupProfile .expandDrawersLink").on("click", function() { toggleAllDrawers(".peerGroupProfile"); });
+
+function toggleAllDrawers(page_name) {
+    var linkName = d3.select(page_name + " .expandDrawersLink").text();
+
+    if(linkName === "Expand all") {
+        d3.select(page_name + " .expandDrawersLink").text("Collapse");
+        expandAllDrawers(page_name);
+    }
+    else {
+        d3.select(page_name + " .expandDrawersLink").text("Expand all");
+        closeAllDrawers(page_name);
+    }
+}
+
+function expandAllDrawers(page_name) {
+    d3.selectAll(page_name + " .metricDrawer").classed("closed", false);
+    drawerNames.forEach(function(d) {
+        d3.select(page_name + " .metricDrawer." + d + " .metricDrawerContent")
+            .transition(500)
+            .style("height", drawerFullHeights[d] + "px");
+    });
+}
+
+// close all drawers except first one
+function closeAllDrawers(page_name) {
+    d3.selectAll(page_name + " .metricDrawer").classed("closed", true);
+    drawerNames.slice(1).forEach(function(d) {
+        d3.select(page_name + " .metricDrawer." + d + " .metricDrawerContent")
+            .transition(500)
+            .style("height", "0px");
+    });
+
+    d3.select(page_name + " .metricDrawer." + drawerNames[0]).classed("closed", false);
+    d3.select(page_name + " .metricDrawer." + drawerNames[0] + " .metricDrawerContent")
+        .transition(500)
+        .style("height", drawerFullHeights["Food_Insecurity"] + "px");
+}
