@@ -67,6 +67,13 @@ h1 {
     margin-top: 100px;
 }
 
+h1.peerGroupTitle {
+    font-size: 36px;
+    text-align: left;
+    margin-top: 50px;
+    padding-left: 15px;
+}
+
 h2 {
     font-size: 48px;
     font-weight: lighter;
@@ -320,6 +327,10 @@ ul#menu li:hover ul a {
 
 }
 
+.peerGroupProfile footer .content {
+    padding: 0;
+}
+
 .content ul {
     list-style: outside none none;
     width: 100%;
@@ -485,6 +496,10 @@ footer {
     footer{
         margin-top: 50px;
     }
+}
+
+.peerGroupProfile footer {
+    border-top: none;
 }
 
 footer .content{
