@@ -398,6 +398,37 @@ ul#menu li:hover ul a {
 
 
 
+/********** CHART STYLES ****************/
+
+/********** LEGEND STYLES **************/
+.legend {
+    padding: 20px;
+}
+
+.legendEntry {
+    display: inline-block;
+    width: 200px;
+}
+
+.legendText {
+    font-family: Lato;
+    font-size: 12px;
+    line-height: 20px;
+    float: left;
+    display: inline-block;
+    color: #000;
+    text-transform: uppercase;
+    /*width: calc(100% - 20px);*/
+}
+
+.legendSquare {
+    /*display: inline-block;*/
+    height: 0;
+    width: 0;
+    margin-right: 10px;
+    float: left;
+}
+
 /********** PEER GROUP PROFILE PAGE STYLES ***********/
 section.peerGroupSummary {
     margin-top: 60px;
@@ -442,7 +473,7 @@ section.peerGroupSummary {
 
 
 
-
+/******************* DRAWER STYLES ****************/
 section.dashboardDrawers {
     margin-top: 50px;
 }
@@ -468,10 +499,8 @@ section.dashboardDrawers {
 
 .metricDrawerContent {
     width: 100%;
-}
-
-.metricDrawerContent.closed {
-    height: 0;
+    /*padding: 20px;*/
+    overflow: hidden;
 }
 
 .legend {
