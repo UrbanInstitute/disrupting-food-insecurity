@@ -70,7 +70,7 @@ h1 {
 h1.peerGroupTitle {
     font-size: 36px;
     text-align: left;
-    margin-top: 50px;
+    margin-top: 80px;
     padding-left: 15px;
 }
 
@@ -311,6 +311,47 @@ ul#menu li:hover ul a {
 .peerGroup10 {
     border-left: 7px solid #73BFE2;
 }
+
+.peerGroupBullets li.bullet_peerGroup1::before {
+    color: #A4201D;
+}
+
+.peerGroupBullets li.bullet_peerGroup2::before {
+    color: #DB2B27;
+}
+
+.peerGroupBullets li.bullet_peerGroup3::before {
+    color: #CA5800;
+}
+
+.peerGroupBullets li.bullet_peerGroup4::before {
+    color: #E88E2D;
+}
+
+.peerGroupBullets li.bullet_peerGroup5::before {
+    color: #FDBF11;
+}
+
+.peerGroupBullets li.bullet_peerGroup6::before {
+    color: #FDD870;
+}
+
+.peerGroupBullets li.bullet_peerGroup7::before {
+    color: #FCE39E;
+}
+
+.peerGroupBullets li.bullet_peerGroup8::before {
+    color: #12719E;
+}
+
+.peerGroupBullets li.bullet_peerGroup9::before {
+    color: #1696d2;
+}
+
+.peerGroupBullets li.bullet_peerGroup10::before {
+    color: #73BFE2;
+}
+
 /*********** STRUCTURE ***********/
 
 .wrapper {
@@ -325,10 +366,6 @@ ul#menu li:hover ul a {
     margin: 0 auto;
     padding: 0px 30px;
 
-}
-
-.peerGroupProfile footer .content {
-    padding: 0;
 }
 
 .content ul {
@@ -359,6 +396,49 @@ ul#menu li:hover ul a {
     float: right;
 }
 
+
+
+/********** PEER GROUP PROFILE PAGE STYLES ***********/
+section.peerGroupSummary {
+    margin-top: 60px;
+}
+
+.peerGroupBullets {
+    width: 350px;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 40px;
+}
+
+.peerGroupBullets ul {
+    margin: 0;
+    color: #353535;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 300;
+    list-style: none;
+}
+
+.peerGroupBullets li {
+    margin-bottom: 30px;
+}
+
+/* how to change color of bullets: https://www.w3schools.com/howto/howto_css_bullet_color.asp  */
+.peerGroupBullets li::before {
+    content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+    color: #000; /* Change the color */
+    display: inline-block; /* Needed to add space between the bullet and the text */
+    width: 1em; /* Also needed for space (tweak if needed) */
+    margin-left: -1em; /* Also needed for space (tweak if needed) */
+}
+
+.map {
+    width: 700px;
+    height: 427px;
+    background-color: #d2d2d2;
+    display: inline-block;
+    vertical-align: top;
+}
 
 /********header (below urban menu)**********/
 
@@ -508,6 +588,7 @@ footer .content{
 
 .peerGroupProfile footer .content {
     max-width: 100%;
+    padding: 0;
 }
 
 footer h4 {
