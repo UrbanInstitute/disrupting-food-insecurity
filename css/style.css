@@ -399,6 +399,14 @@ ul#menu li:hover ul a {
 
 
 /********** CHART STYLES ****************/
+.chart {
+    height: 150px;
+    width: 150px;
+    background-color: #d2d2d2;
+    display: inline-block;
+    float: left;
+    margin: 20px;
+}
 
 /********** LEGEND STYLES **************/
 .legend {
@@ -501,6 +509,16 @@ section.dashboardDrawers {
     width: 100%;
     /*padding: 20px;*/
     overflow: hidden;
+}
+
+.metricDescription {
+    width: 100%;
+    clear: both;
+    padding: 20px;
+}
+
+.metricDescription p {
+    max-width: 100%;
 }
 
 .legend {
