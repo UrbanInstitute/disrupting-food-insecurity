@@ -4,11 +4,12 @@ var PCTFORMATONEDECIMAL = d3.format(".1%");
 var COMMAFORMAT = d3.format(",.0f");
 var DOLLARFORMAT = d3.format("$,.0f");
 
-var chartDimensions = {width_pg: 150, width_cnty: 300, height: 150, margin: {top: 20, right: 5, bottom: 40, left: 5}};
+var chartDimensions = {width_pg: 120, width_cnty: 300, height: 100, margin: {top: 20, right: 5, bottom: 40, left: 5}};
 
 var xScalePG = d3.scaleBand()
     .domain(["peer_group", "national"])
-    .range([0, chartDimensions.width_pg]);
+    .range([0, chartDimensions.width_pg])
+    .padding(0.4);
 
 var xScaleCnty = d3.scaleBand()
     .domain(["county", "peer_group", "state", "national"])
@@ -91,17 +92,26 @@ function renderPeerGroupPage(peer_group) {
     // update map
 
     // update bar charts and legends
+    populateCharts(data);
 
     // update print link
 }
 
-function makeEquityBarChart(chartDivID, indicator, baseGeo, compareGeo, dimensions) {
-    populateChartTitle(chartDivID, indicator);
-    populateBarTitles(chartDivID, baseGeo, compareGeo);
-    makeBarChart(chartDivID, ".baseLocation", "baseBar", baseGeo, indicator, dimensions);
-    makeBarChart(chartDivID, ".comparisonLocation", "comparisonBar", compareGeo, indicator, dimensions);
-    makeBarChart(chartDivID, ".withEquity", "withEquityBar", baseGeo + "|" + compareGeo, indicator, dimensions);
-    populateDescriptiveText(chartDivID, indicator);
+function populateCharts(data) {
+    // populateChartTitle(chartDivID, indicator);
+    // populateBarTitles(chartDivID, baseGeo, compareGeo);
+    makeBarChart("food_insecure_all", data);
+    makeBarChart("food_insecure_children", data);
+    makeBarChart("low_birthweight", data);
+    makeBarChart("diabetes", data);
+    makeBarChart("disability", data);
+    makeBarChart("no_insurance", data);
+    makeBarChart("severely_housing_cost_burdened", data);
+    makeBarChart("housing_cost_burdened", data);
+
+    // makeBarChart(chartDivID, ".comparisonLocation", "comparisonBar", compareGeo, indicator, dimensions);
+    // makeBarChart(chartDivID, ".withEquity", "withEquityBar", baseGeo + "|" + compareGeo, indicator, dimensions);
+    // populateDescriptiveText(chartDivID, indicator);
 }
 
 function updateEquityBarChart(chartDivID, indicator, baseGeo, compareGeo) {
@@ -138,28 +148,23 @@ function populateBarTitles(chartDivID, baseGeo, compareGeo) {
     d3.select(chartDivID + " span.baseGeographyName").text(baseGeo);
 }
 
-function makeBarChart(chartDivID, parentClass, chartID, geo, indicator, dimensions) {
-    var chartData = getData(parentClass, geo, indicator);
+function makeBarChart(chartID, data) {
 
-    xScale.range([0, dimensions.width - dimensions.margin.left - dimensions.margin.right]);
+    yScale.domain([0, d3.max(data, function(d) { return d[chartID]; })]);
 
-    var svg = d3.select(chartDivID + " ." + chartID)
+    var svg = d3.select("#" + chartID)
         .append("svg")
-        .attr("width", dimensions.width)
-        .attr("height", dimensions.height + dimensions.margin.top + dimensions.margin.bottom)
+        .attr("width", chartDimensions.width_pg + chartDimensions.margin.left + chartDimensions.margin.right)
+        .attr("height", chartDimensions.height + chartDimensions.margin.top + chartDimensions.margin.bottom)
         .append("g")
-        .attr("transform", "translate(" + dimensions.margin.left + "," + dimensions.margin.top + ")");
+        .attr("transform", "translate(" + chartDimensions.margin.left + "," + chartDimensions.margin.top + ")");
 
-    drawBars(svg, chartData, colorScale, dimensions.height);
-    labelBars(chartDivID, parentClass, chartData);
+    drawBars(svg, data, chartID);
+    // labelBars(chartDivID, parentClass, chartData);
 
     // detect label collision - if labels are overlapping, make label for diff bar extend lower
     // (only apply this to binary indicators since non-binary ones only have one label)
-    nonbinaryIndicators.indexOf(indicator) && adjustLabels(chartDivID, parentClass, indicator);
-
-    if(parentClass === ".withEquity") {
-        populateEquityStatement(chartDivID, indicator, chartData);
-    }
+    // nonbinaryIndicators.indexOf(indicator) && adjustLabels(chartDivID, parentClass, indicator);
 }
 
 function getData(parentPage, geoId) {
@@ -168,54 +173,33 @@ function getData(parentPage, geoId) {
     }
 }
 
-function drawBars(svg, data, colorScale, barHeight) {
+function drawBars(svg, data, metric) {
 
-    var slices = svg.selectAll(".serie")
-        .data(stack.keys(categories)(data).filter(function(d) { return !isNaN(d[0][1]); }))
-        .enter()
-        .append("g")
-        .attr("class", function(d) { return "serie " + d.key; })
-        .style("fill", function(d) { return colorScale(d.key); })
-        .style("stroke", function(d) { return colorScale(d.key); });
+    var xAxis = d3.axisBottom(xScalePG).ticks(null);
 
-    slices.selectAll("rect")
-        .data(function(d) { return d; })
+    svg.selectAll(".bar")
+        .data(data)
         .enter()
         .append("rect")
-        .attr("class", "slice")
-        .attr("x", function(d) { return xScale(d[0]); })
-        .attr("y", 0)
-        .attr("height", barHeight)
-        .attr("width", function(d) { return xScale(d[1]) - xScale(d[0]); })
-        .style("stroke-width", 0);
+        .attr("class", function(d) { return d.geography === "peer_group" ? "bar peerGroup" + d.id : "bar " + d.geography; })
+        .attr("x", function(d) { return xScalePG(d.geography); })
+        .attr("y", function(d) { return yScale(d[metric]); })
+        .attr("height", function(d) { return yScale(0) - yScale(d[metric]); })
+        .attr("width", xScalePG.bandwidth());
 
-    var labelTextGrp = slices.selectAll(".labelTextGrp")
-        .data(function(d) { return d; })
-        .enter()
-        .append("g")
-        .attr("class", "labelTextGrp")
-        .attr("transform", function(d) { return "translate(" + (xScale(d[1]) - 1) + ",0)"; });
+    var xAxisElements = svg.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + chartDimensions.height + ")")
+        .call(xAxis.tickSize(0));
 
-    // add in labels for each segment
-    labelTextGrp.append("line")
-        .attr("class", "barLabel")
-        .attr("x1", 0)
-        .attr("x2", 0)
-        .attr("y1", barHeight)
-        .attr("y2", barHeight + 4);
+    xAxisElements.selectAll("text").remove();
 
-    // add in placeholder text elements for the labels - these will get filled in with labelBars()
-    labelTextGrp.append("text")
-        .attr("class", "barLabel line1")
-        .attr("x", 0)
-        .attr("y", barHeight + 19)
-        .text("test");
-
-    labelTextGrp.append("text")
-        .attr("class", "barLabel line2")
-        .attr("x", 0)
-        .attr("y", barHeight + 33)
-        .text("test");
+    // var labelTextGrp = slices.selectAll(".labelTextGrp")
+    //     .data(function(d) { return d; })
+    //     .enter()
+    //     .append("g")
+    //     .attr("class", "labelTextGrp")
+    //     .attr("transform", function(d) { return "translate(" + (xScale(d[1]) - 1) + ",0)"; });
 }
 
 function labelBars(chartDivID, parentClass, data) {

@@ -352,6 +352,49 @@ ul#menu li:hover ul a {
     color: #73BFE2;
 }
 
+.bar.peerGroup1 {
+    fill: #A4201D;
+}
+
+.bar.peerGroup2 {
+    fill: #DB2B27;
+}
+
+.bar.peerGroup3 {
+    fill: #CA5800;
+}
+
+.bar.peerGroup4 {
+    fill: #E88E2D;
+}
+
+.bar.peerGroup5 {
+    fill: #FDBF11;
+}
+
+.bar.peerGroup6 {
+    fill: #FDD870;
+}
+
+.bar.peerGroup7 {
+    fill: #FCE39E;
+}
+
+.bar.peerGroup8 {
+    fill: #12719E;
+}
+
+.bar.peerGroup9 {
+    fill: #1696d2;
+}
+
+.bar.peerGroup10 {
+    fill: #73BFE2;
+}
+
+.bar.national {
+    fill: #c4c4c4;
+}
 /*********** STRUCTURE ***********/
 
 .wrapper {
