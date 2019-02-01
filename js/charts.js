@@ -1,10 +1,32 @@
 // (function() {
+var metricNameMapping = {
+    food_insecure_all: "Food insecure, all people",
+    food_insecure_children: "Food insecure, children",
+    severely_housing_cost_burdened: "Severely housing-cost burdened",
+    housing_cost_burdened: "Housing-cost burdened",
+    wage_fair_market_rent: "Wage to afford fair market rent",
+    disability: "People with disability",
+    diabetes: "People with diabetes",
+    low_birthweight: "Low-birthweight births",
+    credit_score: "Median credit score",
+    debt: "Debt in collections",
+    median_income: "Median household income",
+    below_poverty: "Below 200% of federal poverty level",
+    unemployment: "Unemployment rate",
+    no_insurance: "No health insurance",
+    college_less: "Some college or less",
+    people_color: "People of color",
+    children: "Households with children",
+    seniors: "Households with seniors (65+)",
+    rural_population: "Population in rural area"
+}
+
 var PCTFORMAT = d3.format(".0%");
 var PCTFORMATONEDECIMAL = d3.format(".1%");
 var COMMAFORMAT = d3.format(",.1f");
 var DOLLARFORMAT = d3.format("$,.0f");
 
-var chartDimensions = {width_pg: 120, width_cnty: 300, height: 100, margin: {top: 20, right: 5, bottom: 40, left: 5}};
+var chartDimensions = {width_pg: 120, width_cnty: 300, height: 100, margin: {top: 20, right: 0, bottom: 5, left: 0}};
 
 var xScalePG = d3.scaleBand()
     .domain(["peer_group", "national"])
@@ -108,26 +130,17 @@ function populateCharts(data) {
     makeBarChart("no_insurance", data);
     makeBarChart("severely_housing_cost_burdened", data);
     makeBarChart("housing_cost_burdened", data);
-
-    // makeBarChart(chartDivID, ".comparisonLocation", "comparisonBar", compareGeo, indicator, dimensions);
-    // makeBarChart(chartDivID, ".withEquity", "withEquityBar", baseGeo + "|" + compareGeo, indicator, dimensions);
-    // populateDescriptiveText(chartDivID, indicator);
-}
-
-function updateEquityBarChart(chartDivID, indicator, baseGeo, compareGeo) {
-    // fade opacity of chart for 1 second while it transitions
-    // code from: https://stackoverflow.com/questions/2510115/jquery-can-i-call-delay-between-addclass-and-such
-    $("section.tool").addClass("sectionFade").delay(700).queue(function() {
-        $(this).removeClass("sectionFade").dequeue();
-        // convertSvgToPng();  // also, update downloadable chart after bars have finished transitioning
-    });
-
-    populateChartTitle(chartDivID, indicator);
-    populateBarTitles(chartDivID, baseGeo, compareGeo);
-    updateBars(chartDivID, ".baseLocation", baseGeo, indicator);
-    (compareGeo !== "customTarget") && updateBars(chartDivID, ".comparisonLocation", compareGeo, indicator);
-    updateBars(chartDivID, ".withEquity", baseGeo + "|" + compareGeo, indicator);
-    populateDescriptiveText(chartDivID, indicator);
+    makeBarChart("wage_fair_market_rent", data);
+    makeBarChart("median_income", data);
+    makeBarChart("below_poverty", data);
+    makeBarChart("unemployment", data);
+    makeBarChart("credit_score", data);
+    makeBarChart("debt", data);
+    makeBarChart("children", data);
+    makeBarChart("seniors", data);
+    makeBarChart("people_color", data);
+    makeBarChart("college_less", data);
+    makeBarChart("rural_population", data);
 }
 
 function populatePGPageTitle(peerGroupName, peerGroupNumber) {
@@ -140,12 +153,6 @@ function populatePGPageTitle(peerGroupName, peerGroupNumber) {
     // console.log(currentPeerGroupClass);
     // d3.select("h1.peerGroupTitle").classed(currentPeerGroupClass, false);
     d3.select("h1.peerGroupTitle").classed("peerGroup" + peerGroupNumber, true);
-}
-
-function populateBarTitles(chartDivID, baseGeo, compareGeo) {
-    d3.select(chartDivID + " h4.baseGeographyName").text(baseGeo);
-    d3.select(chartDivID + " h4.comparisonGeographyName").text(compareGeo);
-    d3.select(chartDivID + " span.baseGeographyName").text(baseGeo);
 }
 
 function makeBarChart(chartID, data) {
@@ -161,6 +168,10 @@ function makeBarChart(chartID, data) {
 
     drawBars(svg, data, chartID);
 
+    d3.select("#" + chartID)
+        .append("div")
+        .attr("class", "chartName")
+        .text(metricNameMapping[chartID]);
     // detect label collision - if labels are overlapping, make label for diff bar extend lower
     // (only apply this to binary indicators since non-binary ones only have one label)
     // nonbinaryIndicators.indexOf(indicator) && adjustLabels(chartDivID, parentClass, indicator);

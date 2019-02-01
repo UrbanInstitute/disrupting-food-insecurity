@@ -443,9 +443,9 @@ ul#menu li:hover ul a {
 
 /********** CHART STYLES ****************/
 .chart {
-    height: 150px;
-    width: 150px;
-    background-color: #d2d2d2;
+    /*height: 150px;*/
+    width: 130px;
+    /*background-color: #d2d2d2;*/
     display: inline-block;
     float: left;
     margin: 20px;
@@ -454,6 +454,10 @@ ul#menu li:hover ul a {
 .barLabel {
     font-size: 10px;
     text-anchor: middle;
+}
+
+.chartName {
+    font-size: 12px;
 }
 
 /********** LEGEND STYLES **************/
