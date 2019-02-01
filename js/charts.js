@@ -115,13 +115,12 @@ function renderPeerGroupPage(peer_group) {
 
     // update bar charts and legends
     populateCharts(data);
+    getDrawerHeights(); // get height of each drawer after charts have rendered and full height is determined
 
     // update print link
 }
 
 function populateCharts(data) {
-    // populateChartTitle(chartDivID, indicator);
-    // populateBarTitles(chartDivID, baseGeo, compareGeo);
     makeBarChart("food_insecure_all", data);
     makeBarChart("food_insecure_children", data);
     makeBarChart("low_birthweight", data);

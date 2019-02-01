@@ -44,10 +44,8 @@ var drawerNames = ["Food_Insecurity", "Physical_Health", "Housing_Costs", "Incom
 
 var drawerFullHeights = {};
 
-getMenuHeights();
-
 // store drawer heights
-function getMenuHeights() {
+function getDrawerHeights() {
     drawerNames.forEach(function(d) {
         var drawerHeight = d3.select(".metricDrawer." + d + " .metricDrawerContent").node().getBoundingClientRect().height;
 
