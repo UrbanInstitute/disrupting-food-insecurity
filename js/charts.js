@@ -103,6 +103,7 @@ function getQueryString(name) {
 function renderPeerGroupPage(peer_group) {
     // get data
     var data = getData("peergroup", peer_group);
+    // var peerGroupNum = data.filter(function(d) { return d.geography === "peer_group"; })[0]["id"];
     console.log(data);
 
     // update title
@@ -115,6 +116,7 @@ function renderPeerGroupPage(peer_group) {
 
     // update bar charts and legends
     populateCharts(data);
+    populateLegends(peer_group);
     getDrawerHeights(); // get height of each drawer after charts have rendered and full height is determined
 
     // update print link
@@ -167,6 +169,7 @@ function makeBarChart(chartID, data) {
 
     drawBars(svg, data, chartID);
 
+    // add name of metric below each chart
     d3.select("#" + chartID)
         .append("div")
         .attr("class", "chartName")
@@ -213,205 +216,8 @@ function drawBars(svg, data, metric) {
     xAxisElements.selectAll("text").remove();
 }
 
-function labelBars(chartDivID, parentClass, data) {
-
-}
-
-
-function updateBars(chartDivID, parentClass, geo, indicator) {
-    var data = getData(parentClass, geo, indicator);
-
-    // update scales
-    if(negativeIndicators.indexOf(indicator) > -1) {
-        colorScale.range(["#1696d2", "#d2d2d2", "#ec008b"]);
-    }
-    else {
-        colorScale.range(["#1696d2", "#d2d2d2", "#fdbf11"]);
-    }
-
-    if(nonbinaryIndicators.indexOf(indicator) > -1) {
-        xScale.domain([0, d3.max(equityData, function(d) { return d.indicator === indicator && d.value; })]);
-    }
-    else {
-        xScale.domain([0, 1]);
-    }
-
-    // first update labels
-    labelBars(chartDivID, parentClass, data);
-
-    // then transition bars
-    var slices = d3.selectAll(chartDivID + " " + parentClass + " .serie")
-        .data(stack.keys(categories)(data).filter(function(d) { return !isNaN(d[0][1]); }))
-        .style("fill", function(d) { return colorScale(d.key); })
-        .style("stroke", function(d) { return colorScale(d.key); });
-
-    // remove transition for download chart image so that IE doesn't capture the canvas mid-transition
-    if(chartDivID === "#downloadChart") {
-        slices.selectAll("rect")
-            .data(function(d) { return d; })
-            .attr("x", function(d) { return xScale(d[0]); })
-            .attr("width", function(d) { return xScale(d[1]) - xScale(d[0]); });
-
-        if(negativeIndicators.indexOf(indicator) > -1 && parentClass === ".withEquity") {
-            if(nonbinaryIndicators.indexOf(indicator) > -1) {
-                slices.selectAll(".labelTextGrp")
-                    .data(function(d) { return d; })
-                    .attr("transform", function(d) { return "translate(" + (xScale(d[0])) + ",0)"; });
-            }
-            else {
-                slices.selectAll(".labelTextGrp")
-                    .data(function(d) { return d; })
-                    .attr("transform", function(d) { if(d[0] === 0 ) { return "translate(" + (xScale(d.data.yes + d.data.diff) - 1) + ",0)"; }
-                                              else if(d[1] === 1) { return "translate(" + (xScale(d[1]) - 1) + ",0)"; }
-                                              else { return "translate(" + (xScale(d[0])) + ",0)"; } });
-            }
-        }
-        else {
-            slices.selectAll(".labelTextGrp")
-                .data(function(d) { return d; })
-                .attr("transform", function(d) { return "translate(" + (xScale(d[1]) - 1) + ",0)"; });
-        }
-    }
-    else {
-        slices.selectAll("rect")
-            .data(function(d) { return d; })
-            .transition()
-            .delay(300)
-            .duration(500)
-            .attr("x", function(d) { return xScale(d[0]); })
-            .attr("width", function(d) { return xScale(d[1]) - xScale(d[0]); });
-
-        // finally, adjust label positions based on type of indicator:
-        // postive indicators will have all labels be at the end of the bar
-        // negative binary indicators should have the blue label be positioned where the base geo's value is, the pink label should be at the start of the pink bar,
-        //      and the grey label should be at the end
-        // negative non-binary indicators only need to have a label for the pink bar at the start of the pink bar so can transition all of the labels
-        //      to be at the start of the bars since the others will be hidden anyways
-        if(negativeIndicators.indexOf(indicator) > -1 && parentClass === ".withEquity") {
-            if(nonbinaryIndicators.indexOf(indicator) > -1) {
-                slices.selectAll(".labelTextGrp")
-                    .data(function(d) { return d; })
-                    .transition()  // collision detection doesn't work well with transitions
-                    .delay(300)
-                    .duration(500)
-                    .attr("transform", function(d) { return "translate(" + (xScale(d[0])) + ",0)"; })
-                    .on("end", function() { adjustLabels(chartDivID, parentClass, indicator); });
-            }
-            else {
-                slices.selectAll(".labelTextGrp")
-                    .data(function(d) { return d; })
-                    .transition()
-                    .delay(300)
-                    .duration(500)
-                    .attr("transform", function(d) { if(d[0] === 0 ) { return "translate(" + (xScale(d.data.yes + d.data.diff) - 1) + ",0)"; }
-                                              else if(d[1] === 1) { return "translate(" + (xScale(d[1]) - 1) + ",0)"; }
-                                              else { return "translate(" + (xScale(d[0])) + ",0)"; } })
-                    .on("end", function() { adjustLabels(chartDivID, parentClass, indicator); });
-            }
-        }
-        else {
-            slices.selectAll(".labelTextGrp")
-                .data(function(d) { return d; })
-                .transition()
-                .delay(300)
-                .duration(500)
-                .attr("transform", function(d) { return "translate(" + (xScale(d[1]) - 1) + ",0)"; })
-                .on("end", function() { adjustLabels(chartDivID, parentClass, indicator); });
-        }
-    }
-
-    // if there is no equity gap, hide the third bar chart
-    if(parentClass === ".withEquity" && data[0].diff <=0) {
-        d3.select(chartDivID + " .withEquity").classed("noEquityGap", true);
-    }
-    else {
-        d3.select(chartDivID + " .withEquity").classed("noEquityGap", false);
-    }
-
-    if(parentClass === ".withEquity") {
-        populateEquityStatement(chartDivID, indicator, data);
-    }
-}
-
-function populateEquityStatement(chartDivID, indicator, data) {
-    var diffNumber = COMMAFORMAT(data[0].diff * data[0].denom);
-    if(indicator === "Small-business lending") {
-        diffNumber = DOLLARFORMAT(data[0].denom * data[0].diff);
-    }
-    else if(nonbinaryIndicators.indexOf(indicator) > -1 && negativeIndicators.indexOf(indicator) > -1) {
-        diffNumber = COMMAFORMAT(data[0].denom * data[0].diff / 1000);
-    }
-
-    // console.log(data);
-
-    if(indicator === "Initial") {
-        d3.select(chartDivID + " .equitySentence").text();
-    }
-    else if(customGoal === 1) {
-        // error handling to catch invalid user-entered goals
-        if(nonbinaryIndicators.indexOf(indicator) === -1 && (getUserGoal() > 100 || getUserGoal() < 0)) {  // user can't enter > 100% for binary indicators
-            d3.select(chartDivID + " .equitySentence").text("Invalid entry. Please enter a number between 0 and 100.");
-            d3.select(chartDivID + " .equitySentence").classed("noGap", true);
-            d3.select(chartDivID + " .withEquity").classed("noEquityGap", true);
-        }
-        else if(nonbinaryIndicators.indexOf(indicator) > -1 && getUserGoal() < 0) {
-            d3.select(chartDivID + " .equitySentence").text("Invalid entry. Please enter a number above 0.");
-            d3.select(chartDivID + " .equitySentence").classed("noGap", true);
-            d3.select(chartDivID + " .withEquity").classed("noEquityGap", true);
-        }
-        else if(data[0].diff <= 0) {
-            d3.select(chartDivID + " .equitySentence").text(addAnd(data[0].geo) + " has met or exceeded that goal.");
-            d3.select(chartDivID + " .equitySentence").classed("noGap", true);
-        }
-        else {
-            (indicator === "Violent crime") && d3.select(chartDivID + " .equitySentence").html("If this goal is met, <span class='highlight'>" + addAnd(data[0].geo) + " would have " + diffNumber + " fewer violent crimes.</span>");
-            (indicator !== "Violent crime") && d3.select(chartDivID + " .equitySentence").html("If this goal is met, <span class='highlight'>" + diffNumber + " " + data[0].sentence + "</span>");
-            d3.select(chartDivID + " .equitySentence").classed("noGap", false);
-        }
-    }
-    else if(customGoal === 0) {
-        // handle no gap or reverse-gap situation
-        if(data[0].diff === 0) {
-            if(nonbinaryIndicators.indexOf(indicator) > -1) {
-                if(Math.abs(data[0].actual_diff) <= 1) {
-                    d3.select(chartDivID + " .equitySentence").text(addAnd(data[0].geo) + " has no equity gap with " + addAnd(data[0].compareGeo) + ".");
-                    d3.select(chartDivID + " .equitySentence").classed("noGap", true);
-                }
-                else if(data[0].actual_diff < -1) {
-                    d3.select(chartDivID + " .equitySentence").text(data[0].sentence + " " + addAnd(data[0].compareGeo) + ".");
-                    d3.select(chartDivID + " .equitySentence").classed("noGap", true);
-                }
-            }
-            else if(nonbinaryIndicators.indexOf(indicator) === -1) {
-                if(Math.abs(data[0].actual_diff) <= 0.005) {
-                    d3.select(chartDivID + " .equitySentence").text(addAnd(data[0].geo) + " has no equity gap with " + addAnd(data[0].compareGeo) + ".");
-                    d3.select(chartDivID + " .equitySentence").classed("noGap", true);
-                }
-                else if(data[0].actual_diff < -0.005) {
-                    d3.select(chartDivID + " .equitySentence").text(data[0].sentence + " " + addAnd(data[0].compareGeo) + ".");
-                    d3.select(chartDivID + " .equitySentence").classed("noGap", true);
-                }
-            }
-        }
-        // handle equity gap situation
-        else {
-            (indicator === "Violent crime") && d3.select(chartDivID + " .equitySentence").html("If we closed this equity gap, <span class='highlight'>" + addAnd(data[0].geo) + " would have " + diffNumber + " fewer violent crimes.</span>");
-            (indicator !== "Violent crime") && d3.select(chartDivID + " .equitySentence").html("If we closed this equity gap, <span class='highlight'>" + diffNumber + " " + data[0].sentence + "</span>");
-            d3.select(chartDivID + " .equitySentence").classed("noGap", false);
-        }
-    }
-    else {
-        d3.select(chartDivID + " .equitySentence").text("Invalid entry.");
-        d3.select(chartDivID + " .equitySentence").classed("noGap", true);
-        d3.select(chartDivID + " .withEquity").classed("noEquityGap", true);
-    }
-}
-
-function populateDescriptiveText(chartDivID, indicator) {
-    if(chartDivID === "#equityChart") {
-        var full_name = equityData.filter(function(d) { return d.indicator === indicator; })[0].indicator_full_name;
-        d3.select(".indicatorDescriptiveText").html(indicator_text[full_name]);
-    }
+function populateLegends(peer_group) {
+    d3.selectAll(".peerGroupLegendEntry .legendSquare").classed("peerGroup" + peer_group, true);
 }
 
 // function getParentDivWidth(elementId) {

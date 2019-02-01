@@ -392,8 +392,44 @@ ul#menu li:hover ul a {
     fill: #73BFE2;
 }
 
-.bar.national {
-    fill: #c4c4c4;
+.legendSquare.peerGroup1 {
+    border-color: #A4201D;
+}
+
+.legendSquare.peerGroup2 {
+    border-color: #DB2B27;
+}
+
+.legendSquare.peerGroup3 {
+    border-color: #CA5800;
+}
+
+.legendSquare.peerGroup4 {
+    border-color: #E88E2D;
+}
+
+.legendSquare.peerGroup5 {
+    border-color: #FDBF11;
+}
+
+.legendSquare.peerGroup6 {
+    border-color: #FDD870;
+}
+
+.legendSquare.peerGroup7 {
+    border-color: #FCE39E;
+}
+
+.legendSquare.peerGroup8 {
+    border-color: #12719E;
+}
+
+.legendSquare.peerGroup9 {
+    border-color: #1696d2;
+}
+
+.legendSquare.peerGroup10 {
+    border-color: #73BFE2;
 }
 /*********** STRUCTURE ***********/
 
@@ -460,6 +496,10 @@ ul#menu li:hover ul a {
     font-size: 12px;
 }
 
+.bar.national {
+    fill: #c4c4c4;
+}
+
 /********** LEGEND STYLES **************/
 .legend {
     padding: 20px;
@@ -487,6 +527,13 @@ ul#menu li:hover ul a {
     width: 0;
     margin-right: 10px;
     float: left;
+    border-width: 10px;
+    border-style: solid;
+    border-color: #fff;
+}
+
+.legendSquare.national {
+    border-color: #c4c4c4;
 }
 
 /********** PEER GROUP PROFILE PAGE STYLES ***********/
