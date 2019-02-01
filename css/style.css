@@ -451,6 +451,11 @@ ul#menu li:hover ul a {
     margin: 20px;
 }
 
+.barLabel {
+    font-size: 10px;
+    text-anchor: middle;
+}
+
 /********** LEGEND STYLES **************/
 .legend {
     padding: 20px;

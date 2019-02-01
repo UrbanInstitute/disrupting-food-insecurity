@@ -1,7 +1,7 @@
 // (function() {
 var PCTFORMAT = d3.format(".0%");
 var PCTFORMATONEDECIMAL = d3.format(".1%");
-var COMMAFORMAT = d3.format(",.0f");
+var COMMAFORMAT = d3.format(",.1f");
 var DOLLARFORMAT = d3.format("$,.0f");
 
 var chartDimensions = {width_pg: 120, width_cnty: 300, height: 100, margin: {top: 20, right: 5, bottom: 40, left: 5}};
@@ -194,12 +194,14 @@ function drawBars(svg, data, metric) {
 
     xAxisElements.selectAll("text").remove();
 
-    // var labelTextGrp = slices.selectAll(".labelTextGrp")
-    //     .data(function(d) { return d; })
-    //     .enter()
-    //     .append("g")
-    //     .attr("class", "labelTextGrp")
-    //     .attr("transform", function(d) { return "translate(" + (xScale(d[1]) - 1) + ",0)"; });
+    var labels = svg.selectAll(".barLabel")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("class", "barLabel")
+        .attr("x", function(d) { return xScalePG(d.geography) + xScalePG.bandwidth()/2; })
+        .attr("y", function(d) { return yScale(d[metric]) - 5; })
+        .text(function(d) { return COMMAFORMAT(d[metric]); });
 }
 
 function labelBars(chartDivID, parentClass, data) {
