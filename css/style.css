@@ -272,83 +272,93 @@ ul#menu li:hover ul a {
 
 
 /*********** PEER GROUP STYLES **********/
-.peerGroup1 {
+h1.peerGroup1,
+.peerGroupLink.peerGroup1 {
     border-left: 7px solid #A4201D;
 }
 
-.peerGroup2 {
+h1.peerGroup2,
+.peerGroupLink.peerGroup2 {
     border-left: 7px solid #DB2B27;
 }
 
-.peerGroup3 {
+h1.peerGroup3,
+.peerGroupLink.peerGroup3 {
     border-left: 7px solid #CA5800;
 }
 
-.peerGroup4 {
+h1.peerGroup4,
+.peerGroupLink.peerGroup4 {
     border-left: 7px solid #E88E2D;
 }
 
-.peerGroup5 {
+h1.peerGroup5,
+.peerGroupLink.peerGroup5 {
     border-left: 7px solid #FDBF11;
 }
 
-.peerGroup6 {
+h1.peerGroup6,
+.peerGroupLink.peerGroup6 {
     border-left: 7px solid #FDD870;
 }
 
-.peerGroup7 {
+h1.peerGroup7,
+.peerGroupLink.peerGroup7 {
     border-left: 7px solid #FCE39E;
 }
 
-.peerGroup8 {
+h1.peerGroup8,
+.peerGroupLink.peerGroup8 {
     border-left: 7px solid #12719E;
 }
 
-.peerGroup9 {
+h1.peerGroup9,
+.peerGroupLink.peerGroup9 {
     border-left: 7px solid #1696D2;
 }
 
-.peerGroup10 {
+h1.peerGroup10,
+.peerGroupLink.peerGroup10 {
     border-left: 7px solid #73BFE2;
 }
 
-.peerGroupBullets li.bullet_peerGroup1::before {
+.peerGroupBullets li.bullet.peerGroup1::before {
     color: #A4201D;
 }
 
-.peerGroupBullets li.bullet_peerGroup2::before {
+.peerGroupBullets li.bullet.peerGroup2::before {
     color: #DB2B27;
 }
 
-.peerGroupBullets li.bullet_peerGroup3::before {
+.peerGroupBullets li.bullet.peerGroup3::before {
     color: #CA5800;
 }
 
-.peerGroupBullets li.bullet_peerGroup4::before {
+.peerGroupBullets li.bullet.peerGroup4::before {
     color: #E88E2D;
 }
 
-.peerGroupBullets li.bullet_peerGroup5::before {
+.peerGroupBullets li.bullet.peerGroup5::before {
     color: #FDBF11;
 }
 
-.peerGroupBullets li.bullet_peerGroup6::before {
+.peerGroupBullets li.bullet.peerGroup6::before {
     color: #FDD870;
 }
 
-.peerGroupBullets li.bullet_peerGroup7::before {
+.peerGroupBullets li.bullet.peerGroup7::before {
     color: #FCE39E;
 }
 
-.peerGroupBullets li.bullet_peerGroup8::before {
+.peerGroupBullets li.bullet.peerGroup8::before {
     color: #12719E;
 }
 
-.peerGroupBullets li.bullet_peerGroup9::before {
+.peerGroupBullets li.bullet.peerGroup9::before {
     color: #1696d2;
 }
 
-.peerGroupBullets li.bullet_peerGroup10::before {
+.peerGroupBullets li.bullet.peerGroup10::before {
     color: #73BFE2;
 }
 

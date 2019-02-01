@@ -111,7 +111,7 @@ function renderPeerGroupPage(peer_group) {
     populatePGPageTitle(peerGroupName, peer_group);
 
     // update bullets
-
+    populateBulletPoints(peer_group);
     // update map
 
     // update bar charts and legends
@@ -154,6 +154,10 @@ function populatePGPageTitle(peerGroupName, peerGroupNumber) {
     // console.log(currentPeerGroupClass);
     // d3.select("h1.peerGroupTitle").classed(currentPeerGroupClass, false);
     d3.select("h1.peerGroupTitle").classed("peerGroup" + peerGroupNumber, true);
+}
+
+function populateBulletPoints(peerGroupNumber) {
+    d3.selectAll(".peerGroupBullets li.bullet").classed("peerGroup" + peerGroupNumber, true);
 }
 
 function makeBarChart(chartID, data) {
@@ -216,8 +220,8 @@ function drawBars(svg, data, metric) {
     xAxisElements.selectAll("text").remove();
 }
 
-function populateLegends(peer_group) {
-    d3.selectAll(".peerGroupLegendEntry .legendSquare").classed("peerGroup" + peer_group, true);
+function populateLegends(peerGroupNumber) {
+    d3.selectAll(".peerGroupLegendEntry .legendSquare").classed("peerGroup" + peerGroupNumber, true);
 }
 
 // function getParentDivWidth(elementId) {
