@@ -160,7 +160,6 @@ function makeBarChart(chartID, data) {
         .attr("transform", "translate(" + chartDimensions.margin.left + "," + chartDimensions.margin.top + ")");
 
     drawBars(svg, data, chartID);
-    // labelBars(chartDivID, parentClass, chartData);
 
     // detect label collision - if labels are overlapping, make label for diff bar extend lower
     // (only apply this to binary indicators since non-binary ones only have one label)
@@ -177,15 +176,24 @@ function drawBars(svg, data, metric) {
 
     var xAxis = d3.axisBottom(xScalePG).ticks(null);
 
-    svg.selectAll(".bar")
+    var barGrps = svg.selectAll(".barGrp")
         .data(data)
         .enter()
-        .append("rect")
+        .append("g")
+        .attr("class", "barGrp");
+
+    barGrps.append("rect")
         .attr("class", function(d) { return d.geography === "peer_group" ? "bar peerGroup" + d.id : "bar " + d.geography; })
         .attr("x", function(d) { return xScalePG(d.geography); })
         .attr("y", function(d) { return yScale(d[metric]); })
         .attr("height", function(d) { return yScale(0) - yScale(d[metric]); })
         .attr("width", xScalePG.bandwidth());
+
+    barGrps.append("text")
+        .attr("class", "barLabel")
+        .attr("x", function(d) { return xScalePG(d.geography) + xScalePG.bandwidth()/2; })
+        .attr("y", function(d) { return yScale(d[metric]) - 5; })
+        .text(function(d) { return COMMAFORMAT(d[metric]); });
 
     var xAxisElements = svg.append("g")
         .attr("class", "axis axis--x")
@@ -193,227 +201,12 @@ function drawBars(svg, data, metric) {
         .call(xAxis.tickSize(0));
 
     xAxisElements.selectAll("text").remove();
-
-    var labels = svg.selectAll(".barLabel")
-        .data(data)
-        .enter()
-        .append("text")
-        .attr("class", "barLabel")
-        .attr("x", function(d) { return xScalePG(d.geography) + xScalePG.bandwidth()/2; })
-        .attr("y", function(d) { return yScale(d[metric]) - 5; })
-        .text(function(d) { return COMMAFORMAT(d[metric]); });
 }
 
 function labelBars(chartDivID, parentClass, data) {
-    var indicator = data[0].indicator;
 
-    // labelling for positive non-binary indicators
-    if(nonbinaryIndicators.indexOf(indicator) > -1 && negativeIndicators.indexOf(indicator) === -1) {
-        d3.selectAll(chartDivID + " " + parentClass + " .barLabel").classed("hidden", true);
-
-        if(parentClass === ".withEquity") {
-            // Gap = Focus area denominator * ( Target proportion - Focus proportion )
-            d3.select(chartDivID + " " + parentClass + " div.equityNumber").text(DOLLARFORMAT(data[0].yes + data[0].diff));
-
-            // need to clear the other labels so they don't throw off the collision calculations
-            d3.selectAll(chartDivID + " " + parentClass + " g.yes text.barLabel.line1").text("");
-            d3.selectAll(chartDivID + " " + parentClass + " g.yes text.barLabel.line2").text("");
-            d3.selectAll(chartDivID + " " + parentClass + " g.no text.barLabel.line1").text("");
-            d3.selectAll(chartDivID + " " + parentClass + " g.no text.barLabel.line2").text("");
-
-            d3.selectAll(chartDivID + " " + parentClass + " g.diff .barLabel").classed("hidden", false);
-            d3.selectAll(chartDivID + " " + parentClass + " g.diff text.barLabel.line1").text(DOLLARFORMAT(data[0].denom * data[0].diff));
-            d3.selectAll(chartDivID + " " + parentClass + " g.diff text.barLabel.line2").text(data[0].diff_bar_label);
-        }
-        else {
-            d3.select(chartDivID + " " + parentClass + " div.equityNumber").text(DOLLARFORMAT(data[0].yes));
-
-            // label blue bars only
-            d3.selectAll(chartDivID + " " + parentClass + " .yes .barLabel").classed("hidden", false);
-            d3.selectAll(chartDivID + " " + parentClass + " g.yes text.barLabel.line1").text(DOLLARFORMAT(data[0].yes));
-            d3.selectAll(chartDivID + " " + parentClass + " g.yes text.barLabel.line2").text(data[0].blue_bar_label);
-        }
-    }
-    // labelling for negative non-binary indicators
-    else if(nonbinaryIndicators.indexOf(indicator) > -1 && negativeIndicators.indexOf(indicator) > -1) {
-        d3.selectAll(chartDivID + " " + parentClass + " .barLabel").classed("hidden", true);
-
-        if(parentClass === ".withEquity") {
-            d3.select(chartDivID + " " + parentClass + " div.equityNumber").text(COMMAFORMAT(data[0].yes));
-
-            // need to clear the other labels so they don't throw off the collision calculations
-            d3.selectAll(chartDivID + " " + parentClass + " g.yes text.barLabel.line1").text("");
-            d3.selectAll(chartDivID + " " + parentClass + " g.yes text.barLabel.line2").text("");
-            d3.selectAll(chartDivID + " " + parentClass + " g.no text.barLabel.line1").text("");
-            d3.selectAll(chartDivID + " " + parentClass + " g.no text.barLabel.line2").text("");
-
-            d3.selectAll(chartDivID + " " + parentClass + " g.diff .barLabel").classed("hidden", false);
-            d3.selectAll(chartDivID + " " + parentClass + " g.diff text.barLabel.line1").text(COMMAFORMAT(data[0].denom * data[0].diff/1000));
-            d3.selectAll(chartDivID + " " + parentClass + " g.diff text.barLabel.line2").text(data[0].diff_bar_label);
-        }
-        else {
-            d3.select(chartDivID + " " + parentClass + " div.equityNumber").text(COMMAFORMAT(data[0].yes));
-
-            // label blue bars only
-            d3.selectAll(chartDivID + " " + parentClass + " .yes .barLabel").classed("hidden", false);
-            d3.selectAll(chartDivID + " " + parentClass + " g.yes text.barLabel.line1").text(COMMAFORMAT(data[0].yes));
-            d3.selectAll(chartDivID + " " + parentClass + " g.yes text.barLabel.line2").text(data[0].blue_bar_label);
-        }
-    }
-    // labeling for negative binary indicators
-    else if(nonbinaryIndicators.indexOf(indicator) === -1 && negativeIndicators.indexOf(indicator) > -1) {
-        d3.selectAll(chartDivID + " " + parentClass + " .barLabel").classed("hidden", false);
-
-        d3.selectAll(chartDivID + " " + parentClass + " g.yes text.barLabel.line1").text(COMMAFORMAT(data[0].numerator));
-        d3.selectAll(chartDivID + " " + parentClass + " g.yes text.barLabel.line2").text(data[0].blue_bar_label);
-        d3.selectAll(chartDivID + " " + parentClass + " g.no text.barLabel.line1").text(COMMAFORMAT(data[0].denom));
-        d3.selectAll(chartDivID + " " + parentClass + " g.no text.barLabel.line2").text(data[0].grey_bar_label);
-
-        if(parentClass === ".withEquity") {
-            indicator === "Unemployment" ? d3.select(chartDivID + " " + parentClass + " div.equityNumber").text(PCTFORMATONEDECIMAL(data[0].yes)) : d3.select(chartDivID + " " + parentClass + " div.equityNumber").text(PCTFORMAT(data[0].yes));
-
-            d3.selectAll(chartDivID + " " + parentClass + " g.yes text.barLabel.line1").text(COMMAFORMAT(data[0].numerator));
-            d3.selectAll(chartDivID + " " + parentClass + " g.yes text.barLabel.line2").text(data[0].blue_bar_label);
-            d3.selectAll(chartDivID + " " + parentClass + " g.diff text.barLabel.line1").text(COMMAFORMAT(data[0].denom * data[0].diff));
-            d3.selectAll(chartDivID + " " + parentClass + " g.diff text.barLabel.line2").text(data[0].diff_bar_label);
-        }
-        else {
-            indicator === "Unemployment" ? d3.select(chartDivID + " " + parentClass + " div.equityNumber").text(PCTFORMATONEDECIMAL(data[0].yes)) : d3.select(chartDivID + " " + parentClass + " div.equityNumber").text(PCTFORMAT(data[0].yes));
-        }
-    }
-    // labelling for positive binary indicators
-    else {
-        d3.selectAll(chartDivID + " " + parentClass + " .barLabel").classed("hidden", false);
-
-        d3.selectAll(chartDivID + " " + parentClass + " g.yes text.barLabel.line1").text(COMMAFORMAT(data[0].numerator));
-        d3.selectAll(chartDivID + " " + parentClass + " g.yes text.barLabel.line2").text(data[0].blue_bar_label);
-        d3.selectAll(chartDivID + " " + parentClass + " g.no text.barLabel.line1").text(COMMAFORMAT(data[0].denom));
-        d3.selectAll(chartDivID + " " + parentClass + " g.no text.barLabel.line2").text(data[0].grey_bar_label);
-
-        if(parentClass === ".withEquity") {
-            d3.select(chartDivID + " " + parentClass + " div.equityNumber").text(PCTFORMAT(data[0].yes + data[0].diff));
-
-            d3.selectAll(chartDivID + " " + parentClass + " g.diff text.barLabel.line1").text(COMMAFORMAT(data[0].denom * data[0].diff));
-            d3.selectAll(chartDivID + " " + parentClass + " g.diff text.barLabel.line2").text(data[0].diff_bar_label);
-        }
-        else {
-            d3.select(chartDivID + " " + parentClass + " div.equityNumber").text(PCTFORMAT(data[0].yes));
-        }
-    }
 }
 
-function adjustLabels(chartDivID, parentClass, indicator) {
-    if(chartDivID !== "#exampleEquityChart") {
-        // reset label heights and text-alignment so it doesn't throw off the collision detection calculations
-        d3.selectAll(chartDivID + " " + parentClass + " line")
-            .attr("y2", toolChartDimensions.height + 4);
-
-        d3.selectAll(chartDivID + " " + parentClass + " .barLabel.line1")
-            .attr("y", toolChartDimensions.height + 19)
-            .classed("rightJustified", false)
-            .classed("leftJustified", false);
-
-        d3.selectAll(chartDivID + " " + parentClass + " .barLabel.line2")
-            .attr("y", toolChartDimensions.height + 33)
-            .classed("rightJustified", false)
-            .classed("leftJustified", false);
-    }
-
-    // only need to do collision detection for binary indicators since the non-binary ones only have one label per chart
-    if(nonbinaryIndicators.indexOf(indicator) === -1){
-        var blueRectBoundingRect = d3.select(chartDivID + " " + parentClass + " .yes rect").node().getBoundingClientRect();
-        var yesLabelBoundingRect = d3.select(chartDivID + " " + parentClass + " .yes g.labelTextGrp").node().getBoundingClientRect();
-        var noLabelBoundingRect = d3.select(chartDivID + " " + parentClass + " .no g.labelTextGrp").node().getBoundingClientRect();
-        var diffLabelBoundingRect = (parentClass === ".withEquity") && d3.select(chartDivID + " " + parentClass + " .diff g.labelTextGrp").node().getBoundingClientRect();
-
-        // console.log(chartDivID, parentClass);
-        // console.log("Yes Label with width:", yesLabelBoundingRect.right);
-        // console.log("No Label:", noLabelBoundingRect.left);
-        // console.log(diffLabelBoundingRect);
-        // console.log(diffLabelBoundingRect.width + diffLabelBoundingRect.x > noLabelBoundingRect.x);
-
-        // if label for blue and grey bars overlap, adjust the text alignment of the labels
-        if(yesLabelBoundingRect.right + 5 > noLabelBoundingRect.left) {
-            d3.selectAll(chartDivID + " " + parentClass + " .yes text.barLabel").classed("rightJustified", true);
-            d3.selectAll(chartDivID + " " + parentClass + " .no text.barLabel").classed("leftJustified", true);
-
-            // check if labels are still overlapping - if so, move the one for the blue bar down
-            var newYesLabelBoundingRect = d3.select(chartDivID + " " + parentClass + " .yes g.labelTextGrp").node().getBoundingClientRect();
-            var newNoLabelBoundingRect = d3.select(chartDivID + " " + parentClass + " .no g.labelTextGrp").node().getBoundingClientRect();
-
-            if(newYesLabelBoundingRect.right + 2 > newNoLabelBoundingRect.left) {
-                d3.select(chartDivID + " " + parentClass + " .yes line.barLabel")
-                    // .transition()
-                    .attr("y2", toolChartDimensions.height + 34);
-
-                d3.select(chartDivID + " " + parentClass + " .yes text.barLabel.line1")
-                    // .transition()
-                    .attr("y", toolChartDimensions.height + 49);
-
-                d3.select(chartDivID + " " + parentClass + " .yes text.barLabel.line2")
-                    // .transition()
-                    .attr("y", toolChartDimensions.height + 63);
-            }
-        }
-        else {
-            d3.selectAll(chartDivID + " " + parentClass + " .yes text.barLabel").classed("rightJustified", false);
-            d3.selectAll(chartDivID + " " + parentClass + " .no text.barLabel").classed("leftJustified", false);
-        }
-
-        // if blue or yellow/pink label too close to bar baseline, left-justify the label (and move blue one down if needed)
-        if(yesLabelBoundingRect.left < blueRectBoundingRect.left) {
-            d3.selectAll(chartDivID + " " + parentClass + " .yes text.barLabel").classed("leftJustified", true);
-            yesLabelBoundingRect = d3.select(chartDivID + " " + parentClass + " .yes g.labelTextGrp").node().getBoundingClientRect();  // update position of blue bar label
-        }
-
-        // if label for yellow/pink bar overlaps either of the grey or blue labels, shift the label down
-        if(diffLabelBoundingRect && (((negativeIndicators.indexOf(indicator) === -1) && (yesLabelBoundingRect.right > diffLabelBoundingRect.left)) || ((negativeIndicators.indexOf(indicator) > -1) && (diffLabelBoundingRect.right > yesLabelBoundingRect.left)) || (diffLabelBoundingRect.right > noLabelBoundingRect.left))) {
-            // if yellow bar label overlaps the blue label, right-justify the blue label for non-negative indicators
-            if(yesLabelBoundingRect.right > diffLabelBoundingRect.left && negativeIndicators.indexOf(indicator) === -1) {
-                d3.selectAll(chartDivID + " " + parentClass + " .yes text.barLabel").classed("rightJustified", true);
-            }
-
-            // if pink bar label overlaps the blue label, left-justify the blue label for negative indicators
-            if(diffLabelBoundingRect.right > yesLabelBoundingRect.left && negativeIndicators.indexOf(indicator) > -1) {
-                d3.selectAll(chartDivID + " " + parentClass + " .yes text.barLabel").classed("leftJustified", true);
-            }
-
-            // if yellow/pink bar label overlaps the grey label, left-justify the grey label
-            if(diffLabelBoundingRect.right > noLabelBoundingRect.left) {
-                d3.selectAll(chartDivID + " " + parentClass + " .no text.barLabel").classed("leftJustified", true);
-            }
-
-            // if the blue label is left-justified (i.e., is near the bar baseline), move the blue label down beneath the yellow/pink label
-            if(d3.select(chartDivID + " " + parentClass + " .yes text.barLabel.line1").classed("leftJustified")) {
-                d3.select(chartDivID + " " + parentClass + " .yes line.barLabel")
-                    // .transition()
-                    .attr("y2", toolChartDimensions.height + 34);
-
-                d3.select(chartDivID + " " + parentClass + " .yes text.barLabel.line1")
-                    // .transition()
-                    .attr("y", toolChartDimensions.height + 49);
-
-                d3.select(chartDivID + " " + parentClass + " .yes text.barLabel.line2")
-                    // .transition()
-                    .attr("y", toolChartDimensions.height + 63);
-            }
-            // otherwise, move the yellow/pink label down
-            else {
-                d3.select(chartDivID + " " + parentClass + " .diff line.barLabel")
-                    // .transition()
-                    .attr("y2", toolChartDimensions.height + 34);
-
-                d3.select(chartDivID + " " + parentClass + " .diff text.barLabel.line1")
-                    // .transition()
-                    .attr("y", toolChartDimensions.height + 49);
-
-                d3.select(chartDivID + " " + parentClass + " .diff text.barLabel.line2")
-                    // .transition()
-                    .attr("y", toolChartDimensions.height + 63);
-            }
-        }
-    }
-}
 
 function updateBars(chartDivID, parentClass, geo, indicator) {
     var data = getData(parentClass, geo, indicator);
