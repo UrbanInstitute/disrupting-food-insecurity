@@ -39,6 +39,7 @@ function hidePeerGroupMenu() {
 
 
 // functions for opening/closing dashboard drawers
+var drawerTitleHeight = 50;
 var drawerNames = ["Food_Insecurity", "Physical_Health", "Housing_Costs", "Income_and_Employment",
                     "Financial_Health", "Demographics", "Geography"];
 
@@ -51,12 +52,16 @@ function getDrawerHeights() {
 
         // store menu heights when in fully opened state so we know what heights to transition these to
         drawerFullHeights[d] = drawerHeight;
-
-        // also store these heights as style properties in the DOM elements so we can use d3 to transition the heights
-        d3.select(".metricDrawer." + d + " .metricDrawerContent").style("height", drawerHeight + "px");
     })
 }
 
+getDrawerHeights();
+
+// set all drawer heights except the first one to be equal to only the drawer title height on load
+d3.selectAll(".metricDrawer").style("height", drawerTitleHeight + "px");
+d3.select(".metricDrawer.Food_Insecurity").style("height", drawerFullHeights["Food_Insecurity"] + drawerTitleHeight + "px");
+
+// event listeners for opening/closing drawers
 d3.selectAll(".peerGroupProfile .metricDrawer.Food_Insecurity .metricDrawerTitle").on("click", function() { toggleDrawer(".peerGroupProfile", "Food_Insecurity"); });
 d3.selectAll(".peerGroupProfile .metricDrawer.Physical_Health .metricDrawerTitle").on("click", function() { toggleDrawer(".peerGroupProfile", "Physical_Health"); });
 d3.selectAll(".peerGroupProfile .metricDrawer.Housing_Costs .metricDrawerTitle").on("click", function() { toggleDrawer(".peerGroupProfile", "Housing_Costs"); });
@@ -71,15 +76,15 @@ function toggleDrawer(page_name, drawer_name) {
 
     if(drawerIsClosed) {
         d3.select(page_name + " .metricDrawer." + drawer_name).classed("closed", false);
-        d3.select(page_name + " .metricDrawer." + drawer_name + " .metricDrawerContent")
+        d3.select(page_name + " .metricDrawer." + drawer_name)
             .transition(500)
-            .style("height", drawerFullHeights[drawer_name] + "px");
+            .style("height", drawerFullHeights[drawer_name] + 50 + "px");
     }
     else {
         d3.select(page_name + " .metricDrawer." + drawer_name).classed("closed", true);
-        d3.select(page_name + " .metricDrawer." + drawer_name + " .metricDrawerContent")
+        d3.select(page_name + " .metricDrawer." + drawer_name)
             .transition(500)
-            .style("height", "0px");
+            .style("height", drawerTitleHeight + "px");
     }
 }
 
@@ -101,9 +106,9 @@ function toggleAllDrawers(page_name) {
 function expandAllDrawers(page_name) {
     d3.selectAll(page_name + " .metricDrawer").classed("closed", false);
     drawerNames.forEach(function(d) {
-        d3.select(page_name + " .metricDrawer." + d + " .metricDrawerContent")
+        d3.select(page_name + " .metricDrawer." + d)
             .transition(500)
-            .style("height", drawerFullHeights[d] + "px");
+            .style("height", drawerFullHeights[d] + drawerTitleHeight + "px");
     });
 }
 
@@ -111,13 +116,13 @@ function expandAllDrawers(page_name) {
 function closeAllDrawers(page_name) {
     d3.selectAll(page_name + " .metricDrawer").classed("closed", true);
     drawerNames.slice(1).forEach(function(d) {
-        d3.select(page_name + " .metricDrawer." + d + " .metricDrawerContent")
+        d3.select(page_name + " .metricDrawer." + d)
             .transition(500)
-            .style("height", "0px");
+            .style("height", drawerTitleHeight + "px");
     });
 
     d3.select(page_name + " .metricDrawer." + drawerNames[0]).classed("closed", false);
-    d3.select(page_name + " .metricDrawer." + drawerNames[0] + " .metricDrawerContent")
+    d3.select(page_name + " .metricDrawer." + drawerNames[0])
         .transition(500)
-        .style("height", drawerFullHeights["Food_Insecurity"] + "px");
+        .style("height", drawerFullHeights["Food_Insecurity"] + drawerTitleHeight + "px");
 }

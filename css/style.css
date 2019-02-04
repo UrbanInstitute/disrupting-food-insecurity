@@ -618,6 +618,8 @@ section.dashboardDrawers {
     width: 100%;
     background-color: #f9f9f9;
     color: #353535;
+    overflow: hidden;
+    /*height: 50px;*/
 }
 
 .metricDrawerTitle {
