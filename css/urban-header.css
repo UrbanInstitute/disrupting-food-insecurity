@@ -101,6 +101,7 @@ body{
     padding: 0 10px;
 }
 
+#header-pinned .navLink a:hover,
 #header-pinned .navLink.selected a {
     color: #1696d2;
     font-weight: bold;
