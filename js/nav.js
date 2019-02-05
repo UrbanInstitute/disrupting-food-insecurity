@@ -56,7 +56,7 @@ function getDrawerHeights() {
 }
 
 getDrawerHeights();
-
+console.log(drawerFullHeights);
 // set all drawer heights except the first one to be equal to only the drawer title height on load
 d3.selectAll(".metricDrawer").style("height", drawerTitleHeight + "px");
 d3.select(".metricDrawer.Food_Insecurity").style("height", drawerFullHeights["Food_Insecurity"] + drawerTitleHeight + "px");
@@ -85,6 +85,15 @@ function toggleDrawer(page_name, drawer_name) {
         d3.select(page_name + " .metricDrawer." + drawer_name)
             .transition(500)
             .style("height", drawerTitleHeight + "px");
+    }
+
+    // if user has opened or closed all of the drawers, update the text in the Expand all/Collapse link
+    var numClosedDrawers = d3.selectAll(page_name + " .metricDrawer.closed").nodes().length;
+    if(numClosedDrawers > 0) {
+        d3.select(page_name + " .expandDrawersLink").text("Expand all");
+    }
+    else if(numClosedDrawers === 0) {
+        d3.select(page_name + " .expandDrawersLink").text("Collapse");
     }
 }
 
