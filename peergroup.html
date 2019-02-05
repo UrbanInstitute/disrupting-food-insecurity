@@ -131,6 +131,7 @@
                         <li class="bullet">High physical and economic health; above average financial health</li>
                         <li class="bullet">Urban counties with above average housing costs and cost burden, but lower transportation costs</li>
                         <li class="bullet">People tend to be more diverse; high share with post secondary education</li>
+                    </ul>
                 </div>
                 <div class="map">
                     <div id="peerGroupMap">
@@ -321,7 +322,7 @@
                     <p>Donec congue ornare volutpat. Sed accumsan, turpis eget egestas rutrum, sem elit vulputate sapien, id interdum est sapien id felis. Maecenas condimentum hendrerit ante ultricies consequat. Duis eu erat id lectus mollis rhoncus at nec massa. Fusce ut eros imperdiet, auctor risus nec, luctus nibh. Donec tincidunt erat nec nisl ullamcorper laoreet. Nulla interdum auctor lectus. In urna lacus, dictum eu odio vitae, volutpat cursus metus.</p>
 
                     <button class="viewStrategiesBtn">View all strategies</button>
-                    <button>View/Print profile</button>
+                    <a name="peerGroupPrintLink" href="" target="_blank"><button id="printPeerGroupProfile">View/Print profile</button></a>
                     <button>Data and county comparison</button>
                     <a class="topOfPageLink" href="#top">Top of Page</a>
                 </div>
@@ -329,13 +330,7 @@
 
         </div>
 
-        <script>
-            if (!String.prototype.startsWith) {
-                String.prototype.startsWith = function(search, pos) {
-                    return this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
-                };
-            }
-        </script>
+
         <script type="text/javascript" src="js/jquery.2.1.4.min.js"></script>
         <script type="text/javascript" src="js/d3.v4.min.js"></script>
         <script type="text/javascript" src="js/topojson.v1.min.js"></script>
@@ -344,7 +339,6 @@
         <!-- <script type="text/javascript" src="js/bootstrap.min.js"></script> -->
         <script type="text/javascript" src="js/nav.js"></script>
         <script type="text/javascript" src="js/charts.js"></script>
-
 
 <!--        <script>
         (function (i, s, o, g, r, a, m) {
