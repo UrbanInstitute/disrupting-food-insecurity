@@ -608,6 +608,7 @@ section.peerGroupSummary {
     font-style: italic;
     font-weight: 300;
     list-style: none;
+    padding-left: 45px;
 }
 
 .peerGroupBullets li {
