@@ -1,8 +1,12 @@
 ## Makefile for creating a US county topojson with peer group data added to each county
 
+# add state boundaries to TopoJSON so we can plot those on the map
+us_topo_final.json: us_counties-topo.json
+	topomerge -k 'd.id.slice(0, 2)' states=counties < us_counties-topo.json > us_topo_final.json
+
 # convert GeoJSON to TopoJSON and simplify and topoquantize
 us_counties-topo.json: us_counties-final.ndjson
-	geo2topo -n tracts=us_counties-final.ndjson \
+	geo2topo -n counties=us_counties-final.ndjson \
 	| toposimplify -p 1 -f  \
 	| topoquantize 1e5 > us_counties-topo.json
 
@@ -32,6 +36,6 @@ us_counties.ndjson: us_counties-albers.json
 us_counties-albers.json: us_counties.json
 	geoproject 'd3.geoAlbersUsa().fitSize([750, 522], d)' < us_counties.json > us_counties-albers.json
 
-# convert shapefile to geojson
+# convert shapefile to geojson - shapefile from Census Bureau (https://www.census.gov/geo/maps-data/data/cbf/cbf_counties.html)
 us_counties.json: cb_2017_us_county_500k/cb_2017_us_county_500k.shp
 	shp2json cb_2017_us_county_500k/cb_2017_us_county_500k.shp -o us_counties.json
