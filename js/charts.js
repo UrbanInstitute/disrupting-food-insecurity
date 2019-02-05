@@ -123,6 +123,11 @@ function renderPeerGroupPage(peer_group) {
     getDrawerHeights(); // get height of each drawer after charts have rendered and full height is determined
 
     // update print link
+
+    // after all charts have rendered, grab drawer heights and close all except the first drawer
+    getDrawerHeights();
+    d3.selectAll(".metricDrawer").style("height", drawerTitleHeight + "px");
+    d3.select(".metricDrawer.Food_Insecurity").style("height", drawerFullHeights["Food_Insecurity"] + drawerTitleHeight + "px");
 }
 
 function populateCharts(data) {
@@ -181,9 +186,6 @@ function makeBarChart(chartID, data) {
         .append("div")
         .attr("class", "chartName")
         .text(metricNameMapping[chartID]);
-    // detect label collision - if labels are overlapping, make label for diff bar extend lower
-    // (only apply this to binary indicators since non-binary ones only have one label)
-    // nonbinaryIndicators.indexOf(indicator) && adjustLabels(chartDivID, parentClass, indicator);
 }
 
 function getData(parentPage, geoId) {

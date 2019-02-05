@@ -55,12 +55,6 @@ function getDrawerHeights() {
     })
 }
 
-getDrawerHeights();
-console.log(drawerFullHeights);
-// set all drawer heights except the first one to be equal to only the drawer title height on load
-d3.selectAll(".metricDrawer").style("height", drawerTitleHeight + "px");
-d3.select(".metricDrawer.Food_Insecurity").style("height", drawerFullHeights["Food_Insecurity"] + drawerTitleHeight + "px");
-
 // event listeners for opening/closing drawers
 d3.selectAll(".peerGroupProfile .metricDrawer.Food_Insecurity .metricDrawerTitle").on("click", function() { toggleDrawer(".peerGroupProfile", "Food_Insecurity"); });
 d3.selectAll(".peerGroupProfile .metricDrawer.Physical_Health .metricDrawerTitle").on("click", function() { toggleDrawer(".peerGroupProfile", "Physical_Health"); });
