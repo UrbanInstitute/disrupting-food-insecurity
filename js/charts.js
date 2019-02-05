@@ -23,7 +23,7 @@ var metricNameMapping = {
 
 var PCTFORMAT = d3.format(".0%");
 var PCTFORMATONEDECIMAL = d3.format(".1%");
-var COMMAFORMAT = d3.format(",.1f");
+var COMMAFORMAT = d3.format(",.0f");
 var DOLLARFORMAT = d3.format("$,.0f");
 
 var chartDimensions = {width_pg: 120, width_cnty: 300, height: 100, margin: {top: 20, right: 0, bottom: 5, left: 0}};
@@ -215,7 +215,7 @@ function drawBars(svg, data, metric) {
         .attr("y", function(d) { return yScale(d[metric]) - 5; })
         .text(function(d) { if(metric === "credit_score") { return COMMAFORMAT(d[metric]); }
                             else if(metric === "wage_fair_market_rent" || metric === "median_income") { return DOLLARFORMAT(d[metric]); }
-                            else { return PCTFORMATONEDECIMAL(d[metric]); }});
+                            else { return PCTFORMATONEDECIMAL(d[metric]/100); }});
 
     var xAxisElements = svg.append("g")
         .attr("class", "axis axis--x")
@@ -263,6 +263,7 @@ function renderMap(peerGroupNumber) {
         .attr("d", path)
         .on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1]); })
         .on("mouseout", function(d) { unHighlightCounty(d); });
+        // TODO: implement move to front and voronoi
 }
 
 function highlightCounty(county, mouseX, mouseY) {
