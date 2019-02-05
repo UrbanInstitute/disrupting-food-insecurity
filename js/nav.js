@@ -25,7 +25,7 @@ function hidePeerGroupMenu() {
 
     // make sure correct topnav link is selected based on the page the user is on
     var page = window.location.pathname;
-    if(page === "/" || page === "index.html") {
+    if(page === "/" || page === "/features/wm-food-insecurity/index.html") {
         d3.select(".homeLink").classed("selected", true);
         d3.select(".menuLink").classed("selected", false);
     }
