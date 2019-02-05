@@ -582,6 +582,7 @@ h1.peerGroup10,
     background-color: #efefef;
     padding: 4px;
     text-align: center;
+    pointer-events: none;
 }
 
 .hidden {
