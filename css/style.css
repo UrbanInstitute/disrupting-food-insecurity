@@ -362,43 +362,53 @@ h1.peerGroup10,
     color: #73BFE2;
 }
 
-.bar.peerGroup1 {
+.bar.peerGroup1,
+.county.peerGroup1 {
     fill: #A4201D;
 }
 
-.bar.peerGroup2 {
+.bar.peerGroup2,
+.county.peerGroup2 {
     fill: #DB2B27;
 }
 
-.bar.peerGroup3 {
+.bar.peerGroup3,
+.county.peerGroup3 {
     fill: #CA5800;
 }
 
-.bar.peerGroup4 {
+.bar.peerGroup4,
+.county.peerGroup4 {
     fill: #E88E2D;
 }
 
-.bar.peerGroup5 {
+.bar.peerGroup5,
+.county.peerGroup5 {
     fill: #FDBF11;
 }
 
-.bar.peerGroup6 {
+.bar.peerGroup6,
+.county.peerGroup6 {
     fill: #FDD870;
 }
 
-.bar.peerGroup7 {
+.bar.peerGroup7,
+.county.peerGroup7 {
     fill: #FCE39E;
 }
 
-.bar.peerGroup8 {
+.bar.peerGroup8,
+.county.peerGroup8 {
     fill: #12719E;
 }
 
-.bar.peerGroup9 {
+.bar.peerGroup9,
+.county.peerGroup9 {
     fill: #1696d2;
 }
 
-.bar.peerGroup10 {
+.bar.peerGroup10,
+.county.peerGroup10 {
     fill: #73BFE2;
 }
 
@@ -546,6 +556,17 @@ h1.peerGroup10,
     border-color: #c4c4c4;
 }
 
+/********** MAP STYLES ***************/
+.county {
+    fill: none;
+    /*stroke: #d2d2d2;*/
+}
+
+.state {
+    fill: none;
+    stroke: #d2d2d2;
+}
+
 /********** PEER GROUP PROFILE PAGE STYLES ***********/
 section.peerGroupSummary {
     margin-top: 60px;
@@ -583,7 +604,7 @@ section.peerGroupSummary {
 .map {
     width: 700px;
     height: 427px;
-    background-color: #d2d2d2;
+    /*background-color: #d2d2d2;*/
     display: inline-block;
     vertical-align: top;
 }

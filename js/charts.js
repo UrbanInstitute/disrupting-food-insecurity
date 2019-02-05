@@ -44,7 +44,8 @@ var yScale = d3.scaleLinear()
 //     .domain(["", "no", "diff"])
 //     .range(["#1696d2", "#e3e3e3", "#fdbf11"]);
 
-var dashboardData;
+var dashboardData,
+    mapData;
 
 var isIE = navigator.userAgent.indexOf("MSIE") !== -1 || navigator.userAgent.indexOf("Trident") !== -1;
 
@@ -77,18 +78,21 @@ d3.csv("data/chart_data.csv", function(d) {
 }, function(error, data) {
 
     if (error) throw error;
-
     dashboardData = data;
 
-    // render peer group page charts based on group selected
-    var peer_group = getQueryString("peergroup");
-    renderPeerGroupPage(peer_group);
+    d3.json("data/us_topo_final.json", function(error, json) {
+        mapData = json;
+        console.log(json);
+        // render peer group page charts based on group selected
+        var peer_group = getQueryString("peergroup");
+        renderPeerGroupPage(peer_group);
 
-    // // initialize bottom and image download charts as grey rectangles
-    // makeEquityBarChart("#equityChart", "Initial", "Initial", "Initial", toolChartDimensions);
-    // makeEquityBarChart("#downloadChart", "Initial", "Initial", "Initial", toolChartDimensions);
+        // // initialize bottom and image download charts as grey rectangles
+        // makeEquityBarChart("#equityChart", "Initial", "Initial", "Initial", toolChartDimensions);
+        // makeEquityBarChart("#downloadChart", "Initial", "Initial", "Initial", toolChartDimensions);
 
-    // window.addEventListener("resize", redraw);
+        // window.addEventListener("resize", redraw);
+    });
 });
 
 function getQueryString(name) {
@@ -112,7 +116,9 @@ function renderPeerGroupPage(peer_group) {
 
     // update bullets
     populateBulletPoints(peer_group);
+
     // update map
+    renderMap(peer_group);
 
     // update bar charts and legends
     populateCharts(data);
@@ -210,7 +216,9 @@ function drawBars(svg, data, metric) {
         .attr("class", "barLabel")
         .attr("x", function(d) { return xScalePG(d.geography) + xScalePG.bandwidth()/2; })
         .attr("y", function(d) { return yScale(d[metric]) - 5; })
-        .text(function(d) { return COMMAFORMAT(d[metric]); });
+        .text(function(d) { if(metric === "credit_score") { return COMMAFORMAT(d[metric]); }
+                            else if(metric === "wage_fair_market_rent" || metric === "median_income") { return DOLLARFORMAT(d[metric]); }
+                            else { return PCTFORMATONEDECIMAL(d[metric]); }});
 
     var xAxisElements = svg.append("g")
         .attr("class", "axis axis--x")
@@ -222,6 +230,37 @@ function drawBars(svg, data, metric) {
 
 function populateLegends(peerGroupNumber) {
     d3.selectAll(".peerGroupLegendEntry .legendSquare").classed("peerGroup" + peerGroupNumber, true);
+}
+
+function renderMap(peerGroupNumber) {
+    // how to scale already projected data: https://stackoverflow.com/questions/42430361/scaling-d3-v4-map-to-fit-svg-or-at-all
+    var projection = d3.geoIdentity().fitSize([700, 427], topojson.feature(mapData, mapData.objects.counties));
+
+    var path = d3.geoPath()
+        .projection(projection);
+
+    var svg = d3.select("#peerGroupMap")
+        .append("svg")
+        .attr("width", 700)
+        .attr("height", 427);
+
+    svg.append("g")
+        .attr("class", "counties")
+        .selectAll("path")
+        .data(topojson.feature(mapData, mapData.objects.counties).features)
+        .enter()
+        .append("path")
+        .attr("class", function(d) { return d.properties.peer_group === peerGroupNumber ? "county peerGroup" + peerGroupNumber : "county"; })
+        .attr("d", path);
+
+    svg.append("g")
+        .attr("class", "states")
+        .selectAll("path")
+        .data(topojson.feature(mapData, mapData.objects.states).features)
+        .enter()
+        .append("path")
+        .attr("class", function(d) { return "state " + d.properties.state_abbv; })
+        .attr("d", path);
 }
 
 // function getParentDivWidth(elementId) {
