@@ -84,9 +84,13 @@ d3.csv("data/chart_data.csv", function(d) {
     d3.json("data/us_topo_final.json", function(error, json) {
         mapData = json;
         // console.log(json);
-        // render peer group page charts based on group selected
-        var peer_group = getQueryString("peergroup");
-        renderPeerGroupPage(peer_group);
+
+        var page = window.location.pathname;
+        if(page.indexOf("peergroup.html") > -1) {
+            // render peer group page charts based on group selected
+            var peer_group = getQueryString("peergroup");
+            renderPeerGroupPage(page, peer_group);
+        }
 
         // window.addEventListener("resize", redraw);
     });
@@ -101,7 +105,8 @@ function getQueryString(name) {
 
 // console.log(getQueryString("peergroup"));
 
-function renderPeerGroupPage(peer_group) {
+function renderPeerGroupPage(pagename, peer_group) {
+    var isPrint = pagename.indexOf("print_") > -1;
     // get data
     var data = getData("peergroup", peer_group);
     // var peerGroupNum = data.filter(function(d) { return d.geography === "peer_group"; })[0]["id"];
@@ -115,19 +120,21 @@ function renderPeerGroupPage(peer_group) {
     populateBulletPoints(peer_group);
 
     // update map
-    renderMap(peer_group);
+    isPrint ? renderMap(peer_group, 231, 141) : renderMap(peer_group, 700, 427);
 
     // update bar charts and legends
     populateCharts(data);
     populateLegends(peer_group);
-    getDrawerHeights(); // get height of each drawer after charts have rendered and full height is determined
 
     // update print link
+    d3.select("a[name='peerGroupPrintLink']").attr("href", "print_peergroup.html?peergroup=" + peer_group);
 
-    // after all charts have rendered, grab drawer heights and close all except the first drawer
-    getDrawerHeights();
-    d3.selectAll(".metricDrawer").style("height", drawerTitleHeight + "px");
-    d3.select(".metricDrawer.Food_Insecurity").style("height", drawerFullHeights["Food_Insecurity"] + drawerTitleHeight + "px");
+    if(!isPrint) {
+        // after all charts have rendered, grab drawer heights and close all except the first drawer
+        getDrawerHeights();
+        d3.selectAll(".metricDrawer").style("height", drawerTitleHeight + "px");
+        d3.select(".metricDrawer.Food_Insecurity").style("height", drawerFullHeights["Food_Insecurity"] + drawerTitleHeight + "px");
+    }
 }
 
 function populateCharts(data) {
@@ -231,17 +238,17 @@ function populateLegends(peerGroupNumber) {
     d3.selectAll(".peerGroupLegendEntry .legendSquare").classed("peerGroup" + peerGroupNumber, true);
 }
 
-function renderMap(peerGroupNumber) {
+function renderMap(peerGroupNumber, width, height) {
     // how to scale already projected data: https://stackoverflow.com/questions/42430361/scaling-d3-v4-map-to-fit-svg-or-at-all
-    var projection = d3.geoIdentity().fitSize([700 - (mapMargins*2), 427 - (mapMargins*2)], topojson.feature(mapData, mapData.objects.counties));
+    var projection = d3.geoIdentity().fitSize([width - (mapMargins*2), height - (mapMargins*2)], topojson.feature(mapData, mapData.objects.counties));
 
     var path = d3.geoPath()
         .projection(projection);
 
     var svg = d3.select("#peerGroupMap")
         .append("svg")
-        .attr("width", 700)
-        .attr("height", 427);
+        .attr("width", width)
+        .attr("height", height);
 
     svg.append("g")
         .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")

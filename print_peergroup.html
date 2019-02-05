@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <title>Walmart Food Insecurity Dashboard</title>
+
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic,900" rel="stylesheet" type="text/css">
+        <link href="css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+        <!--for the header-->
+        <!-- <link rel="stylesheet" type="text/css" href="css/urban-header.css"> -->
+
+        <!--project style sheet-->
+        <link rel="stylesheet" href="css/style.css" type="text/css">
+
+    </head>
+
+    <body class="ub-body">
+
+        <div class="main peerGroupProfile print">
+            <div class="print page">
+                <div class="printHeader">
+                    <h1>Food Insecurity</h1>
+                    <h2>A County-Level Dashboard</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque facilisis id neque ut laoreet. Etiam leo felis, pulvinar eu nibh id, aliquam mattis erat. Integer nisi mi, gravida et nisl et, euismod cursus velit.  </p>
+                    <p>Maecenas vel dui et ligula porta iaculis. Pellentesque a dictum nulla. Etiam dictum eros sit amet massa posuere, at convallis est scelerisque. Suspendisse non lobortis nulla. Aliquam pellentesque ultrices nisl id semper.</p>
+                </div>
+
+                <h1 class="peerGroupTitle"></h1>
+
+                <section class="peerGroupSummary">
+                    <div class="peerGroupBullets">
+                        <ul>
+                            <li class="bullet">Lower food insecurity (11 percent)</li>
+                            <li class="bullet">High physical and economic health; above average financial health</li>
+                            <li class="bullet">Urban counties with above average housing costs and cost burden, but lower transportation costs</li>
+                            <li class="bullet">People tend to be more diverse; high share with post secondary education</li>
+                        </ul>
+                    </div>
+                    <div class="map">
+                        <div id="peerGroupMap"></div>
+                    </div>
+                </section>
+
+                    <div class="metricDrawer Food_Insecurity">
+                        <div class="metricDrawerTitle">Food Insecurity</div>
+                        <div class="metricDrawerContent">
+                            <div class="legend">
+                                <div class="legendEntry peerGroupLegendEntry">
+                                    <div class="legendSquare"></div>
+                                    <div class="legendText">Peer group average</div>
+                                </div>
+                                <div class="legendEntry nationalAvgLegendEntry">
+                                    <div class="legendSquare national"></div>
+                                    <div class="legendText">National average</div>
+                                </div>
+                            </div>
+                            <div class="charts">
+                                <div class="chart" id="food_insecure_all"></div>
+                                <div class="chart" id="food_insecure_children"></div>
+                            </div>
+                            <div class="metricDescription">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque facilisis id neque ut laoreet. Etiam leo felis, pulvinar eu nibh id, aliquam mattis erat. Integer nisi mi, gravida et nisl et, euismod cursus velit.</p>
+                                <p>Maecenas vel dui et ligula porta iaculis. Pellentesque a dictum nulla. Etiam dictum eros sit amet massa posuere, at convallis est scelerisque. Suspendisse non lobortis nulla. Aliquam pellentesque ultrices nisl id semper.</p>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="print page">
+                <div class="metricDrawer Physical_Health closed">
+                    <div class="metricDrawerTitle">Physical Health</div>
+                    <div class="metricDrawerContent">
+                        <div class="legend">
+                            <div class="legendEntry peerGroupLegendEntry">
+                                <div class="legendSquare"></div>
+                                <div class="legendText">Peer group average</div>
+                            </div>
+                            <div class="legendEntry nationalAvgLegendEntry">
+                                <div class="legendSquare national"></div>
+                                <div class="legendText">National average</div>
+                            </div>
+                        </div>
+                        <div class="charts">
+                            <div class="chart" id="low_birthweight"></div>
+                            <div class="chart" id="diabetes"></div>
+                            <div class="chart" id="disability"></div>
+                            <div class="chart" id="no_insurance"></div>
+                        </div>
+                        <div class="metricDescription">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque facilisis id neque ut laoreet. Etiam leo felis, pulvinar eu nibh id, aliquam mattis erat. Integer nisi mi, gravida et nisl et, euismod cursus velit.</p>
+                            <p>Maecenas vel dui et ligula porta iaculis. Pellentesque a dictum nulla. Etiam dictum eros sit amet massa posuere, at convallis est scelerisque. Suspendisse non lobortis nulla. Aliquam pellentesque ultrices nisl id semper.</p>
+                            <p>Donec congue ornare volutpat. Sed accumsan, turpis eget egestas rutrum, sem elit vulputate sapien, id interdum est sapien id felis. Maecenas condimentum hendrerit ante ultricies consequat. Duis eu erat id lectus mollis rhoncus at nec massa. Fusce ut eros imperdiet, auctor risus nec, luctus nibh. Donec tincidunt erat nec nisl ullamcorper laoreet. Nulla interdum auctor lectus. In urna lacus, dictum eu odio vitae, volutpat cursus metus.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="metricDrawer Housing_Costs closed">
+                    <div class="metricDrawerTitle">Housing Costs</div>
+                    <div class="metricDrawerContent">
+                        <div class="legend">
+                            <div class="legendEntry peerGroupLegendEntry">
+                                <div class="legendSquare"></div>
+                                <div class="legendText">Peer group average</div>
+                            </div>
+                            <div class="legendEntry nationalAvgLegendEntry">
+                                <div class="legendSquare national"></div>
+                                <div class="legendText">National average</div>
+                            </div>
+                        </div>
+                        <div class="charts">
+                            <div class="chart" id="housing_cost_burdened"></div>
+                            <div class="chart" id="severely_housing_cost_burdened"></div>
+                            <div class="chart" id="wage_fair_market_rent"></div>
+                        </div>
+                        <div class="metricDescription">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque facilisis id neque ut laoreet. Etiam leo felis, pulvinar eu nibh id, aliquam mattis erat. Integer nisi mi, gravida et nisl et, euismod cursus velit.</p>
+                            <p>Maecenas vel dui et ligula porta iaculis. Pellentesque a dictum nulla. Etiam dictum eros sit amet massa posuere, at convallis est scelerisque. Suspendisse non lobortis nulla. Aliquam pellentesque ultrices nisl id semper.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="metricDrawer Income_and_Employment closed">
+                    <div class="metricDrawerTitle">Income and Employment</div>
+                    <div class="metricDrawerContent">
+                        <div class="legend">
+                            <div class="legendEntry peerGroupLegendEntry">
+                                <div class="legendSquare"></div>
+                                <div class="legendText">Peer group average</div>
+                            </div>
+                            <div class="legendEntry nationalAvgLegendEntry">
+                                <div class="legendSquare national"></div>
+                                <div class="legendText">National average</div>
+                            </div>
+                        </div>
+                        <div class="charts">
+                            <div class="chart" id="median_income"></div>
+                            <div class="chart" id="below_poverty"></div>
+                            <div class="chart" id="unemployment"></div>
+                        </div>
+                        <div class="metricDescription">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque facilisis id neque ut laoreet. Etiam leo felis, pulvinar eu nibh id, aliquam mattis erat. Integer nisi mi, gravida et nisl et, euismod cursus velit.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="print page">
+                <div class="metricDrawer Financial_Health closed">
+                    <div class="metricDrawerTitle">Financial Health</div>
+                    <div class="metricDrawerContent">
+                        <div class="legend">
+                            <div class="legendEntry peerGroupLegendEntry">
+                                <div class="legendSquare"></div>
+                                <div class="legendText">Peer group average</div>
+                            </div>
+                            <div class="legendEntry nationalAvgLegendEntry">
+                                <div class="legendSquare national"></div>
+                                <div class="legendText">National average</div>
+                            </div>
+                        </div>
+                        <div class="charts">
+                            <div class="chart" id="credit_score"></div>
+                            <div class="chart" id="debt"></div>
+                        </div>
+                        <div class="metricDescription">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque facilisis id neque ut laoreet. Etiam leo felis, pulvinar eu nibh id, aliquam mattis erat. Integer nisi mi, gravida et nisl et, euismod cursus velit.</p>
+                            <p>Maecenas vel dui et ligula porta iaculis. Pellentesque a dictum nulla. Etiam dictum eros sit amet massa posuere, at convallis est scelerisque. Suspendisse non lobortis nulla. Aliquam pellentesque ultrices nisl id semper.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="metricDrawer Demographics closed">
+                    <div class="metricDrawerTitle">Demographics</div>
+                    <div class="metricDrawerContent">
+                        <div class="legend">
+                            <div class="legendEntry peerGroupLegendEntry">
+                                <div class="legendSquare"></div>
+                                <div class="legendText">Peer group average</div>
+                            </div>
+                            <div class="legendEntry nationalAvgLegendEntry">
+                                <div class="legendSquare national"></div>
+                                <div class="legendText">National average</div>
+                            </div>
+                        </div>
+                        <div class="charts">
+                            <div class="chart" id="children"></div>
+                            <div class="chart" id="seniors"></div>
+                            <div class="chart" id="people_color"></div>
+                            <div class="chart" id="college_less"></div>
+                        </div>
+                        <div class="metricDescription">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque facilisis id neque ut laoreet. Etiam leo felis, pulvinar eu nibh id, aliquam mattis erat. Integer nisi mi, gravida et nisl et, euismod cursus velit.</p>
+                            <p>Maecenas vel dui et ligula porta iaculis. Pellentesque a dictum nulla. Etiam dictum eros sit amet massa posuere, at convallis est scelerisque. Suspendisse non lobortis nulla. Aliquam pellentesque ultrices nisl id semper.</p>
+                            <p>Donec congue ornare volutpat. Sed accumsan, turpis eget egestas rutrum, sem elit vulputate sapien, id interdum est sapien id felis. Maecenas condimentum hendrerit ante ultricies consequat. Duis eu erat id lectus mollis rhoncus at nec massa. Fusce ut eros imperdiet, auctor risus nec, luctus nibh. Donec tincidunt erat nec nisl ullamcorper laoreet. Nulla interdum auctor lectus. In urna lacus, dictum eu odio vitae, volutpat cursus metus.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="metricDrawer Geography closed">
+                    <div class="metricDrawerTitle">Geography</div>
+                    <div class="metricDrawerContent">
+                        <div class="legend">
+                            <div class="legendEntry peerGroupLegendEntry">
+                                <div class="legendSquare"></div>
+                                <div class="legendText">Peer group average</div>
+                            </div>
+                            <div class="legendEntry nationalAvgLegendEntry">
+                                <div class="legendSquare national"></div>
+                                <div class="legendText">National average</div>
+                            </div>
+                        </div>
+                        <div class="charts">
+                            <div class="chart" id="rural_population"></div>
+                        </div>
+                        <div class="metricDescription">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque facilisis id neque ut laoreet. Etiam leo felis, pulvinar eu nibh id, aliquam mattis erat. Integer nisi mi, gravida et nisl et, euismod cursus velit.</p>
+                            <p>Maecenas vel dui et ligula porta iaculis. Pellentesque a dictum nulla. Etiam dictum eros sit amet massa posuere, at convallis est scelerisque. Suspendisse non lobortis nulla. Aliquam pellentesque ultrices nisl id semper.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script type="text/javascript" src="js/jquery.2.1.4.min.js"></script>
+        <script type="text/javascript" src="js/d3.v4.min.js"></script>
+        <script type="text/javascript" src="js/topojson.v1.min.js"></script>
+        <script src="https://d3js.org/d3-geo.v1.min.js"></script>
+        <!-- <script src="https://d3js.org/d3-array.v1.min.js"></script> -->
+        <script type="text/javascript" src="js/nav.js"></script>
+        <script type="text/javascript" src="js/charts.js"></script>
+
+
+        <script src="js/header.js"></script>
+
+    </body>
+</html>

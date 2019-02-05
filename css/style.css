@@ -521,10 +521,6 @@ h1.peerGroup10,
 }
 
 /********** LEGEND STYLES **************/
-.legend {
-    padding: 20px;
-}
-
 .legendEntry {
     display: inline-block;
     width: 200px;
@@ -699,6 +695,7 @@ section.dashboardDrawers {
 .legend {
     width: 100%;
     height: 30px;
+    padding: 20px;
 }
 
 .charts {
@@ -1009,22 +1006,6 @@ footer h3, footer h4 {
         padding: 10px 0;
     }
 
-    /*Hide checkbox*/
-    input[type=checkbox]:unchecked ~ #menu{
-        display: none;
-        visibility:hidden;
-    }
-
-    /*Show menu when invisible checkbox is checked*/
-    input[type=checkbox]:checked ~ #menu{
-        display: block;
-        position: absolute;
-        top: 85px;
-        width: 100%;
-        height: 150px;
-        z-index: 10;
-    }
-
     ul#menu {
         float:none;
         display: none;
@@ -1101,4 +1082,126 @@ footer h3, footer h4 {
 #corr-corr{
   font-style: italic;
   font-size: 16px;
+}
+
+
+
+
+/****************** PRINT STYLES ******************/
+div.print {
+    font-size: 12px;
+    color: #353535;
+    text-align: left;
+}
+
+div.print.page {
+    width: 8in;
+    padding: 5px;
+    page-break-after: always;
+    border: 1px solid black;
+}
+
+.print p {
+    margin-bottom: 16px;
+}
+
+.printHeader h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    text-align: left;
+    margin-top: 0;
+}
+
+.printHeader h2 {
+    font-size: 20px;
+    font-weight: lighter;
+    text-align: left;
+    color: #353535;
+    margin-bottom: 20px;
+}
+
+.printHeader p {
+    font-style: italic;
+    color: #353535;
+    margin-bottom: 16px;
+    max-width: 100%;
+}
+
+.print .peerGroupTitle {
+    font-size: 18px;
+    margin-top: 40px
+}
+
+.print .peerGroupSummary {
+    margin-top: 20px;
+}
+
+.print .peerGroupBullets ul {
+    font-size: 12px;
+    padding-left: 24px;
+}
+
+.print .peerGroupBullets li {
+    margin-bottom: 12px;
+}
+
+.print .map {
+    width: 231px;
+    height: 141px;
+}
+
+.print .metricDrawer {
+    background: none;
+}
+
+.print .metricDrawerTitle {
+    font-size: 14px;
+    height: 20px;
+    line-height: 20px;
+    background: none;
+    cursor: auto;
+    pointer-events: none;
+    padding-left: 0;
+}
+
+.print .legend {
+    height: 20px;
+    padding: 15px 0;
+}
+
+.print .legendSquare {
+    border-width: 7px;
+}
+
+.print .legendText {
+    line-height: 14px;
+}
+
+.print .map .counties {
+    pointer-events: none;
+}
+
+.print .metricDescription {
+    padding: 0;
+}
+
+@media print{
+    @page {
+        size: 210mm 297mm; /* portrait
+        /* you can also specify margins here: */
+        margin: 15mm;
+        /*margin-right: 45mm;  for compatibility with both A4 and Letter */
+    }
+
+    div.print a:after{
+        content: none !important;
+    }
+
+/*   .page-break {
+        height: 0;
+        page-break-after: always;
+        margin:0;
+        border-top:none;
+    }*/
 }
