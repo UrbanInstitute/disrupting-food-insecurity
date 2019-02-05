@@ -557,14 +557,35 @@ h1.peerGroup10,
 }
 
 /********** MAP STYLES ***************/
+#peerGroupMap {
+    position: relative;
+}
+
 .county {
     fill: none;
-    /*stroke: #d2d2d2;*/
+    stroke: none;
 }
 
 .state {
     fill: none;
     stroke: #d2d2d2;
+}
+
+.highlighted {
+    stroke: #000;
+    stroke-width: 2px;
+}
+
+.tooltip {
+    position: absolute;
+    font-size: 12px;
+    background-color: #efefef;
+    padding: 4px;
+    text-align: center;
+}
+
+.hidden {
+    visibility: hidden;
 }
 
 /********** PEER GROUP PROFILE PAGE STYLES ***********/

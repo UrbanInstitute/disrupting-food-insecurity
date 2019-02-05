@@ -27,6 +27,7 @@ var COMMAFORMAT = d3.format(",.1f");
 var DOLLARFORMAT = d3.format("$,.0f");
 
 var chartDimensions = {width_pg: 120, width_cnty: 300, height: 100, margin: {top: 20, right: 0, bottom: 5, left: 0}};
+var mapMargins = 10;
 
 var xScalePG = d3.scaleBand()
     .domain(["peer_group", "national"])
@@ -82,14 +83,10 @@ d3.csv("data/chart_data.csv", function(d) {
 
     d3.json("data/us_topo_final.json", function(error, json) {
         mapData = json;
-        console.log(json);
+        // console.log(json);
         // render peer group page charts based on group selected
         var peer_group = getQueryString("peergroup");
         renderPeerGroupPage(peer_group);
-
-        // // initialize bottom and image download charts as grey rectangles
-        // makeEquityBarChart("#equityChart", "Initial", "Initial", "Initial", toolChartDimensions);
-        // makeEquityBarChart("#downloadChart", "Initial", "Initial", "Initial", toolChartDimensions);
 
         // window.addEventListener("resize", redraw);
     });
@@ -234,7 +231,7 @@ function populateLegends(peerGroupNumber) {
 
 function renderMap(peerGroupNumber) {
     // how to scale already projected data: https://stackoverflow.com/questions/42430361/scaling-d3-v4-map-to-fit-svg-or-at-all
-    var projection = d3.geoIdentity().fitSize([700, 427], topojson.feature(mapData, mapData.objects.counties));
+    var projection = d3.geoIdentity().fitSize([700 - (mapMargins*2), 427 - (mapMargins*2)], topojson.feature(mapData, mapData.objects.counties));
 
     var path = d3.geoPath()
         .projection(projection);
@@ -245,24 +242,47 @@ function renderMap(peerGroupNumber) {
         .attr("height", 427);
 
     svg.append("g")
-        .attr("class", "counties")
-        .selectAll("path")
-        .data(topojson.feature(mapData, mapData.objects.counties).features)
-        .enter()
-        .append("path")
-        .attr("class", function(d) { return d.properties.peer_group === peerGroupNumber ? "county peerGroup" + peerGroupNumber : "county"; })
-        .attr("d", path);
-
-    svg.append("g")
+        .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")
         .attr("class", "states")
         .selectAll("path")
         .data(topojson.feature(mapData, mapData.objects.states).features)
         .enter()
         .append("path")
         .attr("class", function(d) { return "state " + d.properties.state_abbv; })
-        .attr("d", path);
+        .attr("d", path)
+        .style("pointer-events", "none");
+
+    svg.append("g")
+        .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")
+        .attr("class", "counties")
+        .selectAll("path")
+        .data(topojson.feature(mapData, mapData.objects.counties).features)
+        .enter()
+        .append("path")
+        .attr("class", function(d) { return d.properties.peer_group === peerGroupNumber ? "county county_" + d.properties.county_fips + " peerGroup" + peerGroupNumber : "county county_" + d.properties.county_fips; })
+        .attr("d", path)
+        .on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1]); })
+        .on("mouseout", function(d) { unHighlightCounty(d); });
 }
 
+function highlightCounty(county, mouseX, mouseY) {
+    d3.select("#peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true);
+
+    d3.select(".tooltip")
+        .text(county.properties.county_name + ", " + county.properties.state_abbv)
+        .classed("hidden", false);
+
+    var tooltipWidth = d3.select(".tooltip").node().getBoundingClientRect().width;
+
+    d3.select(".tooltip")
+        .style("left", mouseX - (tooltipWidth/2) + "px")
+        .style("top", mouseY - 25 + "px");
+}
+
+function unHighlightCounty(county) {
+    d3.select("#peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", false);
+    d3.select(".tooltip").text("").classed("hidden", true);
+}
 // function getParentDivWidth(elementId) {
 //     var width = document.getElementById(elementId).clientWidth;
 //     // console.log(width)
