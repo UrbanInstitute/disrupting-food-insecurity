@@ -731,6 +731,22 @@ section.dashboardDrawers {
     border-bottom: 1px solid #fff;
 }
 
+.drawerCarat {
+    background-image: url("../img/collapsed-icon.png");
+    width: 22px;
+    height: 10px;
+    display: inline-block;
+    float: right;
+    margin-right: 15px;
+    margin-top: 17px;
+    transition: 0.4s ease-in-out;
+    transform: rotate(180deg);
+}
+
+.drawerCarat.expanded {
+    transform: rotate(0deg);
+}
+
 .metricDrawerContent {
     width: 100%;
     /*padding: 20px;*/

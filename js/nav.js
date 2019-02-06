@@ -73,12 +73,14 @@ function toggleDrawer(page_name, drawer_name) {
         d3.select(page_name + " .metricDrawer." + drawer_name)
             .transition(500)
             .style("height", drawerFullHeights[drawer_name] + 50 + "px");
+        d3.select(page_name + " .metricDrawer." + drawer_name + " .drawerCarat").classed("expanded", true);
     }
     else {
         d3.select(page_name + " .metricDrawer." + drawer_name).classed("closed", true);
         d3.select(page_name + " .metricDrawer." + drawer_name)
             .transition(500)
             .style("height", drawerTitleHeight + "px");
+        d3.select(page_name + " .metricDrawer." + drawer_name + " .drawerCarat").classed("expanded", false);
     }
 
     // if user has opened or closed all of the drawers, update the text in the Expand all/Collapse link
@@ -107,6 +109,7 @@ function toggleAllDrawers(page_name) {
 }
 
 function expandAllDrawers(page_name) {
+    d3.selectAll(page_name + " .metricDrawer .drawerCarat").classed("expanded", true);
     d3.selectAll(page_name + " .metricDrawer").classed("closed", false);
     drawerNames.forEach(function(d) {
         d3.select(page_name + " .metricDrawer." + d)
@@ -122,6 +125,7 @@ function closeAllDrawers(page_name) {
         d3.select(page_name + " .metricDrawer." + d)
             .transition(500)
             .style("height", drawerTitleHeight + "px");
+        d3.select(page_name + " .metricDrawer." + d + " .drawerCarat").classed("expanded", false);
     });
 
     d3.select(page_name + " .metricDrawer." + drawerNames[0]).classed("closed", false);
