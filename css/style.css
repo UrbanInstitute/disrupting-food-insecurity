@@ -108,13 +108,21 @@ button.viewStrategiesBtn {
     border: 0.5px solid #1696d2;
 }
 
+button.dataDownloadBtn {
+    width: 367px;
+    padding-left: 10px;
+}
+
 button:hover, button:focus {
     background-color: #1696d2;
     color: #fff;
     border-color: #1696d2;
 }
 
-
+.downloadIcon {
+    margin-right: 8px;
+    vertical-align: bottom;
+}
 
 /************ SUBNAV ***************/
 .peerGroupMenu {
