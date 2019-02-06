@@ -43,11 +43,16 @@ a.topOfPageLink {
     font-size: 14px;
     color: #353535;
     text-transform: uppercase;
+    margin-left: 16px;
 }
 
 a:hover {
     color: #000;
     text-decoration: none;
+}
+
+.pageUpIcon {
+    padding-left: 7px;
 }
 
 p {
