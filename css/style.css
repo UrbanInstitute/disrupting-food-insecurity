@@ -53,6 +53,8 @@ a:hover {
 
 .pageUpIcon {
     padding-left: 7px;
+    width: 29px;
+    height: 10px;
 }
 
 p {
@@ -127,6 +129,8 @@ button:hover, button:focus {
 .downloadIcon {
     margin-right: 8px;
     vertical-align: bottom;
+    width: 19px;
+    height: 18px;
 }
 
 /************ SUBNAV ***************/
@@ -745,7 +749,8 @@ section.dashboardDrawers {
 }
 
 .drawerCarat {
-    background-image: url("../img/collapsed-icon.png");
+    background-image: url("../img/collapsed-icon-2x.png");
+    background-size: cover;
     width: 22px;
     height: 10px;
     display: inline-block;
