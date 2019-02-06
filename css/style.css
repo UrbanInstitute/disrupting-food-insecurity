@@ -81,6 +81,12 @@ h2 {
     text-align: center;
 }
 
+h3 {
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
 /* needed for IE so images with transparent backgrounds used in buttons don't show up with a grey background */
 button {
     /*background: transparent;*/
@@ -111,31 +117,6 @@ button:hover, button:focus {
 
 
 /************ SUBNAV ***************/
-/*
-.subnav {
-    width: 100%;
-    position: fixed;
-    top: 51px;
-    height: 40px;
-    background-color: #f6f6f6;
-    border-bottom: 1px solid #eee;
-}
-
-.subnav ul {
-    text-align: center;
-    margin: 0px;
-}
-
-.subnav ul li {
-    display: inline-block;
-    text-align: center;
-    padding: 0px;
-    margin-top: 0px;
-    padding-left: 24px;
-    padding-top: 10px;
-}
-*/
-
 .peerGroupMenu {
     width: 100%;
     height: 616px;
@@ -148,11 +129,6 @@ button:hover, button:focus {
     padding: 40px 80px;
 }
 
-/*.arrow_box {
-    position: relative;
-    background: #f9f9f9;
-    border: 1px solid #f9f9f9;
-}*/
 .peerGroupMenu:after, .peerGroupMenu:before {
     bottom: 100%;
     right: 115px;
@@ -167,15 +143,15 @@ button:hover, button:focus {
 .peerGroupMenu:after {
     border-color: rgba(249, 249, 249, 0);
     border-bottom-color: #f9f9f9;
-    border-width: 20px;
-    margin-left: -20px;
+    border-width: 15px;
+    margin-left: -15px;
 }
 
 .peerGroupMenu:before {
     border-color: rgba(249, 249, 249, 0);
     border-bottom-color: #f9f9f9;
-    border-width: 21px;
-    margin-left: -21px;
+    border-width: 16px;
+    margin-left: -16px;
 }
 
 .peerGroupRow {
@@ -273,52 +249,62 @@ ul#menu li:hover ul a {
 
 /*********** PEER GROUP STYLES **********/
 h1.peerGroup1,
-.peerGroupLink.peerGroup1 {
+.peerGroupLink.peerGroup1,
+.peerGroupBlock.peerGroup1 {
     border-left: 7px solid #A4201D;
 }
 
 h1.peerGroup2,
-.peerGroupLink.peerGroup2 {
+.peerGroupLink.peerGroup2,
+.peerGroupBlock.peerGroup2 {
     border-left: 7px solid #DB2B27;
 }
 
 h1.peerGroup3,
-.peerGroupLink.peerGroup3 {
+.peerGroupLink.peerGroup3,
+.peerGroupBlock.peerGroup3 {
     border-left: 7px solid #CA5800;
 }
 
 h1.peerGroup4,
-.peerGroupLink.peerGroup4 {
+.peerGroupLink.peerGroup4,
+.peerGroupBlock.peerGroup4 {
     border-left: 7px solid #E88E2D;
 }
 
 h1.peerGroup5,
-.peerGroupLink.peerGroup5 {
+.peerGroupLink.peerGroup5,
+.peerGroupBlock.peerGroup5 {
     border-left: 7px solid #FDBF11;
 }
 
 h1.peerGroup6,
-.peerGroupLink.peerGroup6 {
+.peerGroupLink.peerGroup6,
+.peerGroupBlock.peerGroup6 {
     border-left: 7px solid #FDD870;
 }
 
 h1.peerGroup7,
-.peerGroupLink.peerGroup7 {
+.peerGroupLink.peerGroup7,
+.peerGroupBlock.peerGroup7 {
     border-left: 7px solid #FCE39E;
 }
 
 h1.peerGroup8,
-.peerGroupLink.peerGroup8 {
+.peerGroupLink.peerGroup8,
+.peerGroupBlock.peerGroup8 {
     border-left: 7px solid #12719E;
 }
 
 h1.peerGroup9,
-.peerGroupLink.peerGroup9 {
+.peerGroupLink.peerGroup9,
+.peerGroupBlock.peerGroup9 {
     border-left: 7px solid #1696D2;
 }
 
 h1.peerGroup10,
-.peerGroupLink.peerGroup10 {
+.peerGroupLink.peerGroup10,
+.peerGroupBlock.peerGroup10 {
     border-left: 7px solid #73BFE2;
 }
 
@@ -583,6 +569,75 @@ h1.peerGroup10,
 
 .hidden {
     visibility: hidden;
+}
+
+/********** COUNTY VIEW PAGE STYLES *************/
+section.peerGroupMap {
+    margin-top: 40px;
+}
+
+.peerGroupList {
+    max-width: 300px;
+    display: inline-block;
+}
+
+.peerGroupList p {
+    font-style: italic;
+    line-height: 24px;
+}
+
+.peerGroupBlock {
+    font-size: 14px;
+    margin: 10px 0;
+    padding-left: 10px;
+    min-height: 40px;
+    color: #000;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.resetMapLink {
+    text-transform: uppercase;
+    margin-top: 24px;
+    cursor: pointer;
+}
+
+section.peerGroupMap .map {
+    max-width: 750px;
+    background-color: #d2d2d2;
+    margin-left: 40px;
+}
+
+.mapTopBar {
+    width: 100%;
+    height: 40px;
+}
+
+.searchbox {
+    width: 210px;
+    background-color: #333;
+    height: 100%;
+    display: inline-block;
+    float: left;
+}
+
+.clearSearchbox {
+    height: 100%;
+    display: inline-block;
+    float: left;
+    line-height: 40px;
+    font-size: 14px;
+    font-style: italic;
+    cursor: pointer;
+    color: #1696d2;
+    padding-left: 10px;
+}
+
+.geoLabel {
+    display: inline-block;
+    float: right;
+    line-height: 40px;
+    text-transform: uppercase;
 }
 
 /********** PEER GROUP PROFILE PAGE STYLES ***********/
