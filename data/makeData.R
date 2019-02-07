@@ -52,7 +52,7 @@ cnty <- cnty_dat %>%
          children = `Households with children`, seniors = `Households with seniors (65+)`, 
          people_color = `People of color`, college_less = `Some college or less`,
          rural_population = `Population in rural area`) %>%
-  mutate(id = as.character(id), geography = "county")
+  mutate(id = str_pad(as.character(id), width = 5, pad = "0"), geography = "county")
 
 
 # read in state and national level data
