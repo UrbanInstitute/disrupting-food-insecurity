@@ -60,7 +60,7 @@ a:hover {
 p {
     margin-bottom: 24px;
     line-height: 1.56;
-    max-width: 700px;
+    /*max-width: 700px;*/
 }
 
 .hidden {
@@ -89,6 +89,11 @@ h2 {
 }
 
 h3 {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+h4 {
     font-size: 18px;
     text-transform: uppercase;
     font-weight: normal;
@@ -309,7 +314,7 @@ h1.peerGroup7,
 
 h1.peerGroup8,
 .peerGroupLink.peerGroup8,
-.peerGroupBlock.peerGroup8 {
+span.peerGroupName.peerGroup8 {
     border-left: 7px solid #12719E;
 }
 
@@ -323,6 +328,46 @@ h1.peerGroup10,
 .peerGroupLink.peerGroup10,
 .peerGroupBlock.peerGroup10 {
     border-left: 7px solid #73BFE2;
+}
+
+span.peerGroupName.peerGroup1 {
+    border-bottom: 7px solid #A4201D;
+}
+
+span.peerGroupName.peerGroup2 {
+    border-bottom: 7px solid #DB2B27;
+}
+
+span.peerGroupName.peerGroup3 {
+    border-bottom: 7px solid #CA5800;
+}
+
+span.peerGroupName.peerGroup4 {
+    border-bottom: 7px solid #E88E2D;
+}
+
+span.peerGroupName.peerGroup5 {
+    border-bottom: 7px solid #FDBF11;
+}
+
+span.peerGroupName.peerGroup6 {
+    border-bottom: 7px solid #FDD870;
+}
+
+span.peerGroupName.peerGroup7 {
+    border-bottom: 7px solid #FCE39E;
+}
+
+span.peerGroupName.peerGroup8 {
+    border-bottom: 7px solid #12719E;
+}
+
+span.peerGroupName.peerGroup9 {
+    border-bottom: 7px solid #1696D2;
+}
+
+span.peerGroupName.peerGroup10 {
+    border-bottom: 7px solid #73BFE2;
 }
 
 .peerGroupBullets li.bullet.peerGroup1::before {
@@ -529,6 +574,10 @@ h1.peerGroup10,
     width: 200px;
 }
 
+.legendEntry.stateAvgLegendEntry {
+    width: 160px;
+}
+
 .legendText {
     font-family: Lato;
     font-size: 12px;
@@ -549,6 +598,14 @@ h1.peerGroup10,
     border-width: 10px;
     border-style: solid;
     border-color: #fff;
+}
+
+.legendSquare.peergroup {
+    border-color: #353535;
+}
+
+.legendSquare.state {
+    border-color: #696969;
 }
 
 .legendSquare.national {
@@ -657,6 +714,15 @@ section.peerGroupMap .map {
     text-transform: uppercase;
 }
 
+.peerGroupSentence {
+    font-size: 24px;
+    font-weight: lighter;
+}
+
+span.peerGroupName {
+    font-weight: normal;
+}
+
 /********** PEER GROUP PROFILE PAGE STYLES ***********/
 section.peerGroupSummary {
     margin-top: 60px;
@@ -710,17 +776,25 @@ section.dashboardDrawers {
 .expandDrawers {
     position: relative;
     height: 30px;
+    margin-top: 40px;
 }
 
+.printLink,
 .expandDrawersLink {
-    position: absolute;
-    right: 0;
+    /*position: absolute;*/
+    /*right: 0;*/
+    float: right;
     text-align: right;
     text-transform: uppercase;
     padding-bottom: 10px;
     cursor: pointer;
 }
 
+.printLink {
+    margin-right: 40px;
+}
+
+.printLink:hover,
 .expandDrawersLink:hover {
     font-weight: bold;
     color: #1696d2;
