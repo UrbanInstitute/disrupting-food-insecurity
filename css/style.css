@@ -330,43 +330,43 @@ h1.peerGroup10,
     border-left: 7px solid #73BFE2;
 }
 
-span.peerGroupName.peerGroup1 {
+a.peerGroupProfileLink.peerGroup1 {
     border-bottom: 7px solid #A4201D;
 }
 
-span.peerGroupName.peerGroup2 {
+a.peerGroupProfileLink.peerGroup2 {
     border-bottom: 7px solid #DB2B27;
 }
 
-span.peerGroupName.peerGroup3 {
+a.peerGroupProfileLink.peerGroup3 {
     border-bottom: 7px solid #CA5800;
 }
 
-span.peerGroupName.peerGroup4 {
+a.peerGroupProfileLink.peerGroup4 {
     border-bottom: 7px solid #E88E2D;
 }
 
-span.peerGroupName.peerGroup5 {
+a.peerGroupProfileLink.peerGroup5 {
     border-bottom: 7px solid #FDBF11;
 }
 
-span.peerGroupName.peerGroup6 {
+a.peerGroupProfileLink.peerGroup6 {
     border-bottom: 7px solid #FDD870;
 }
 
-span.peerGroupName.peerGroup7 {
+a.peerGroupProfileLink.peerGroup7 {
     border-bottom: 7px solid #FCE39E;
 }
 
-span.peerGroupName.peerGroup8 {
+a.peerGroupProfileLink.peerGroup8 {
     border-bottom: 7px solid #12719E;
 }
 
-span.peerGroupName.peerGroup9 {
+a.peerGroupProfileLink.peerGroup9 {
     border-bottom: 7px solid #1696D2;
 }
 
-span.peerGroupName.peerGroup10 {
+a.peerGroupProfileLink.peerGroup10 {
     border-bottom: 7px solid #73BFE2;
 }
 
@@ -723,8 +723,9 @@ section.peerGroupMap .map {
     font-weight: lighter;
 }
 
-span.peerGroupName {
+a.peerGroupProfileLink {
     font-weight: normal;
+    color: #000;
 }
 
 /********** PEER GROUP PROFILE PAGE STYLES ***********/

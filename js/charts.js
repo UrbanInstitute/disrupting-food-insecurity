@@ -94,7 +94,7 @@ d3.csv("data/chart_data.csv", function(d) {
         else {
             // populate search box
             renderMap("index", "all", 750, 522);
-            // renderCountyPage(page, county_id, peer_group, state_id);
+            renderCountyPage(page, "01001", "6", "01");
         }
         // window.addEventListener("resize", redraw);
     });
@@ -111,10 +111,14 @@ function getQueryString(name) {
 
 function renderCountyPage(pagename, county_id, peer_group, state_id) {
     // get data
+    var data = getData("county", county_id, peer_group, state_id);
+
+    var countyName = data.filter(function(d) { return d.geography === "county"; })[0]["name"];
+
     // update county name in searchbox
-    // update county name in title
-    // update peer group name in sentence beneath county name
-    // update peer group link
+    // update county name in title, peer group name and peer group link in sentence beneath county name
+    populateCountySentence(countyName, peer_group);
+
     // update print link
     // update charts and legend
 }
@@ -122,7 +126,7 @@ function renderCountyPage(pagename, county_id, peer_group, state_id) {
 function renderPeerGroupPage(pagename, peer_group) {
     var isPrint = pagename.indexOf("print_") > -1;
     // get data
-    var data = getData("peergroup", peer_group);
+    var data = getData("peergroup", "", peer_group, "");
     // var peerGroupNum = data.filter(function(d) { return d.geography === "peer_group"; })[0]["id"];
     console.log(data);
 
@@ -173,15 +177,23 @@ function populateCharts(data) {
     makeBarChart("rural_population", data);
 }
 
+function populateCountySentence(countyName, peerGroupNumber) {
+    d3.select("h3.selectedCountyName").text(countyName);
+    d3.select("a.peerGroupProfileLink").text(peerGroupNumber);
+
+    var peerGroupMatchPhrase = /peerGroup\d+/;
+    var currentClasses = d3.select("a.peerGroupProfileLink").attr("class");
+    var currentPeerGroupClass = currentClasses.match(peerGroupMatchPhrase);
+    // console.log(currentPeerGroupClass);
+    d3.select("a.peerGroupProfileLink").classed(currentPeerGroupClass, false);
+    d3.select("a.peerGroupProfileLink").classed("peerGroup" + peerGroupNumber, true);
+
+    d3.select("a.peerGroupProfileLink").attr("href", "peergroup.html?peergroup=" + peerGroupNumber);
+}
+
 function populatePGPageTitle(peerGroupName, peerGroupNumber) {
     // d3.select("h1.peerGroupTitle").text(peerGroupName);
     d3.select("h1.peerGroupTitle").text("Peer Group " + peerGroupNumber);
-
-    // var peerGroupMatchPhrase = /peerGroup\d+/;
-    // var currentClasses = d3.select("h1.peerGroupTitle").attr("class");
-    // var currentPeerGroupClass = currentClasses.match(peerGroupMatchPhrase)[0];
-    // console.log(currentPeerGroupClass);
-    // d3.select("h1.peerGroupTitle").classed(currentPeerGroupClass, false);
     d3.select("h1.peerGroupTitle").classed("peerGroup" + peerGroupNumber, true);
 }
 
@@ -209,9 +221,12 @@ function makeBarChart(chartID, data) {
         .text(metricNameMapping[chartID]);
 }
 
-function getData(parentPage, geoId) {
+function getData(parentPage, countyId, peerGroupId, stateId) {
     if(parentPage === "peergroup") {
-        return dashboardData.filter(function(d) { return (d.geography === "peer_group" && d.id === geoId || d.geography === "national"); });
+        return dashboardData.filter(function(d) { return ((d.geography === "peer_group" && d.id === peerGroupId) || d.geography === "national"); });
+    }
+    else {
+        return dashboardData.filter(function(d) { return ((d.geography === "county" && d.id === countyId) || (d.geography === "peer_group" && d.id === peerGroupId) || (d.geography === "state" && d.id === stateId) || d.geography === "national"); });
     }
 }
 
