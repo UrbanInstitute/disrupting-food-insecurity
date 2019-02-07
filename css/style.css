@@ -627,6 +627,10 @@ span.peerGroupName.peerGroup10 {
     stroke: #d2d2d2;
 }
 
+.countyProfile .state {
+    stroke: #fff;
+}
+
 .highlighted {
     stroke: #000;
     stroke-width: 2px;
@@ -678,7 +682,7 @@ section.peerGroupMap {
 
 section.peerGroupMap .map {
     max-width: 750px;
-    background-color: #d2d2d2;
+    /*background-color: #d2d2d2;*/
     margin-left: 40px;
 }
 
@@ -689,7 +693,7 @@ section.peerGroupMap .map {
 
 .searchbox {
     width: 210px;
-    background-color: #333;
+    background-color: #d2d2d2;
     height: 100%;
     display: inline-block;
     float: left;

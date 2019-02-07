@@ -26,7 +26,7 @@ var PCTFORMATONEDECIMAL = d3.format(".1%");
 var COMMAFORMAT = d3.format(",.0f");
 var DOLLARFORMAT = d3.format("$,.0f");
 
-var chartDimensions = {width_pg: 120, width_cnty: 300, height: 100, margin: {top: 20, right: 0, bottom: 5, left: 0}};
+var chartDimensions = {width_pg: 120, width_cnty: 160, height: 100, margin: {top: 20, right: 0, bottom: 5, left: 0}};
 var mapMargins = 10;
 
 var xScalePG = d3.scaleBand()
@@ -91,7 +91,11 @@ d3.csv("data/chart_data.csv", function(d) {
             var peer_group = getQueryString("peergroup");
             renderPeerGroupPage(page, peer_group);
         }
-
+        else {
+            // populate search box
+            renderMap("index", "all", 750, 522);
+            // renderCountyPage(page, county_id, peer_group, state_id);
+        }
         // window.addEventListener("resize", redraw);
     });
 });
@@ -104,6 +108,16 @@ function getQueryString(name) {
 };
 
 // console.log(getQueryString("peergroup"));
+
+function renderCountyPage(pagename, county_id, peer_group, state_id) {
+    // get data
+    // update county name in searchbox
+    // update county name in title
+    // update peer group name in sentence beneath county name
+    // update peer group link
+    // update print link
+    // update charts and legend
+}
 
 function renderPeerGroupPage(pagename, peer_group) {
     var isPrint = pagename.indexOf("print_") > -1;
@@ -120,7 +134,7 @@ function renderPeerGroupPage(pagename, peer_group) {
     populateBulletPoints(peer_group);
 
     // update map
-    isPrint ? renderMap(peer_group, 231, 141) : renderMap(peer_group, 700, 427);
+    isPrint ? renderMap("peerGroupProfile", peer_group, 231, 141) : renderMap("peerGroupProfile", peer_group, 700, 427);
 
     // update bar charts and legends
     populateCharts(data);
@@ -238,7 +252,7 @@ function populateLegends(peerGroupNumber) {
     d3.selectAll(".peerGroupLegendEntry .legendSquare").classed("peerGroup" + peerGroupNumber, true);
 }
 
-function renderMap(peerGroupNumber, width, height) {
+function renderMap(page, peerGroupNumber, width, height) {
     // how to scale already projected data: https://stackoverflow.com/questions/42430361/scaling-d3-v4-map-to-fit-svg-or-at-all
     var projection = d3.geoIdentity().fitSize([width - (mapMargins*2), height - (mapMargins*2)], topojson.feature(mapData, mapData.objects.counties));
 
@@ -250,29 +264,55 @@ function renderMap(peerGroupNumber, width, height) {
         .attr("width", width)
         .attr("height", height);
 
-    svg.append("g")
-        .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")
-        .attr("class", "states")
-        .selectAll("path")
-        .data(topojson.feature(mapData, mapData.objects.states).features)
-        .enter()
-        .append("path")
-        .attr("class", function(d) { return "state " + d.properties.state_abbv; })
-        .attr("d", path)
-        .style("pointer-events", "none");
+    if(page === "peerGroupProfile") {
+        svg.append("g")
+            .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")
+            .attr("class", "states")
+            .selectAll("path")
+            .data(topojson.feature(mapData, mapData.objects.states).features)
+            .enter()
+            .append("path")
+            .attr("class", function(d) { return "state " + d.properties.state_abbv; })
+            .attr("d", path)
+            .style("pointer-events", "none");
 
-    svg.append("g")
-        .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")
-        .attr("class", "counties")
-        .selectAll("path")
-        .data(topojson.feature(mapData, mapData.objects.counties).features)
-        .enter()
-        .append("path")
-        .attr("class", function(d) { return d.properties.peer_group === peerGroupNumber ? "county county_" + d.properties.county_fips + " peerGroup" + peerGroupNumber : "county county_" + d.properties.county_fips; })
-        .attr("d", path)
-        .on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1]); })
-        .on("mouseout", function(d) { unHighlightCounty(d); });
-        // TODO: implement move to front and voronoi
+        svg.append("g")
+            .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")
+            .attr("class", "counties")
+            .selectAll("path")
+            .data(topojson.feature(mapData, mapData.objects.counties).features)
+            .enter()
+            .append("path")
+            .attr("class", function(d) { return d.properties.peer_group === peerGroupNumber ? "county county_" + d.properties.county_fips + " peerGroup" + peerGroupNumber : "county county_" + d.properties.county_fips; })
+            .attr("d", path)
+            .on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1]); })
+            .on("mouseout", function(d) { unHighlightCounty(d); });
+    }
+    else {
+        svg.append("g")
+            .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")
+            .attr("class", "counties")
+            .selectAll("path")
+            .data(topojson.feature(mapData, mapData.objects.counties).features)
+            .enter()
+            .append("path")
+            .attr("class", function(d) { return "county county_" + d.properties.county_fips + " peerGroup" + d.properties.peer_group; })
+            .attr("d", path);
+            // .on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1]); })
+            // .on("mouseout", function(d) { unHighlightCounty(d); });
+
+        svg.append("g")
+            .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")
+            .attr("class", "states")
+            .selectAll("path")
+            .data(topojson.feature(mapData, mapData.objects.states).features)
+            .enter()
+            .append("path")
+            .attr("class", function(d) { return "state " + d.properties.state_abbv; })
+            .attr("d", path);
+    }
+    // TODO: implement move to front and voronoi
+
 }
 
 function highlightCounty(county, mouseX, mouseY) {
