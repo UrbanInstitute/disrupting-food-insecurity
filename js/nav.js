@@ -56,6 +56,14 @@ function getDrawerHeights() {
 }
 
 // event listeners for opening/closing drawers
+d3.selectAll(".countyProfile .metricDrawer.Food_Insecurity .metricDrawerTitle").on("click", function() { toggleDrawer(".countyProfile", "Food_Insecurity"); });
+d3.selectAll(".countyProfile .metricDrawer.Physical_Health .metricDrawerTitle").on("click", function() { toggleDrawer(".countyProfile", "Physical_Health"); });
+d3.selectAll(".countyProfile .metricDrawer.Housing_Costs .metricDrawerTitle").on("click", function() { toggleDrawer(".countyProfile", "Housing_Costs"); });
+d3.selectAll(".countyProfile .metricDrawer.Income_and_Employment .metricDrawerTitle").on("click", function() { toggleDrawer(".countyProfile", "Income_and_Employment"); });
+d3.selectAll(".countyProfile .metricDrawer.Financial_Health .metricDrawerTitle").on("click", function() { toggleDrawer(".countyProfile", "Financial_Health"); });
+d3.selectAll(".countyProfile .metricDrawer.Demographics .metricDrawerTitle").on("click", function() { toggleDrawer(".countyProfile", "Demographics"); });
+d3.selectAll(".countyProfile .metricDrawer.Geography .metricDrawerTitle").on("click", function() { toggleDrawer(".countyProfile", "Geography"); });
+
 d3.selectAll(".peerGroupProfile .metricDrawer.Food_Insecurity .metricDrawerTitle").on("click", function() { toggleDrawer(".peerGroupProfile", "Food_Insecurity"); });
 d3.selectAll(".peerGroupProfile .metricDrawer.Physical_Health .metricDrawerTitle").on("click", function() { toggleDrawer(".peerGroupProfile", "Physical_Health"); });
 d3.selectAll(".peerGroupProfile .metricDrawer.Housing_Costs .metricDrawerTitle").on("click", function() { toggleDrawer(".peerGroupProfile", "Housing_Costs"); });
@@ -93,6 +101,7 @@ function toggleDrawer(page_name, drawer_name) {
     }
 }
 
+d3.select(".countyProfile .expandDrawersLink").on("click", function() { toggleAllDrawers(".countyProfile"); });
 d3.select(".peerGroupProfile .expandDrawersLink").on("click", function() { toggleAllDrawers(".peerGroupProfile"); });
 
 function toggleAllDrawers(page_name) {

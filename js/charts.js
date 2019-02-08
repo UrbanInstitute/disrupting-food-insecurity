@@ -111,6 +111,8 @@ function getQueryString(name) {
 // console.log(getQueryString("peergroup"));
 
 function renderCountyPage(pagename, county_id, peer_group, state_id) {
+    var isPrint = pagename.indexOf("print_") > -1;
+
     // get data
     var data = getData("county", county_id, peer_group, state_id);
 
@@ -126,6 +128,13 @@ function renderCountyPage(pagename, county_id, peer_group, state_id) {
     // update charts and legend
     populateCharts(data, "countyProfile");
     populateLegends("countyProfile", countyName, peer_group)
+
+    if(!isPrint) {
+        // after all charts have rendered, grab drawer heights and close all except the first drawer
+        getDrawerHeights();
+        d3.selectAll(".metricDrawer").style("height", drawerTitleHeight + "px");
+        d3.select(".metricDrawer.Food_Insecurity").style("height", drawerFullHeights["Food_Insecurity"] + drawerTitleHeight + "px");
+    }
 }
 
 function renderPeerGroupPage(pagename, peer_group) {
