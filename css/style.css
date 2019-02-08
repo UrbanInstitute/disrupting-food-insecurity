@@ -555,6 +555,11 @@ a.peerGroupProfileLink.peerGroup10 {
     margin: 20px;
 }
 
+.peerGroupProfile .chart {
+    width: 130px;
+}
+
+
 .barLabel {
     font-size: 10px;
     text-anchor: middle;
