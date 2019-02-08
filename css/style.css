@@ -553,6 +553,7 @@ a.peerGroupProfileLink.peerGroup10 {
     display: inline-block;
     float: left;
     margin: 20px;
+    margin-right: 40px;
 }
 
 .peerGroupProfile .chart {
@@ -569,7 +570,7 @@ a.peerGroupProfileLink.peerGroup10 {
     font-size: 12px;
 }
 
-.bar.peergroup {
+.bar.peer_group {
     fill: #353535;
 }
 
@@ -584,11 +585,8 @@ a.peerGroupProfileLink.peerGroup10 {
 /********** LEGEND STYLES **************/
 .legendEntry {
     display: inline-block;
-    width: 200px;
-}
-
-.legendEntry.stateAvgLegendEntry {
-    width: 160px;
+    /*width: 200px;*/
+    margin-right: 40px;
 }
 
 .legendText {
@@ -630,17 +628,17 @@ a.peerGroupProfileLink.peerGroup10 {
     position: relative;
 }
 
-.county {
+.map .county {
     fill: none;
     stroke: none;
 }
 
-.state {
+.map .state {
     fill: none;
     stroke: #d2d2d2;
 }
 
-.countyProfile .state {
+.countyProfile .map .state {
     stroke: #fff;
 }
 

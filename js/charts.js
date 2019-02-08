@@ -26,7 +26,7 @@ var PCTFORMATONEDECIMAL = d3.format(".1%");
 var COMMAFORMAT = d3.format(",.0f");
 var DOLLARFORMAT = d3.format("$,.0f");
 
-var chartDimensions = {width_pg: 120, width_cnty: 200, height: 100, margin: {top: 20, right: 0, bottom: 5, left: 0}};
+var chartDimensions = {width_pg: 120, width_cnty: 180, height: 100, margin: {top: 20, right: 0, bottom: 5, left: 0}};
 var mapMargins = 10;
 
 var xScalePG = d3.scaleBand()
@@ -37,7 +37,7 @@ var xScalePG = d3.scaleBand()
 var xScaleCnty = d3.scaleBand()
     .domain(["county", "peer_group", "state", "national"])
     .range([0, chartDimensions.width_cnty])
-    .padding(0.4);
+    .padding(0.35);
 
 var yScale = d3.scaleLinear()
     .range([chartDimensions.height, 0]);
@@ -125,6 +125,7 @@ function renderCountyPage(pagename, county_id, peer_group, state_id) {
 
     // update charts and legend
     populateCharts(data, "countyProfile");
+    populateLegends("countyProfile", countyName, peer_group)
 }
 
 function renderPeerGroupPage(pagename, peer_group) {
@@ -146,7 +147,7 @@ function renderPeerGroupPage(pagename, peer_group) {
 
     // update bar charts and legends
     populateCharts(data, "peerGroupProfile");
-    populateLegends(peer_group);
+    populateLegends("peerGroupProfile", "", peer_group);
 
     // update print link
     d3.select("a[name='peerGroupPrintLink']").attr("href", "print_peergroup.html?peergroup=" + peer_group);
@@ -272,8 +273,20 @@ function drawBars(svg, data, metric, parentPage) {
     xAxisElements.selectAll("text").remove();
 }
 
-function populateLegends(peerGroupNumber) {
-    d3.selectAll(".peerGroupLegendEntry .legendSquare").classed("peerGroup" + peerGroupNumber, true);
+function populateLegends(page, countyName, peerGroupNumber) {
+    if(page === "peerGroupProfile") {
+        d3.selectAll(".peerGroupLegendEntry .legendSquare").classed("peerGroup" + peerGroupNumber, true);
+    }
+    else {
+        d3.selectAll(".countyAvgLegendEntry .legendText").text(countyName);
+
+        var peerGroupMatchPhrase = /peerGroup\d+/;
+        var currentClasses = d3.select(".countyAvgLegendEntry .legendSquare").attr("class");
+        var currentPeerGroupClass = currentClasses.match(peerGroupMatchPhrase);
+        // console.log(currentPeerGroupClass);
+        d3.selectAll(".countyAvgLegendEntry .legendSquare").classed(currentPeerGroupClass, false);
+        d3.selectAll(".countyAvgLegendEntry .legendSquare").classed("peerGroup" + peerGroupNumber, true);
+    }
 }
 
 function renderMap(page, peerGroupNumber, width, height) {
