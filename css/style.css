@@ -631,6 +631,7 @@ a.peerGroupProfileLink.peerGroup10 {
 .county {
     fill: none;
     stroke: none;
+    opacity: 0.3;
 }
 
 .map .state {
@@ -683,6 +684,10 @@ section.peerGroupMap {
     color: #000;
     opacity: 0.5;
     cursor: pointer;
+}
+
+.selected {
+    opacity: 1;
 }
 
 .resetMapLink {

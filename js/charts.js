@@ -195,10 +195,7 @@ function populateCountySentence(countyName, peerGroupNumber) {
     d3.select("h3.selectedCountyName").text(countyName);
     d3.select("a.peerGroupProfileLink").text(peerGroupNumber);
 
-    var peerGroupMatchPhrase = /peerGroup\d+/;
-    var currentClasses = d3.select("a.peerGroupProfileLink").attr("class");
-    var currentPeerGroupClass = currentClasses.match(peerGroupMatchPhrase);
-    // console.log(currentPeerGroupClass);
+    var currentPeerGroupClass = getCurrentPeerGroupClass(d3.select("a.peerGroupProfileLink"));
     d3.select("a.peerGroupProfileLink").classed(currentPeerGroupClass, false);
     d3.select("a.peerGroupProfileLink").classed("peerGroup" + peerGroupNumber, true);
 
@@ -289,10 +286,7 @@ function populateLegends(page, countyName, peerGroupNumber) {
     else {
         d3.selectAll(".countyAvgLegendEntry .legendText").text(countyName);
 
-        var peerGroupMatchPhrase = /peerGroup\d+/;
-        var currentClasses = d3.select(".countyAvgLegendEntry .legendSquare").attr("class");
-        var currentPeerGroupClass = currentClasses.match(peerGroupMatchPhrase);
-        // console.log(currentPeerGroupClass);
+        var currentPeerGroupClass = getCurrentPeerGroupClass(d3.select(".countyAvgLegendEntry .legendSquare"));
         d3.selectAll(".countyAvgLegendEntry .legendSquare").classed(currentPeerGroupClass, false);
         d3.selectAll(".countyAvgLegendEntry .legendSquare").classed("peerGroup" + peerGroupNumber, true);
     }
@@ -329,7 +323,7 @@ function renderMap(page, peerGroupNumber, width, height) {
             .data(topojson.feature(mapData, mapData.objects.counties).features)
             .enter()
             .append("path")
-            .attr("class", function(d) { return d.properties.peer_group === peerGroupNumber ? "county county_" + d.properties.county_fips + " peerGroup" + peerGroupNumber : "county county_" + d.properties.county_fips; })
+            .attr("class", function(d) { return d.properties.peer_group === peerGroupNumber ? "county selected county_" + d.properties.county_fips + " peerGroup" + peerGroupNumber : "county county_" + d.properties.county_fips; })
             .attr("d", path)
             .on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1]); })
             .on("mouseout", function(d) { unHighlightCounty(d); });
@@ -342,7 +336,7 @@ function renderMap(page, peerGroupNumber, width, height) {
             .data(topojson.feature(mapData, mapData.objects.counties).features)
             .enter()
             .append("path")
-            .attr("class", function(d) { return "county county_" + d.properties.county_fips + " peerGroup" + d.properties.peer_group; })
+            .attr("class", function(d) { return "county selected county_" + d.properties.county_fips + " peerGroup" + d.properties.peer_group; })
             .attr("d", path);
             // .on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1]); })
             // .on("mouseout", function(d) { unHighlightCounty(d); });

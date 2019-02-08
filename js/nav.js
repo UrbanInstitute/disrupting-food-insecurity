@@ -37,7 +37,7 @@ function hidePeerGroupMenu() {
 
 
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////
 // functions for opening/closing dashboard drawers
 var drawerTitleHeight = 50;
 var drawerNames = ["Food_Insecurity", "Physical_Health", "Housing_Costs", "Income_and_Employment",
@@ -141,4 +141,32 @@ function closeAllDrawers(page_name) {
     d3.select(page_name + " .metricDrawer." + drawerNames[0])
         .transition(500)
         .style("height", drawerFullHeights["Food_Insecurity"] + drawerTitleHeight + "px");
+}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// functions for highlighting and unhighlighting map on county profile page
+d3.selectAll(".countyProfile .peerGroupBlock").on("mouseover", function() { highlightPeerGroupInMap(d3.select(this)); });
+d3.selectAll(".countyProfile .peerGroupBlock").on("mouseout", function() { removePeerGroupHighlightInMap(); });
+
+function getCurrentPeerGroupClass(element) {
+    var peerGroupMatchPhrase = /peerGroup\d+/;
+    var currentClasses = element.attr("class");
+    var currentPeerGroupClass = currentClasses.match(peerGroupMatchPhrase);
+    return currentPeerGroupClass;
+}
+
+function highlightPeerGroupInMap(peerGroupBlock) {
+    var peerGroup = getCurrentPeerGroupClass(peerGroupBlock)[0];
+    console.log(peerGroup);
+    d3.select(".countyProfile .peerGroupBlock." + peerGroup).classed("selected", true);
+    d3.selectAll(".countyProfile #peerGroupMap .county").classed("selected", false);
+    d3.selectAll(".countyProfile #peerGroupMap .county." + peerGroup).classed("selected", true);
+}
+
+function removePeerGroupHighlightInMap() {
+    d3.selectAll(".countyProfile .peerGroupBlock").classed("selected", false);
+    d3.selectAll(".countyProfile #peerGroupMap .county").classed("selected", true);
 }
