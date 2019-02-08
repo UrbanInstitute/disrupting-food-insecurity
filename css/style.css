@@ -314,7 +314,7 @@ h1.peerGroup7,
 
 h1.peerGroup8,
 .peerGroupLink.peerGroup8,
-span.peerGroupName.peerGroup8 {
+.peerGroupBlock.peerGroup8 {
     border-left: 7px solid #12719E;
 }
 
@@ -548,7 +548,7 @@ a.peerGroupProfileLink.peerGroup10 {
 /********** CHART STYLES ****************/
 .chart {
     /*height: 150px;*/
-    width: 130px;
+    /*width: 130px;*/
     /*background-color: #d2d2d2;*/
     display: inline-block;
     float: left;
@@ -562,6 +562,14 @@ a.peerGroupProfileLink.peerGroup10 {
 
 .chartName {
     font-size: 12px;
+}
+
+.bar.peergroup {
+    fill: #353535;
+}
+
+.bar.state {
+    fill: #696969;
 }
 
 .bar.national {

@@ -26,7 +26,7 @@ var PCTFORMATONEDECIMAL = d3.format(".1%");
 var COMMAFORMAT = d3.format(",.0f");
 var DOLLARFORMAT = d3.format("$,.0f");
 
-var chartDimensions = {width_pg: 120, width_cnty: 160, height: 100, margin: {top: 20, right: 0, bottom: 5, left: 0}};
+var chartDimensions = {width_pg: 120, width_cnty: 200, height: 100, margin: {top: 20, right: 0, bottom: 5, left: 0}};
 var mapMargins = 10;
 
 var xScalePG = d3.scaleBand()
@@ -36,7 +36,8 @@ var xScalePG = d3.scaleBand()
 
 var xScaleCnty = d3.scaleBand()
     .domain(["county", "peer_group", "state", "national"])
-    .range([0, chartDimensions.width_cnty]);
+    .range([0, chartDimensions.width_cnty])
+    .padding(0.4);
 
 var yScale = d3.scaleLinear()
     .range([chartDimensions.height, 0]);
@@ -116,11 +117,14 @@ function renderCountyPage(pagename, county_id, peer_group, state_id) {
     var countyName = data.filter(function(d) { return d.geography === "county"; })[0]["name"];
 
     // update county name in searchbox
+
     // update county name in title, peer group name and peer group link in sentence beneath county name
     populateCountySentence(countyName, peer_group);
 
     // update print link
+
     // update charts and legend
+    populateCharts(data, "countyProfile");
 }
 
 function renderPeerGroupPage(pagename, peer_group) {
@@ -141,7 +145,7 @@ function renderPeerGroupPage(pagename, peer_group) {
     isPrint ? renderMap("peerGroupProfile", peer_group, 231, 141) : renderMap("peerGroupProfile", peer_group, 700, 427);
 
     // update bar charts and legends
-    populateCharts(data);
+    populateCharts(data, "peerGroupProfile");
     populateLegends(peer_group);
 
     // update print link
@@ -155,26 +159,26 @@ function renderPeerGroupPage(pagename, peer_group) {
     }
 }
 
-function populateCharts(data) {
-    makeBarChart("food_insecure_all", data);
-    makeBarChart("food_insecure_children", data);
-    makeBarChart("low_birthweight", data);
-    makeBarChart("diabetes", data);
-    makeBarChart("disability", data);
-    makeBarChart("no_insurance", data);
-    makeBarChart("severely_housing_cost_burdened", data);
-    makeBarChart("housing_cost_burdened", data);
-    makeBarChart("wage_fair_market_rent", data);
-    makeBarChart("median_income", data);
-    makeBarChart("below_poverty", data);
-    makeBarChart("unemployment", data);
-    makeBarChart("credit_score", data);
-    makeBarChart("debt", data);
-    makeBarChart("children", data);
-    makeBarChart("seniors", data);
-    makeBarChart("people_color", data);
-    makeBarChart("college_less", data);
-    makeBarChart("rural_population", data);
+function populateCharts(data, parentPage) {
+    makeBarChart("food_insecure_all", data, parentPage);
+    makeBarChart("food_insecure_children", data, parentPage);
+    makeBarChart("low_birthweight", data, parentPage);
+    makeBarChart("diabetes", data, parentPage);
+    makeBarChart("disability", data, parentPage);
+    makeBarChart("no_insurance", data, parentPage);
+    makeBarChart("severely_housing_cost_burdened", data, parentPage);
+    makeBarChart("housing_cost_burdened", data, parentPage);
+    makeBarChart("wage_fair_market_rent", data, parentPage);
+    makeBarChart("median_income", data, parentPage);
+    makeBarChart("below_poverty", data, parentPage);
+    makeBarChart("unemployment", data, parentPage);
+    makeBarChart("credit_score", data, parentPage);
+    makeBarChart("debt", data, parentPage);
+    makeBarChart("children", data, parentPage);
+    makeBarChart("seniors", data, parentPage);
+    makeBarChart("people_color", data, parentPage);
+    makeBarChart("college_less", data, parentPage);
+    makeBarChart("rural_population", data, parentPage);
 }
 
 function populateCountySentence(countyName, peerGroupNumber) {
@@ -201,18 +205,20 @@ function populateBulletPoints(peerGroupNumber) {
     d3.selectAll(".peerGroupBullets li.bullet").classed("peerGroup" + peerGroupNumber, true);
 }
 
-function makeBarChart(chartID, data) {
+function makeBarChart(chartID, data, parentPage) {
 
     yScale.domain([0, d3.max(data, function(d) { return d[chartID]; })]);
 
+    var chartWidth = parentPage === "peerGroupProfile" ? chartDimensions.width_pg : chartDimensions.width_cnty;
+
     var svg = d3.select("#" + chartID)
         .append("svg")
-        .attr("width", chartDimensions.width_pg + chartDimensions.margin.left + chartDimensions.margin.right)
+        .attr("width", chartWidth + chartDimensions.margin.left + chartDimensions.margin.right)
         .attr("height", chartDimensions.height + chartDimensions.margin.top + chartDimensions.margin.bottom)
         .append("g")
         .attr("transform", "translate(" + chartDimensions.margin.left + "," + chartDimensions.margin.top + ")");
 
-    drawBars(svg, data, chartID);
+    drawBars(svg, data, chartID, parentPage);
 
     // add name of metric below each chart
     d3.select("#" + chartID)
@@ -230,9 +236,10 @@ function getData(parentPage, countyId, peerGroupId, stateId) {
     }
 }
 
-function drawBars(svg, data, metric) {
+function drawBars(svg, data, metric, parentPage) {
+    var peerGroupNumber = data.filter(function(d) { return d.geography === "peer_group"; })[0]["id"];
 
-    var xAxis = d3.axisBottom(xScalePG).ticks(null);
+    var xAxis = parentPage === "peerGroupProfile" ? d3.axisBottom(xScalePG).ticks(null) : d3.axisBottom(xScaleCnty).ticks(null);
 
     var barGrps = svg.selectAll(".barGrp")
         .data(data)
@@ -241,15 +248,17 @@ function drawBars(svg, data, metric) {
         .attr("class", "barGrp");
 
     barGrps.append("rect")
-        .attr("class", function(d) { return d.geography === "peer_group" ? "bar peerGroup" + d.id : "bar " + d.geography; })
-        .attr("x", function(d) { return xScalePG(d.geography); })
+        .attr("class", function(d) { if(parentPage === "peerGroupProfile") { return d.geography === "peer_group" ? "bar peerGroup" + d.id : "bar " + d.geography; }
+                                     else { return d.geography === "county" ? "bar peerGroup" + peerGroupNumber : "bar " + d.geography; } })
+        .attr("x", function(d) { return parentPage === "peerGroupProfile" ? xScalePG(d.geography) : xScaleCnty(d.geography); })
         .attr("y", function(d) { return yScale(d[metric]); })
         .attr("height", function(d) { return yScale(0) - yScale(d[metric]); })
-        .attr("width", xScalePG.bandwidth());
+        .attr("width", parentPage === "peerGroupProfile" ? xScalePG.bandwidth() : xScaleCnty.bandwidth());
 
     barGrps.append("text")
         .attr("class", "barLabel")
-        .attr("x", function(d) { return xScalePG(d.geography) + xScalePG.bandwidth()/2; })
+        .attr("x", function(d) { if(parentPage === "peerGroupProfile") { return xScalePG(d.geography) + xScalePG.bandwidth()/2; }
+                                 else { return xScaleCnty(d.geography) + xScaleCnty.bandwidth()/2; } })
         .attr("y", function(d) { return yScale(d[metric]) - 5; })
         .text(function(d) { if(metric === "credit_score") { return COMMAFORMAT(d[metric]); }
                             else if(metric === "wage_fair_market_rent" || metric === "median_income") { return DOLLARFORMAT(d[metric]); }
