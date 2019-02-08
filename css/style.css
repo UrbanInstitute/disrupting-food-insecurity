@@ -631,7 +631,7 @@ a.peerGroupProfileLink.peerGroup10 {
 .county {
     fill: none;
     stroke: none;
-    opacity: 0.3;
+    opacity: 0.1;
 }
 
 .map .state {
