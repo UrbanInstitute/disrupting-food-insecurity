@@ -643,6 +643,12 @@ a.peerGroupProfileLink.peerGroup10 {
 .countyProfile .map .state {
     stroke: #fff;
     stroke-width: 1.5px;
+    fill: transparent;
+}
+
+.countyProfile .map .state.stateSelected {
+    stroke: #000;
+    stroke-width: 2px;
 }
 
 .highlighted {
