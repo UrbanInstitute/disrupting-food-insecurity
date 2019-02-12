@@ -325,7 +325,7 @@ function renderMap(page, peerGroupNumber, width, height) {
             .append("path")
             .attr("class", function(d) { return d.properties.peer_group === peerGroupNumber ? "county selected county_" + d.properties.county_fips + " peerGroup" + peerGroupNumber : "county county_" + d.properties.county_fips; })
             .attr("d", path)
-            .on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1]); })
+            .on("mouseover", function(d) { if(d.properties.peer_group === peerGroupNumber) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1]); }})
             .on("mouseout", function(d) { unHighlightCounty(d); });
     }
     else {
