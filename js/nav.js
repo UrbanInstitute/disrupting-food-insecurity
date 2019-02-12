@@ -160,13 +160,36 @@ function getCurrentPeerGroupClass(element) {
 
 function highlightPeerGroupInMap(peerGroupBlock) {
     var peerGroup = getCurrentPeerGroupClass(peerGroupBlock)[0];
-    console.log(peerGroup);
+    // console.log(peerGroup);
+    d3.selectAll(".countyProfile .peerGroupBlock").classed("selected", false);
     d3.select(".countyProfile .peerGroupBlock." + peerGroup).classed("selected", true);
+
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("selected", false);
     d3.selectAll(".countyProfile #peerGroupMap .county." + peerGroup).classed("selected", true);
 }
 
 function removePeerGroupHighlightInMap() {
     d3.selectAll(".countyProfile .peerGroupBlock").classed("selected", false);
-    d3.selectAll(".countyProfile #peerGroupMap .county").classed("selected", true);
+
+    if(d3.selectAll(".countyProfile #peerGroupMap .county.clicked").nodes().length > 0) {
+        d3.select(".countyProfile .peerGroupBlock.clicked").classed("selected", true);
+
+        d3.selectAll(".countyProfile #peerGroupMap .county").classed("selected", false);
+        d3.selectAll(".countyProfile #peerGroupMap .county.clicked").classed("selected", true);
+    }
+    else {
+        d3.selectAll(".countyProfile #peerGroupMap .county").classed("selected", true);
+    }
+}
+
+d3.selectAll(".countyProfile .peerGroupBlock").on("click", function() { selectPeerGroupInMap(d3.select(this)); });
+
+function selectPeerGroupInMap(peerGroupBlock) {
+    var peerGroup = getCurrentPeerGroupClass(peerGroupBlock)[0];
+
+    d3.select(".countyProfile .peerGroupBlock." + peerGroup).classed("clicked", true);
+
+    d3.selectAll(".countyProfile #peerGroupMap .county").classed("clicked", false);
+    d3.selectAll(".countyProfile #peerGroupMap .county." + peerGroup).classed("clicked", true);
+    highlightPeerGroupInMap(peerGroupBlock);
 }
