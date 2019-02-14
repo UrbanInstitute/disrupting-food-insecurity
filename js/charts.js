@@ -353,7 +353,7 @@ function renderMap(page, peerGroupNumber, width, height) {
             .attr("d", path)
             .on("mouseover", function(d) { highlightState(d.properties.state_abbv, d.properties.state_name); })
             .on("mouseout", function() { unHighlightState(); })
-            .on("click", function(d) { zoomToState(d, path.centroid(d), path.bounds(d)); });
+            .on("click", function(d) { zoomToState(d, path.bounds(d)); });
     }
     // TODO: implement move to front and voronoi
 
@@ -397,13 +397,15 @@ function unHighlightState() {
     }
 }
 
-function zoomToState(state, centroid, bounds) {
+function zoomToState(state, bounds) {
     var mapDimensions = d3.select("#peerGroupMap svg").node().getBoundingClientRect();
     var dx = bounds[1][0] - bounds[0][0],
         dy = bounds[1][1] - bounds[0][1],
+        x = (bounds[0][0] + bounds[1][0]) / 2,
+        y = (bounds[0][1] + bounds[1][1]) / 2,
         scale = .8 / Math.max(dx / mapDimensions.width, dy / mapDimensions.height),
-        shiftX = (mapDimensions.width/2) - scale * centroid[0],
-        shiftY = (mapDimensions.height/2) - scale * centroid[1];
+        shiftX = (mapDimensions.width/2) - scale * x,
+        shiftY = (mapDimensions.height/2) - scale * y;
 
     d3.selectAll(".countyProfile #peerGroupMap g.states").attr("transform", "translate(" + shiftX + "," + shiftY + ")scale(" + scale + ")");
     d3.selectAll(".countyProfile #peerGroupMap g.counties").attr("transform", "translate(" + shiftX + "," + shiftY + ")scale(" + scale + ")")
