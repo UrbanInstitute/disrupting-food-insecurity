@@ -417,6 +417,9 @@ function zoomToState(state, bounds) {
     // grey out non-clicked on states
     d3.selectAll(".countyProfile #peerGroupMap .state").classed("greyedOut", true);
     d3.select(".countyProfile #peerGroupMap .state.stateClicked").classed("greyedOut", false);
+
+    // unhide map reset button
+    d3.select(".zoomOutMapBtn").classed("hidden", false);
 }
 
 d3.select(".zoomOutMapBtn").on("click", function() { resetMap(); });
@@ -430,6 +433,9 @@ function resetMap() {
     d3.selectAll(".countyProfile #peerGroupMap .state").classed("stateSelected", false);
     d3.selectAll(".countyProfile #peerGroupMap .state").classed("greyedOut", false);
     d3.select(".geoLabel").text("");
+
+    // hide map reset button
+    d3.select(".zoomOutMapBtn").classed("hidden", true);
 }
 
 // function getParentDivWidth(elementId) {

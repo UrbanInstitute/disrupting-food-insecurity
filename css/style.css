@@ -684,6 +684,11 @@ a.peerGroupProfileLink.peerGroup10 {
     right: 10px;
 }
 
+
+.zoomOutMapBtn.hidden {
+    display: none;
+}
+
 /********** COUNTY VIEW PAGE STYLES *************/
 section.peerGroupMap {
     margin-top: 40px;
