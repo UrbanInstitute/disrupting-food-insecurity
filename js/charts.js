@@ -329,9 +329,7 @@ function renderMap(page, peerGroupNumber, width, height) {
             .on("mouseout", function(d) { unHighlightCounty(d); });
     }
     else {
-        var mapGroup = svg.append("g").attr("class", "map");
-
-        mapGroup.append("g")
+        svg.append("g")
             .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")
             .attr("class", "counties")
             .selectAll("path")
@@ -344,7 +342,7 @@ function renderMap(page, peerGroupNumber, width, height) {
             // .on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1]); })
             // .on("mouseout", function(d) { unHighlightCounty(d); });
 
-        mapGroup.append("g")
+        svg.append("g")
             .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")
             .attr("class", "states")
             .selectAll("path")
@@ -394,11 +392,12 @@ function zoomToState(state, centroid, bounds) {
     var mapDimensions = d3.select("#peerGroupMap svg").node().getBoundingClientRect();
     var dx = bounds[1][0] - bounds[0][0],
         dy = bounds[1][1] - bounds[0][1],
-        scale = .9 / Math.max(dx / mapDimensions.width, dy / mapDimensions.height),
+        scale = .8 / Math.max(dx / mapDimensions.width, dy / mapDimensions.height),
         shiftX = (mapDimensions.width/2) - scale * centroid[0],
         shiftY = (mapDimensions.height/2) - scale * centroid[1];
 
-    d3.selectAll("#peerGroupMap g.map").attr("transform", "translate(" + shiftX + "," + shiftY + ")scale(" + scale + ")");
+    d3.selectAll("#peerGroupMap g.states").attr("transform", "translate(" + shiftX + "," + shiftY + ")scale(" + scale + ")");
+    d3.selectAll("#peerGroupMap g.counties").attr("transform", "translate(" + shiftX + "," + shiftY + ")scale(" + scale + ")")
     d3.select(".geoLabel").text(state.properties.state_name);
 }
 
