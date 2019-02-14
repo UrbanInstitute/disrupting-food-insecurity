@@ -413,6 +413,17 @@ function zoomToState(state, centroid, bounds) {
     d3.select(".countyProfile #peerGroupMap .state." + state.properties.state_abbv).classed("stateClicked", true);
 }
 
+d3.select(".zoomOutMapBtn").on("click", function() { resetMap(); });
+
+function resetMap() {
+    d3.selectAll(".countyProfile #peerGroupMap g.states").attr("transform", "scale(1)");
+    d3.selectAll(".countyProfile #peerGroupMap g.counties").attr("transform", "scale(1)");
+
+    d3.selectAll(".countyProfile #peerGroupMap .state").classed("stateClicked", false);
+    d3.selectAll(".countyProfile #peerGroupMap .state").classed("stateSelected", false);
+    d3.select(".geoLabel").text("");
+}
+
 // function getParentDivWidth(elementId) {
 //     var width = document.getElementById(elementId).clientWidth;
 //     // console.log(width)
