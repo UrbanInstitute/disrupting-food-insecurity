@@ -352,7 +352,8 @@ function renderMap(page, peerGroupNumber, width, height) {
             .attr("class", function(d) { return "state " + d.properties.state_abbv; })
             .attr("d", path)
             .on("mouseover", function(d) { highlightState(d.properties.state_abbv, d.properties.state_name); })
-            .on("mouseout", function() { unHighlightState(); });
+            .on("mouseout", function() { unHighlightState(); })
+            .on("click", function(d) { zoomToState(path.centroid(d), path.bounds(d)); });
     }
     // TODO: implement move to front and voronoi
 
@@ -386,6 +387,19 @@ function unHighlightState() {
     d3.select(".geoLabel").text("");
     d3.selectAll(".countyProfile #peerGroupMap .state").classed("stateSelected", false);
 }
+
+function zoomToState(centroid, bounds) {
+    var mapDimensions = d3.select("#peerGroupMap svg").node().getBoundingClientRect();
+    var dx = bounds[1][0] - bounds[0][0],
+        dy = bounds[1][1] - bounds[0][1],
+        scale = .9 / Math.max(dx / mapDimensions.width, dy / mapDimensions.height),
+        shiftX = (mapDimensions.width/2) - scale * centroid[0],
+        shiftY = (mapDimensions.height/2) - scale * centroid[1];
+
+    d3.selectAll("g.states").attr("transform", "translate(" + shiftX + "," + shiftY + ")scale(" + scale + ")");
+    d3.selectAll("g.counties").attr("transform", "translate(" + shiftX + "," + shiftY + ")scale(" + scale + ")");
+}
+
 // function getParentDivWidth(elementId) {
 //     var width = document.getElementById(elementId).clientWidth;
 //     // console.log(width)
