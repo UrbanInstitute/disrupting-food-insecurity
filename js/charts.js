@@ -387,7 +387,7 @@ function unHighlightState() {
     d3.selectAll(".countyProfile #peerGroupMap .state").classed("stateSelected", false);
 
     if(d3.select(".countyProfile #peerGroupMap .stateClicked").nodes().length > 0) {
-        d3.select(".countyProfile #peerGroupMap .stateClicked").classed("stateSelected", true);
+        // d3.select(".countyProfile #peerGroupMap .stateClicked").classed("stateSelected", true);
 
         var stateName = d3.select(".countyProfile #peerGroupMap .stateClicked").datum().properties.state_name;
         d3.select(".geoLabel").text(stateName);
@@ -413,16 +413,22 @@ function zoomToState(state, bounds) {
 
     d3.selectAll(".countyProfile #peerGroupMap .state").classed("stateClicked", false);
     d3.select(".countyProfile #peerGroupMap .state." + state.properties.state_abbv).classed("stateClicked", true);
+
+    // grey out non-clicked on states
+    d3.selectAll(".countyProfile #peerGroupMap .state").classed("greyedOut", true);
+    d3.select(".countyProfile #peerGroupMap .state.stateClicked").classed("greyedOut", false);
 }
 
 d3.select(".zoomOutMapBtn").on("click", function() { resetMap(); });
 
 function resetMap() {
+    // reset map to national view with no states or counties highlighted
     d3.selectAll(".countyProfile #peerGroupMap g.states").attr("transform", "scale(1)");
     d3.selectAll(".countyProfile #peerGroupMap g.counties").attr("transform", "scale(1)");
 
     d3.selectAll(".countyProfile #peerGroupMap .state").classed("stateClicked", false);
     d3.selectAll(".countyProfile #peerGroupMap .state").classed("stateSelected", false);
+    d3.selectAll(".countyProfile #peerGroupMap .state").classed("greyedOut", false);
     d3.select(".geoLabel").text("");
 }
 
