@@ -127,7 +127,7 @@ function renderCountyPage(pagename, county_id, peer_group, state_id) {
 
     // update charts and legend
     populateCharts(data, "countyProfile");
-    populateLegends("countyProfile", countyName, peer_group)
+    populateLegends("countyProfile", countyName, peer_group);
 
     if(!isPrint) {
         // after all charts have rendered, grab drawer heights and close all except the first drawer
@@ -135,6 +135,24 @@ function renderCountyPage(pagename, county_id, peer_group, state_id) {
         d3.selectAll(".metricDrawer").style("height", drawerTitleHeight + "px");
         d3.select(".metricDrawer.Food_Insecurity").style("height", drawerFullHeights["Food_Insecurity"] + drawerTitleHeight + "px");
     }
+}
+
+function updateCountyPage(county_id, peer_group, state_id) {
+   // get data
+    var data = getData("county", county_id, peer_group, state_id);
+console.log(data);
+    var countyName = data.filter(function(d) { return d.geography === "county"; })[0]["name"];
+
+    // update county name in searchbox
+
+    // update county name in title, peer group name and peer group link in sentence beneath county name
+    populateCountySentence(countyName, peer_group);
+
+    // update print link
+
+    // update charts and legend
+    // populateCharts(data, "countyProfile");
+    populateLegends("countyProfile", countyName, peer_group);
 }
 
 function renderPeerGroupPage(pagename, peer_group) {
@@ -340,7 +358,8 @@ function renderMap(page, peerGroupNumber, width, height) {
             .attr("d", path)
             .style("pointer-events", "none")
             .on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "countyProfile"); })
-            .on("mouseout", function(d) { unHighlightCounty(d); });
+            .on("mouseout", function(d) { unHighlightCounty(d); })
+            .on("click", function(d) { updateCountyPage(d.properties.county_fips, d.properties.peer_group, d.properties.state_fips); });
 
         svg.append("g")
             .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")

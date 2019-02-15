@@ -611,6 +611,10 @@ a.peerGroupProfileLink.peerGroup10 {
     border-color: #fff;
 }
 
+.legendSquare.county {
+    opacity: 1;
+}
+
 .legendSquare.peergroup {
     border-color: #353535;
 }
