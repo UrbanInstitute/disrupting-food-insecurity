@@ -449,6 +449,7 @@ function unHighlightCounty() {
 }
 
 function selectCounty(county) {
+    d3.selectAll(".countyProfile #peerGroupMap .county").classed("highlighted", false);
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("countyClicked", false);
     d3.select(".countyProfile #peerGroupMap .county.county_" + county.properties.county_fips).classed("countyClicked", true);
 
@@ -512,6 +513,7 @@ function zoomToState(state, bounds) {
 
     // activate counties and deactivate state that's been clicked on
     d3.selectAll(".countyProfile #peerGroupMap g.counties .county").style("pointer-events", "all");
+    d3.selectAll(".countyProfile #peerGroupMap g.states .state:not(.stateClicked)").style("pointer-events", "all");
     d3.selectAll(".countyProfile #peerGroupMap g.states .state.stateClicked").style("pointer-events", "none");
 }
 
