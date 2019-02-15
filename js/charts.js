@@ -140,7 +140,7 @@ function renderCountyPage(pagename, county_id, peer_group, state_id) {
 function updateCountyPage(county_id, peer_group, state_id) {
    // get data
     var data = getData("county", county_id, peer_group, state_id);
-console.log(data);
+
     var countyName = data.filter(function(d) { return d.geography === "county"; })[0]["name"];
 
     // update county name in searchbox
@@ -151,7 +151,7 @@ console.log(data);
     // update print link
 
     // update charts and legend
-    // populateCharts(data, "countyProfile");
+    updateCharts(data, "countyProfile");
     populateLegends("countyProfile", countyName, peer_group);
 }
 
@@ -160,7 +160,7 @@ function renderPeerGroupPage(pagename, peer_group) {
     // get data
     var data = getData("peergroup", "", peer_group, "");
     // var peerGroupNum = data.filter(function(d) { return d.geography === "peer_group"; })[0]["id"];
-    console.log(data);
+    // console.log(data);
 
     // update title
     var peerGroupName = data.filter(function(d) { return d.id === peer_group; })[0]["name"];
@@ -209,6 +209,28 @@ function populateCharts(data, parentPage) {
     makeBarChart("rural_population", data, parentPage);
 }
 
+function updateCharts(data, parentPage) {
+    updateBarChart("food_insecure_all", data, parentPage);
+    updateBarChart("food_insecure_children", data, parentPage);
+    updateBarChart("low_birthweight", data, parentPage);
+    updateBarChart("diabetes", data, parentPage);
+    updateBarChart("disability", data, parentPage);
+    updateBarChart("no_insurance", data, parentPage);
+    updateBarChart("severely_housing_cost_burdened", data, parentPage);
+    updateBarChart("housing_cost_burdened", data, parentPage);
+    updateBarChart("wage_fair_market_rent", data, parentPage);
+    updateBarChart("median_income", data, parentPage);
+    updateBarChart("below_poverty", data, parentPage);
+    updateBarChart("unemployment", data, parentPage);
+    updateBarChart("credit_score", data, parentPage);
+    updateBarChart("debt", data, parentPage);
+    updateBarChart("children", data, parentPage);
+    updateBarChart("seniors", data, parentPage);
+    updateBarChart("people_color", data, parentPage);
+    updateBarChart("college_less", data, parentPage);
+    updateBarChart("rural_population", data, parentPage);
+}
+
 function populateCountySentence(countyName, peerGroupNumber) {
     d3.select("h3.selectedCountyName").text(countyName);
     d3.select("a.peerGroupProfileLink").text(peerGroupNumber);
@@ -250,6 +272,26 @@ function makeBarChart(chartID, data, parentPage) {
         .append("div")
         .attr("class", "chartName")
         .text(metricNameMapping[chartID]);
+}
+
+function updateBarChart(chartID, data, parentPage) {
+    var peerGroupNumber = data.filter(function(d) { return d.geography === "peer_group"})[0]["id"];
+
+    yScale.domain([0, d3.max(data, function(d) { return d[chartID]; })]);
+
+    var barGrps = d3.selectAll("#" + chartID + " .barGrp")
+        .data(data);
+
+    barGrps.select(".bar")
+        .attr("class", function(d) { return d.geography === "county" ? "bar peerGroup" + peerGroupNumber : "bar " + d.geography; })
+        .attr("y", function(d) { return yScale(d[chartID]); })
+        .attr("height", function(d) { return yScale(0) - yScale(d[chartID]); });
+
+    barGrps.select(".barLabel")
+        .attr("y", function(d) { return yScale(d[chartID]) - 5; })
+        .text(function(d) { if(chartID === "credit_score") { return COMMAFORMAT(d[chartID]); }
+                            else if(chartID === "wage_fair_market_rent" || chartID === "median_income") { return DOLLARFORMAT(d[chartID]); }
+                            else { return PCTFORMATONEDECIMAL(d[chartID]/100); }});
 }
 
 function getData(parentPage, countyId, peerGroupId, stateId) {
