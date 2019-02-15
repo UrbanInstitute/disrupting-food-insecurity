@@ -401,7 +401,7 @@ function renderMap(page, peerGroupNumber, width, height) {
             .style("pointer-events", "none")
             .on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "countyProfile"); })
             .on("mouseout", function(d) { unHighlightCounty(d); })
-            .on("click", function(d) { updateCountyPage(d.properties.county_fips, d.properties.peer_group, d.properties.state_fips); });
+            .on("click", function(d) { selectCounty(d); });
 
         svg.append("g")
             .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")
@@ -439,9 +439,22 @@ function highlightCounty(county, mouseX, mouseY, page) {
     }
 }
 
-function unHighlightCounty(county) {
-    d3.select("#peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", false);
+function unHighlightCounty() {
+    d3.selectAll("#peerGroupMap .county").classed("highlighted", false);
     d3.select(".tooltip").text("").classed("hidden", true);
+
+    if(d3.select(".countyProfile #peerGroupMap .countyClicked").nodes().length > 0) {
+        d3.select(".countyProfile #peerGroupMap .countyClicked").classed("highlighted", true);
+    }
+}
+
+function selectCounty(county) {
+    d3.selectAll(".countyProfile #peerGroupMap .county").classed("countyClicked", false);
+    d3.select(".countyProfile #peerGroupMap .county.county_" + county.properties.county_fips).classed("countyClicked", true);
+
+    d3.select(".geoLabel").text(county.properties.county_name + ", " + county.properties.state_abbv);
+
+    updateCountyPage(county.properties.county_fips, county.properties.peer_group, county.properties.state_fips);
 }
 
 function highlightState(stateAbbv, stateName) {
@@ -456,9 +469,19 @@ function unHighlightState() {
         // d3.select(".countyProfile #peerGroupMap .stateClicked").classed("stateSelected", true);
 
         var stateName = d3.select(".countyProfile #peerGroupMap .stateClicked").datum().properties.state_name;
-        d3.select(".geoLabel").text(stateName);
+
+        if(d3.select(".countyProfile #peerGroupMap .countyClicked").nodes().length === 0) {
+            // show name of state that was clicked on if no county was clicked on
+            d3.select(".geoLabel").text(stateName);
+        }
+        else {
+            // if a county was clicked on, show its name even if mousing out of a state
+            var countyClicked = d3.select(".countyProfile #peerGroupMap .countyClicked").datum().properties;
+            d3.select(".geoLabel").text(countyClicked.county_name + ", " + countyClicked.state_abbv);
+        }
     }
     else {
+        // don't show any state or county names if nothing has been clicked on
         d3.select(".geoLabel").text("");
     }
 }
