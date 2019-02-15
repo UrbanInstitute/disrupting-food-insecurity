@@ -325,7 +325,7 @@ function renderMap(page, peerGroupNumber, width, height) {
             .append("path")
             .attr("class", function(d) { return d.properties.peer_group === peerGroupNumber ? "county selected county_" + d.properties.county_fips + " peerGroup" + peerGroupNumber : "county county_" + d.properties.county_fips; })
             .attr("d", path)
-            .on("mouseover", function(d) { if(d.properties.peer_group === peerGroupNumber) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1]); }})
+            .on("mouseover", function(d) { if(d.properties.peer_group === peerGroupNumber) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "peerGroupProfile"); }})
             .on("mouseout", function(d) { unHighlightCounty(d); });
     }
     else {
@@ -338,9 +338,9 @@ function renderMap(page, peerGroupNumber, width, height) {
             .append("path")
             .attr("class", function(d) { return "county selected county_" + d.properties.county_fips + " peerGroup" + d.properties.peer_group; })
             .attr("d", path)
-            .style("pointer-events", "none");
-            // .on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1]); })
-            // .on("mouseout", function(d) { unHighlightCounty(d); });
+            .style("pointer-events", "none")
+            .on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "countyProfile"); })
+            .on("mouseout", function(d) { unHighlightCounty(d); });
 
         svg.append("g")
             .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")
@@ -359,18 +359,23 @@ function renderMap(page, peerGroupNumber, width, height) {
 
 }
 
-function highlightCounty(county, mouseX, mouseY) {
+function highlightCounty(county, mouseX, mouseY, page) {
     d3.select("#peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true);
 
-    d3.select(".tooltip")
-        .text(county.properties.county_name + ", " + county.properties.state_abbv)
-        .classed("hidden", false);
+    if(page === "peerGroupProfile") {
+        d3.select(".tooltip")
+            .text(county.properties.county_name + ", " + county.properties.state_abbv)
+            .classed("hidden", false);
 
-    var tooltipWidth = d3.select(".tooltip").node().getBoundingClientRect().width;
+        var tooltipWidth = d3.select(".tooltip").node().getBoundingClientRect().width;
 
-    d3.select(".tooltip")
-        .style("left", mouseX - (tooltipWidth/2) + "px")
-        .style("top", mouseY - 25 + "px");
+        d3.select(".tooltip")
+            .style("left", mouseX - (tooltipWidth/2) + "px")
+            .style("top", mouseY - 25 + "px");
+    }
+    else {
+        d3.select(".geoLabel").text(county.properties.county_name + ", " + county.properties.state_abbv);
+    }
 }
 
 function unHighlightCounty(county) {
@@ -420,6 +425,10 @@ function zoomToState(state, bounds) {
 
     // unhide map reset button
     d3.select(".zoomOutMapBtn").classed("hidden", false);
+
+    // activate counties and deactivate state that's been clicked on
+    d3.selectAll(".countyProfile #peerGroupMap g.counties .county").style("pointer-events", "all");
+    d3.selectAll(".countyProfile #peerGroupMap g.states .state.stateClicked").style("pointer-events", "none");
 }
 
 d3.select(".zoomOutMapBtn").on("click", function() { resetMap(); });
@@ -433,6 +442,9 @@ function resetMap() {
     d3.selectAll(".countyProfile #peerGroupMap .state").classed("stateSelected", false);
     d3.selectAll(".countyProfile #peerGroupMap .state").classed("greyedOut", false);
     d3.select(".geoLabel").text("");
+
+    d3.selectAll(".countyProfile #peerGroupMap g.counties .county").style("pointer-events", "none");
+    d3.selectAll(".countyProfile #peerGroupMap g.states .state").style("pointer-events", "all");
 
     // hide map reset button
     d3.select(".zoomOutMapBtn").classed("hidden", true);
