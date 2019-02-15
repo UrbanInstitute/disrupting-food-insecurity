@@ -525,6 +525,8 @@ function resetMap() {
     d3.selectAll(".countyProfile #peerGroupMap .state").classed("stateClicked", false);
     d3.selectAll(".countyProfile #peerGroupMap .state").classed("stateSelected", false);
     d3.selectAll(".countyProfile #peerGroupMap .state").classed("greyedOut", false);
+    d3.selectAll(".countyProfile #peerGroupMap .county").classed("highlighted", false);
+    d3.selectAll(".countyProfile #peerGroupMap .county").classed("countyClicked", false);
     d3.select(".geoLabel").text("");
 
     d3.selectAll(".countyProfile #peerGroupMap g.counties .county").style("pointer-events", "none");
