@@ -116,18 +116,19 @@ function renderCountyPage(pagename, county_id, peer_group, state_id) {
     // get data
     var data = getData("county", county_id, peer_group, state_id);
 
-    var countyName = data.filter(function(d) { return d.geography === "county"; })[0]["name"];
+    var county = data.filter(function(d) { return d.geography === "county"; })[0]["name"];
+    var countyName = county.split(",")[0];
 
     // update county name in searchbox
 
     // update county name in title, peer group name and peer group link in sentence beneath county name
-    populateCountySentence(countyName, peer_group);
+    populateCountySentence(countyName, "AL", peer_group);
 
     // update print link
 
     // update charts and legend
     populateCharts(data, "countyProfile");
-    populateLegends("countyProfile", countyName, peer_group);
+    populateLegends("countyProfile", countyName, "AL", peer_group);
 
     if(!isPrint) {
         // after all charts have rendered, grab drawer heights and close all except the first drawer
@@ -137,22 +138,23 @@ function renderCountyPage(pagename, county_id, peer_group, state_id) {
     }
 }
 
-function updateCountyPage(county_id, peer_group, state_id) {
+function updateCountyPage(county_id, peer_group, state_id, state_abbv) {
    // get data
     var data = getData("county", county_id, peer_group, state_id);
 
-    var countyName = data.filter(function(d) { return d.geography === "county"; })[0]["name"];
+    var county = data.filter(function(d) { return d.geography === "county"; })[0]["name"];
+    var countyName = county.split(",")[0];
 
     // update county name in searchbox
 
     // update county name in title, peer group name and peer group link in sentence beneath county name
-    populateCountySentence(countyName, peer_group);
+    populateCountySentence(countyName, state_abbv, peer_group);
 
     // update print link
 
     // update charts and legend
     updateCharts(data, "countyProfile");
-    populateLegends("countyProfile", countyName, peer_group);
+    populateLegends("countyProfile", countyName, state_abbv, peer_group);
 }
 
 function renderPeerGroupPage(pagename, peer_group) {
@@ -174,7 +176,7 @@ function renderPeerGroupPage(pagename, peer_group) {
 
     // update bar charts and legends
     populateCharts(data, "peerGroupProfile");
-    populateLegends("peerGroupProfile", "", peer_group);
+    populateLegends("peerGroupProfile", "", "", peer_group);
 
     // update print link
     d3.select("a[name='peerGroupPrintLink']").attr("href", "print_peergroup.html?peergroup=" + peer_group);
@@ -231,8 +233,8 @@ function updateCharts(data, parentPage) {
     updateBarChart("rural_population", data, parentPage);
 }
 
-function populateCountySentence(countyName, peerGroupNumber) {
-    d3.select("h3.selectedCountyName").text(countyName);
+function populateCountySentence(countyName, stateAbbv, peerGroupNumber) {
+    d3.select("h3.selectedCountyName").text(countyName + ", " + stateAbbv);
     d3.select("a.peerGroupProfileLink").text(peerGroupNumber);
 
     var currentPeerGroupClass = getCurrentPeerGroupClass(d3.select("a.peerGroupProfileLink"));
@@ -341,12 +343,12 @@ function drawBars(svg, data, metric, parentPage) {
     xAxisElements.selectAll("text").remove();
 }
 
-function populateLegends(page, countyName, peerGroupNumber) {
+function populateLegends(page, countyName, stateAbbv, peerGroupNumber) {
     if(page === "peerGroupProfile") {
         d3.selectAll(".peerGroupLegendEntry .legendSquare").classed("peerGroup" + peerGroupNumber, true);
     }
     else {
-        d3.selectAll(".countyAvgLegendEntry .legendText").text(countyName);
+        d3.selectAll(".countyAvgLegendEntry .legendText").text(countyName + ", " + stateAbbv);
 
         var currentPeerGroupClass = getCurrentPeerGroupClass(d3.select(".countyAvgLegendEntry .legendSquare"));
         d3.selectAll(".countyAvgLegendEntry .legendSquare").classed(currentPeerGroupClass, false);
@@ -457,7 +459,7 @@ function selectCounty(county) {
 
     d3.select(".geoLabel").text(county.properties.county_name + ", " + county.properties.state_abbv);
 
-    updateCountyPage(county.properties.county_fips, county.properties.peer_group, county.properties.state_fips);
+    updateCountyPage(county.properties.county_fips, county.properties.peer_group, county.properties.state_fips, county.properties.state_abbv);
 }
 
 function highlightState(stateAbbv, stateName) {
