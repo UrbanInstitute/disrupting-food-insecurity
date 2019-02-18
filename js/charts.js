@@ -283,11 +283,13 @@ function updateBarChart(chartID, data, parentPage) {
         .data(data);
 
     barGrps.select(".bar")
+        .transition()
         .attr("class", function(d) { return d.geography === "county" ? "bar peerGroup" + peerGroupNumber : "bar " + d.geography; })
         .attr("y", function(d) { return yScale(d[chartID]); })
         .attr("height", function(d) { return yScale(0) - yScale(d[chartID]); });
 
     barGrps.select(".barLabel")
+        .transition()
         .attr("y", function(d) { return yScale(d[chartID]) - 5; })
         .text(function(d) { if(chartID === "credit_score") { return COMMAFORMAT(d[chartID]); }
                             else if(chartID === "wage_fair_market_rent" || chartID === "median_income") { return DOLLARFORMAT(d[chartID]); }
