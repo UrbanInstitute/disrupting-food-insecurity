@@ -456,6 +456,7 @@ function selectCounty(county) {
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("highlighted", false);
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("countyClicked", false);
     d3.select(".countyProfile #peerGroupMap .county.county_" + county.properties.county_fips).classed("countyClicked", true);
+    d3.select(".countyProfile #peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true);
 
     d3.select(".geoLabel").text(county.properties.county_name + ", " + county.properties.state_abbv);
 
