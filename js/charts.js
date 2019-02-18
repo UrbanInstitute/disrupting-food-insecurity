@@ -423,7 +423,7 @@ function renderMap(page, peerGroupNumber, width, height) {
 }
 
 function highlightCounty(county, mouseX, mouseY, page) {
-    d3.select("#peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true);
+    d3.select("#peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true).moveToFront();
 
     if(page === "peerGroupProfile") {
         d3.select(".tooltip")
@@ -446,7 +446,7 @@ function unHighlightCounty() {
     d3.select(".tooltip").text("").classed("hidden", true);
 
     if(d3.select(".countyProfile #peerGroupMap .countyClicked").nodes().length > 0) {
-        d3.select(".countyProfile #peerGroupMap .countyClicked").classed("highlighted", true);
+        d3.select(".countyProfile #peerGroupMap .countyClicked").classed("highlighted", true).moveToFront();
     }
 }
 
@@ -462,7 +462,7 @@ function selectCounty(county) {
 
 function highlightState(stateAbbv, stateName) {
     d3.select(".geoLabel").text(stateName);
-    d3.select(".countyProfile #peerGroupMap .state." + stateAbbv).classed("stateSelected", true);
+    d3.select(".countyProfile #peerGroupMap .state." + stateAbbv).classed("stateSelected", true).moveToFront();
 }
 
 function unHighlightState() {
@@ -591,5 +591,20 @@ function addAnd(geo) {
         return geoArray.slice(0, geoArray.length - 1).join(", ") + ", and " + geoArray[geoArray.length - 1];
     }
 }
+
+d3.selection.prototype.moveToFront = function() {
+    return this.each(function(){
+        this.parentNode.appendChild(this);
+    });
+};
+
+d3.selection.prototype.moveToBack = function() {
+    return this.each(function() {
+        var firstChild = this.parentNode.firstChild;
+        if (firstChild) {
+            this.parentNode.insertBefore(this, firstChild);
+        }
+    });
+};
 
 // })();
