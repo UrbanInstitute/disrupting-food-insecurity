@@ -46,6 +46,12 @@ var yScale = d3.scaleLinear()
 //     .domain(["", "no", "diff"])
 //     .range(["#1696d2", "#e3e3e3", "#fdbf11"]);
 
+
+var projection = d3.geoIdentity();
+
+var path = d3.geoPath()
+    .projection(projection);
+
 var dashboardData,
     mapData;
 
@@ -106,7 +112,6 @@ d3.csv("data/chart_data.csv", function(d) {
                 // if query string has parameters, use those to populate the charts
                 var params = parseQueryString(window.location.search);
                 var geoIDs = countyLookup[deslugify(params.county) + ", " + params.state].split(",");
-                // console.log(geoIDs);
                 renderCountyPage(page, geoIDs[0], geoIDs[2], geoIDs[1], params.state);
             }
             else {
@@ -117,50 +122,6 @@ d3.csv("data/chart_data.csv", function(d) {
         // window.addEventListener("resize", redraw);
     });
 });
-
-function initializeSearchbox() {
-    $("#countySearch").autocomplete({
-        source: Object.keys(countyLookup),
-        select: function( event, ui ) {
-            $("#countySearch").val(ui.item.label);   // need this so when user clicks on a county name instead of hitting the enter key, the full name is captured by getSchoolName (otherwise, only typed letters will get captured)
-            var county = ui.item.label.split(",")[0].trim();
-            var state = ui.item.label.split(",")[1].trim();
-            updateQueryString("?county=" + slugify(county) + "&state=" + state);
-
-            var geoIDs = countyLookup[ui.item.label].split(",");
-            updateCountyPage(geoIDs[0], geoIDs[2], geoIDs[1], state);
-        },
-        // open: function( event, ui ) {
-        //     d3.select("#magnifyGlass").style("visibility", "hidden");
-        // },
-        close: function( event, ui ) {
-            // $("#countySearch").val("");
-        //     d3.select("#magnifyGlass").style("visibility", "visible");
-        }
-    });
-}
-
-function parseQueryString(query) {
-    var obj = {},
-        qPos = query.indexOf("?"),
-    tokens = query.substr(qPos + 1).split('&'),
-    i = tokens.length - 1;
-    if (qPos !== -1 || query.indexOf("=") !== -1) {
-        for (; i >= 0; i--) {
-            var s = tokens[i].split('=');
-            obj[unescape(s[0])] = s.hasOwnProperty(1) ? unescape(s[1]) : null;
-        };
-    }
-    return obj;
-}
-
-function updateQueryString(queryString){
-    if (history.pushState) {
-        var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryString;
-        window.history.pushState({path:newurl},'',newurl);
-    }
-}
-// console.log(getQueryString("peergroup"));
 
 function renderCountyPage(pagename, county_id, peer_group, state_id, state_abbv) {
     var isPrint = pagename.indexOf("print_") > -1;
@@ -416,10 +377,7 @@ function populateLegends(page, countyName, stateAbbv, peerGroupNumber) {
 
 function renderMap(page, peerGroupNumber, width, height) {
     // how to scale already projected data: https://stackoverflow.com/questions/42430361/scaling-d3-v4-map-to-fit-svg-or-at-all
-    var projection = d3.geoIdentity().fitSize([width - (mapMargins*2), height - (mapMargins*2)], topojson.feature(mapData, mapData.objects.counties));
-
-    var path = d3.geoPath()
-        .projection(projection);
+    projection.fitSize([width - (mapMargins*2), height - (mapMargins*2)], topojson.feature(mapData, mapData.objects.counties));
 
     var svg = d3.select("#peerGroupMap")
         .append("svg")
@@ -478,8 +436,6 @@ function renderMap(page, peerGroupNumber, width, height) {
             .on("mouseout", function() { unHighlightState(); })
             .on("click", function(d) { zoomToState(d, path.bounds(d)); });
     }
-    // TODO: implement move to front and voronoi
-
 }
 
 function highlightCounty(county, mouseX, mouseY, page) {
@@ -507,6 +463,8 @@ function unHighlightCounty() {
 
     if(d3.select(".countyProfile #peerGroupMap .countyClicked").nodes().length > 0) {
         d3.select(".countyProfile #peerGroupMap .countyClicked").classed("highlighted", true).moveToFront();
+        var countyClicked = d3.select(".countyProfile #peerGroupMap .countyClicked").datum().properties;
+        d3.select(".geoLabel").text(countyClicked.county_name + ", " + countyClicked.state_abbv);
     }
 }
 
@@ -514,7 +472,7 @@ function selectCounty(county) {
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("highlighted", false);
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("countyClicked", false);
     d3.select(".countyProfile #peerGroupMap .county.county_" + county.properties.county_fips).classed("countyClicked", true);
-    d3.select(".countyProfile #peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true);
+    d3.select(".countyProfile #peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true).moveToFront();
 
     d3.select(".geoLabel").text(county.properties.county_name + ", " + county.properties.state_abbv);
 
@@ -669,6 +627,32 @@ function resetMap() {
 //     makeEquityBarChart("#downloadChart", getIndicatorSelected(), getBaseGeography(), getComparisonGeography(), toolChartDimensions);
 // }
 
+function initializeSearchbox() {
+    $("#countySearch").autocomplete({
+        source: Object.keys(countyLookup),
+        select: function( event, ui ) {
+            $("#countySearch").val(ui.item.label);   // need this so when user clicks on a county name instead of hitting the enter key, the full name is captured by getSchoolName (otherwise, only typed letters will get captured)
+            var county = ui.item.label.split(",")[0].trim();
+            var state = ui.item.label.split(",")[1].trim();
+            var geoIDs = countyLookup[ui.item.label].split(",");
+
+            // zoom map into state of selected county and apply highlighting
+            var d_state = d3.select("#peerGroupMap .state." + state).datum();
+            zoomToState(d_state, path.bounds(d_state));
+
+            var d_county = d3.select("#peerGroupMap .county.county_" + geoIDs[0]).datum();
+            selectCounty(d_county);
+        },
+        // open: function( event, ui ) {
+        //     d3.select("#magnifyGlass").style("visibility", "hidden");
+        // },
+        close: function( event, ui ) {
+            // $("#countySearch").val("");
+        //     d3.select("#magnifyGlass").style("visibility", "visible");
+        }
+    });
+}
+
 function addAnd(geo) {
     var geoArray = geo.split(",");
     if(geoArray.length === 1) {
@@ -688,6 +672,27 @@ function slugify(name) {
 
 function deslugify(slug) {
     return slug.split("_").join(" ");
+}
+
+function parseQueryString(query) {
+    var obj = {},
+        qPos = query.indexOf("?"),
+    tokens = query.substr(qPos + 1).split('&'),
+    i = tokens.length - 1;
+    if (qPos !== -1 || query.indexOf("=") !== -1) {
+        for (; i >= 0; i--) {
+            var s = tokens[i].split('=');
+            obj[unescape(s[0])] = s.hasOwnProperty(1) ? unescape(s[1]) : null;
+        };
+    }
+    return obj;
+}
+
+function updateQueryString(queryString){
+    if (history.pushState) {
+        var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryString;
+        window.history.pushState({path:newurl},'',newurl);
+    }
 }
 
 d3.selection.prototype.moveToFront = function() {
