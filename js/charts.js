@@ -101,7 +101,18 @@ d3.csv("data/chart_data.csv", function(d) {
         else {
             initializeSearchbox();
             renderMap("index", "all", 750, 522);
-            renderCountyPage(page, "01001", "6", "01");
+
+            if(window.location.search !== "") {
+                // if query string has parameters, use those to populate the charts
+                var params = parseQueryString(window.location.search);
+                var geoIDs = countyLookup[deslugify(params.county) + ", " + params.state].split(",");
+                // console.log(geoIDs);
+                renderCountyPage(page, geoIDs[0], geoIDs[2], geoIDs[1], params.state);
+            }
+            else {
+                // else render page using the Autauga County, AL in the dataset
+                renderCountyPage(page, "01001", "6", "01", "AL");
+            }
         }
         // window.addEventListener("resize", redraw);
     });
@@ -151,7 +162,7 @@ function updateQueryString(queryString){
 }
 // console.log(getQueryString("peergroup"));
 
-function renderCountyPage(pagename, county_id, peer_group, state_id) {
+function renderCountyPage(pagename, county_id, peer_group, state_id, state_abbv) {
     var isPrint = pagename.indexOf("print_") > -1;
 
     // get data
@@ -160,10 +171,11 @@ function renderCountyPage(pagename, county_id, peer_group, state_id) {
     var county = data.filter(function(d) { return d.geography === "county"; })[0]["name"];
     var countyName = county.split(",")[0];
 
-    // update county name in searchbox
+    // update county name in searchbox if using query parameters
+    if(window.location.search !== "") $("#countySearch").val(countyName + ", "  + state_abbv);
 
     // update county name in title, peer group name and peer group link in sentence beneath county name
-    populateCountySentence(countyName, "AL", peer_group);
+    populateCountySentence(countyName, state_abbv, peer_group);
 
     // update print link
 
@@ -671,8 +683,11 @@ function addAnd(geo) {
 }
 
 function slugify(name) {
-    // TODO: strip out apostrophes from names
     return name.split(" ").join("_");
+}
+
+function deslugify(slug) {
+    return slug.split("_").join(" ");
 }
 
 d3.selection.prototype.moveToFront = function() {
