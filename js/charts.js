@@ -95,11 +95,11 @@ d3.csv("data/chart_data.csv", function(d) {
         var page = window.location.pathname;
         if(page.indexOf("peergroup.html") > -1) {
             // render peer group page charts based on group selected
-            var peer_group = getQueryString("peergroup");
+            var peer_group = parseQueryString(window.location.search)["peergroup"];
             renderPeerGroupPage(page, peer_group);
         }
         else {
-            // populate search box
+            initializeSearchbox();
             renderMap("index", "all", 750, 522);
             renderCountyPage(page, "01001", "6", "01");
         }
@@ -107,13 +107,14 @@ d3.csv("data/chart_data.csv", function(d) {
     });
 });
 
-// initialize county searchbox
-$(function () {
+function initializeSearchbox() {
     $("#countySearch").autocomplete({
         source: countyList,
         select: function( event, ui ) {
             $("#countySearch").val(ui.item.label);   // need this so when user clicks on a county name instead of hitting the enter key, the full name is captured by getSchoolName (otherwise, only typed letters will get captured)
-            console.log(ui.item.label);
+            var county = ui.item.label.split(",")[0].trim();
+            var state = ui.item.label.split(",")[1].trim();
+            updateQueryString("?county=" + slugify(county) + "&state=" + state);
         },
         // open: function( event, ui ) {
         //     d3.select("#magnifyGlass").style("visibility", "hidden");
@@ -123,15 +124,28 @@ $(function () {
         //     d3.select("#magnifyGlass").style("visibility", "visible");
         }
     });
-});
+}
 
-function getQueryString(name) {
-    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-    var results = regex.exec(location.search);
-    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-};
+function parseQueryString(query) {
+    var obj = {},
+        qPos = query.indexOf("?"),
+    tokens = query.substr(qPos + 1).split('&'),
+    i = tokens.length - 1;
+    if (qPos !== -1 || query.indexOf("=") !== -1) {
+        for (; i >= 0; i--) {
+            var s = tokens[i].split('=');
+            obj[unescape(s[0])] = s.hasOwnProperty(1) ? unescape(s[1]) : null;
+        };
+    }
+    return obj;
+}
 
+function updateQueryString(queryString){
+    if (history.pushState) {
+        var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryString;
+        window.history.pushState({path:newurl},'',newurl);
+    }
+}
 // console.log(getQueryString("peergroup"));
 
 function renderCountyPage(pagename, county_id, peer_group, state_id) {
@@ -163,13 +177,18 @@ function renderCountyPage(pagename, county_id, peer_group, state_id) {
 }
 
 function updateCountyPage(county_id, peer_group, state_id, state_abbv) {
-   // get data
+    // parse county from URL
+    console.log(getQueryString("index"));
+
+    // get data
     var data = getData("county", county_id, peer_group, state_id);
 
     var county = data.filter(function(d) { return d.geography === "county"; })[0]["name"];
     var countyName = county.split(",")[0];
 
     // update county name in searchbox
+
+    // center map over state and highlight county
 
     // update county name in title, peer group name and peer group link in sentence beneath county name
     populateCountySentence(countyName, state_abbv, peer_group);
@@ -643,6 +662,11 @@ function addAnd(geo) {
     else {
         return geoArray.slice(0, geoArray.length - 1).join(", ") + ", and " + geoArray[geoArray.length - 1];
     }
+}
+
+function slugify(name) {
+    // TODO: strip out apostrophes from names
+    return name.split(" ").join("_");
 }
 
 d3.selection.prototype.moveToFront = function() {
