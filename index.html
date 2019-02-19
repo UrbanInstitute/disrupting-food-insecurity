@@ -24,6 +24,7 @@
 
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic,900" rel="stylesheet" type="text/css">
         <!-- <link rel="stylesheet" href="css/font-awesome.min.css"> -->
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
         <link href="css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
         <!--for the header-->
@@ -151,7 +152,9 @@
                 </div>
                 <div class="map">
                     <div class="mapTopBar">
-                        <div class="searchbox"></div>
+                        <div class="searchbox">
+                            <input id="countySearch" placeholder="Search for your county">
+                        </div>
                         <div class="clearSearchbox">Clear</div>
                         <div class="geoLabel"></div>
                     </div>
@@ -159,6 +162,7 @@
                         <div class="zoomOutMapBtn hidden">
                             <img src="img/reset.png">
                         </div>
+                        <div class="tooltip hidden" style="left:0px; top: 0px;"></div>
                     </div>
                 </div>
             </section>
@@ -446,13 +450,14 @@
                 };
             }
         </script>
-        <script type="text/javascript" src="js/jquery.2.1.4.min.js"></script>
-    	<script type="text/javascript" src="js/d3.v4.min.js"></script>
-        <script type="text/javascript" src="js/topojson.v1.min.js"></script>
+        <script src="js/jquery.2.1.4.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+    	<script src="js/d3.v4.min.js"></script>
+        <script src="js/topojson.v1.min.js"></script>
         <script src="https://d3js.org/d3-geo.v1.min.js"></script>
         <!-- <script type="text/javascript" src="js/bootstrap.min.js"></script> -->
-        <script type="text/javascript" src="js/nav.js"></script>
-        <script type="text/javascript" src="js/charts.js"></script>
+        <script src="js/nav.js"></script>
+        <script src="js/charts.js"></script>
 
 
 <!--        <script>

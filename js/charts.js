@@ -49,6 +49,8 @@ var yScale = d3.scaleLinear()
 var dashboardData,
     mapData;
 
+var countyList = [];
+
 var isIE = navigator.userAgent.indexOf("MSIE") !== -1 || navigator.userAgent.indexOf("Trident") !== -1;
 
 
@@ -84,7 +86,11 @@ d3.csv("data/chart_data.csv", function(d) {
 
     d3.json("data/us_topo_final.json", function(error, json) {
         mapData = json;
-        // console.log(json);
+        // console.log(json.objects.counties.geometries);
+
+        json.objects.counties.geometries.forEach(function(county){
+            countyList.push(county.properties.county_name + ", " + county.properties.state_abbv);
+        });
 
         var page = window.location.pathname;
         if(page.indexOf("peergroup.html") > -1) {
@@ -98,6 +104,24 @@ d3.csv("data/chart_data.csv", function(d) {
             renderCountyPage(page, "01001", "6", "01");
         }
         // window.addEventListener("resize", redraw);
+    });
+});
+
+// initialize county searchbox
+$(function () {
+    $("#countySearch").autocomplete({
+        source: countyList,
+        select: function( event, ui ) {
+            $("#countySearch").val(ui.item.label);   // need this so when user clicks on a county name instead of hitting the enter key, the full name is captured by getSchoolName (otherwise, only typed letters will get captured)
+            console.log(ui.item.label);
+        },
+        // open: function( event, ui ) {
+        //     d3.select("#magnifyGlass").style("visibility", "hidden");
+        // },
+        close: function( event, ui ) {
+            // $("#countySearch").val("");
+        //     d3.select("#magnifyGlass").style("visibility", "visible");
+        }
     });
 });
 
@@ -460,6 +484,16 @@ function selectCounty(county) {
 
     d3.select(".geoLabel").text(county.properties.county_name + ", " + county.properties.state_abbv);
 
+    // d3.select(".tooltip")
+    //     .text(county.properties.county_name + ", " + county.properties.state_abbv)
+    //     .classed("hidden", false);
+
+    // var tooltipWidth = d3.select(".tooltip").node().getBoundingClientRect().width;
+
+    // d3.select(".tooltip")
+    //     .style("left", mouseX - (tooltipWidth/2) + "px")
+    //     .style("top", mouseY - 25 + "px");
+
     updateCountyPage(county.properties.county_fips, county.properties.peer_group, county.properties.state_fips, county.properties.state_abbv);
 }
 
@@ -512,6 +546,7 @@ function zoomToState(state, bounds) {
         .duration(800)
         .attr("transform", "translate(" + shiftX + "," + shiftY + ")scale(" + scale + ")")
     d3.select(".geoLabel").text(state.properties.state_name);
+    // d3.select(".tooltip").attr("transform", "translate(" + shiftX + "," + shiftY + ")");
 
     d3.selectAll(".countyProfile #peerGroupMap .state").classed("stateClicked", false);
     d3.select(".countyProfile #peerGroupMap .state." + state.properties.state_abbv).classed("stateClicked", true);
@@ -543,12 +578,13 @@ function resetMap() {
         .duration(800)
         .attr("transform", "scale(1)");
 
-    d3.selectAll(".countyProfile #peerGroupMap .state").classed("stateClicked", false);
-    d3.selectAll(".countyProfile #peerGroupMap .state").classed("stateSelected", false);
+    // TODO: confirm the following behavior
+    // d3.selectAll(".countyProfile #peerGroupMap .state").classed("stateClicked", false);
+    // d3.selectAll(".countyProfile #peerGroupMap .state").classed("stateSelected", false);
     d3.selectAll(".countyProfile #peerGroupMap .state").classed("greyedOut", false);
-    d3.selectAll(".countyProfile #peerGroupMap .county").classed("highlighted", false);
-    d3.selectAll(".countyProfile #peerGroupMap .county").classed("countyClicked", false);
-    d3.select(".geoLabel").text("");
+    // d3.selectAll(".countyProfile #peerGroupMap .county").classed("highlighted", false);
+    // d3.selectAll(".countyProfile #peerGroupMap .county").classed("countyClicked", false);
+    // d3.select(".geoLabel").text("");
 
     d3.selectAll(".countyProfile #peerGroupMap g.counties .county").style("pointer-events", "none");
     d3.selectAll(".countyProfile #peerGroupMap g.states .state").style("pointer-events", "all");

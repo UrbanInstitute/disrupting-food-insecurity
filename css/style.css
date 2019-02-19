@@ -748,12 +748,40 @@ section.peerGroupMap .map {
     margin-bottom: 15px;
 }
 
-.searchbox {
+#countySearch {
     width: 210px;
-    background-color: #d2d2d2;
-    height: 100%;
+    height: 39px;
+    background-color: #e5e5e5;
+    border: none;
+    font-size: 14px;
     display: inline-block;
     float: left;
+    padding-left: 10px;
+}
+
+::placeholder {
+    font-style: italic;
+}
+
+.ui-widget {
+    width: 210px;
+}
+
+.ui-menu.ui-widget.ui-widget-content.ui-autocomplete.ui-front{
+    height: auto;
+    max-height: 300px;
+}
+
+.ui-autocomplete {
+    /*max-height: 300px;*/
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 12px;
+    font-style: italic;
+}
+
+html .ui-autocomplete {  /* need this because IE doesn't support max-height */
+    height: 300px;   /* TODO: set this to screen width at various breakpoints; */
 }
 
 .clearSearchbox {
