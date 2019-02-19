@@ -112,6 +112,17 @@ d3.csv("data/chart_data.csv", function(d) {
                 // if query string has parameters, use those to populate the charts
                 var params = parseQueryString(window.location.search);
                 var geoIDs = countyLookup[deslugify(params.county) + ", " + params.state].split(",");
+
+                // zoom map into state of selected county and apply highlighting
+                var d_state = d3.select("#peerGroupMap .state." + params.state).datum();
+                zoomToState(d_state, path.bounds(d_state));
+
+                // var d_county = d3.select("#peerGroupMap .county.county_" + geoIDs[0]).datum();
+                // selectCounty(d_county);
+                d3.select(".countyProfile #peerGroupMap .county.county_" + geoIDs[0]).classed("countyClicked", true);
+                d3.select(".countyProfile #peerGroupMap .county.county_" + geoIDs[0]).classed("highlighted", true).moveToFront();
+
+                d3.select(".geoLabel").text(deslugify(params.county) + ", " + params.state);
                 renderCountyPage(page, geoIDs[0], geoIDs[2], geoIDs[1], params.state);
             }
             else {
