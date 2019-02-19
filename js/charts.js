@@ -516,6 +516,9 @@ function selectCounty(county) {
     //     .style("left", mouseX - (tooltipWidth/2) + "px")
     //     .style("top", mouseY - 25 + "px");
 
+    // update URL, populate county name in searchbox and update charts
+    updateQueryString("?county=" + slugify(county.properties.county_name) + "&state=" + county.properties.state_abbv);
+    $("#countySearch").val(county.properties.county_name + ", " + county.properties.state_abbv);
     updateCountyPage(county.properties.county_fips, county.properties.peer_group, county.properties.state_fips, county.properties.state_abbv);
 }
 
