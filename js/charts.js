@@ -49,7 +49,7 @@ var yScale = d3.scaleLinear()
 var dashboardData,
     mapData;
 
-var countyList = [];
+var countyLookup = {};
 
 var isIE = navigator.userAgent.indexOf("MSIE") !== -1 || navigator.userAgent.indexOf("Trident") !== -1;
 
@@ -89,7 +89,7 @@ d3.csv("data/chart_data.csv", function(d) {
         // console.log(json.objects.counties.geometries);
 
         json.objects.counties.geometries.forEach(function(county){
-            countyList.push(county.properties.county_name + ", " + county.properties.state_abbv);
+            countyLookup[county.properties.county_name + ", " + county.properties.state_abbv] = county.properties.county_fips + "," + county.properties.state_fips + "," + county.properties.peer_group;
         });
 
         var page = window.location.pathname;
@@ -109,12 +109,15 @@ d3.csv("data/chart_data.csv", function(d) {
 
 function initializeSearchbox() {
     $("#countySearch").autocomplete({
-        source: countyList,
+        source: Object.keys(countyLookup),
         select: function( event, ui ) {
             $("#countySearch").val(ui.item.label);   // need this so when user clicks on a county name instead of hitting the enter key, the full name is captured by getSchoolName (otherwise, only typed letters will get captured)
             var county = ui.item.label.split(",")[0].trim();
             var state = ui.item.label.split(",")[1].trim();
             updateQueryString("?county=" + slugify(county) + "&state=" + state);
+
+            var geoIDs = countyLookup[ui.item.label].split(",");
+            updateCountyPage(geoIDs[0], geoIDs[2], geoIDs[1], state);
         },
         // open: function( event, ui ) {
         //     d3.select("#magnifyGlass").style("visibility", "hidden");
@@ -178,7 +181,7 @@ function renderCountyPage(pagename, county_id, peer_group, state_id) {
 
 function updateCountyPage(county_id, peer_group, state_id, state_abbv) {
     // parse county from URL
-    console.log(getQueryString("index"));
+    // console.log(parseQueryString(window.location.search));
 
     // get data
     var data = getData("county", county_id, peer_group, state_id);
