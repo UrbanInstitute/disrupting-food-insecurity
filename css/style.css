@@ -753,6 +753,7 @@ section.peerGroupMap .map {
 
 ::placeholder {
     font-style: italic;
+    font-family: 'Lato';
 }
 
 .ui-widget {
