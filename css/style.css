@@ -683,10 +683,6 @@ a.peerGroupProfileLink.peerGroup10 {
     pointer-events: none;
 }
 
-.hidden {
-    visibility: hidden;
-}
-
 .zoomOutMapBtn img {
     width: 30px;
     height: 30px;
@@ -696,10 +692,6 @@ a.peerGroupProfileLink.peerGroup10 {
     right: 10px;
 }
 
-
-.zoomOutMapBtn.hidden {
-    display: none;
-}
 
 /********** COUNTY VIEW PAGE STYLES *************/
 section.peerGroupMap {

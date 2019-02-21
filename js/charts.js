@@ -105,6 +105,7 @@ d3.csv("data/chart_data.csv", function(d) {
             renderPeerGroupPage(page, peer_group);
         }
         else {
+            // render county profile page (i.e., homepage)
             initializeSearchbox();
             renderMap("index", "all", 750, 522);
 
@@ -126,7 +127,7 @@ d3.csv("data/chart_data.csv", function(d) {
                 renderCountyPage(page, geoIDs[0], geoIDs[2], geoIDs[1], params.state);
             }
             else {
-                // else render page using the Autauga County, AL in the dataset
+                // else render page using Autauga County, AL in the dataset
                 renderCountyPage(page, "01001", "6", "01", "AL");
             }
         }
@@ -160,6 +161,11 @@ function renderCountyPage(pagename, county_id, peer_group, state_id, state_abbv)
         getDrawerHeights();
         d3.selectAll(".metricDrawer").style("height", drawerTitleHeight + "px");
         d3.select(".metricDrawer.Food_Insecurity").style("height", drawerFullHeights["Food_Insecurity"] + drawerTitleHeight + "px");
+
+        // hide dashboard if loading page without a county already selected
+        if(window.location.search === "") {
+            d3.select(".dashboardDrawers").classed("hidden", true);
+        }
     }
 }
 
@@ -501,6 +507,7 @@ function selectCounty(county) {
     updateQueryString("?county=" + slugify(county.properties.county_name) + "&state=" + county.properties.state_abbv);
     $("#countySearch").val(county.properties.county_name + ", " + county.properties.state_abbv);
     updateCountyPage(county.properties.county_fips, county.properties.peer_group, county.properties.state_fips, county.properties.state_abbv);
+    d3.select(".dashboardDrawers").classed("hidden", false);
 }
 
 function highlightState(stateAbbv, stateName) {

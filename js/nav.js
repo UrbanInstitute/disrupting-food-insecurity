@@ -161,8 +161,8 @@ function getCurrentPeerGroupClass(element) {
 function highlightPeerGroupInMap(peerGroupBlock) {
     var peerGroup = getCurrentPeerGroupClass(peerGroupBlock)[0];
     // console.log(peerGroup);
-    d3.selectAll(".countyProfile .peerGroupBlock").classed("selected", false);
-    d3.select(".countyProfile .peerGroupBlock." + peerGroup).classed("selected", true);
+    d3.selectAll(".peerGroupBlock").classed("selected", false);
+    d3.selectAll(".peerGroupBlock." + peerGroup).classed("selected", true);
 
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("selected", false);
     d3.selectAll(".countyProfile #peerGroupMap .county." + peerGroup).classed("selected", true);
@@ -187,8 +187,8 @@ d3.selectAll(".countyProfile .peerGroupBlock").on("click", function() { selectPe
 function selectPeerGroupInMap(peerGroupBlock) {
     var peerGroup = getCurrentPeerGroupClass(peerGroupBlock)[0];
 
-    d3.select(".countyProfile .peerGroupBlock").classed("clicked", false);
-    d3.select(".countyProfile .peerGroupBlock." + peerGroup).classed("clicked", true);
+    d3.selectAll(".countyProfile .peerGroupBlock").classed("clicked", false);
+    d3.selectAll(".countyProfile .peerGroupBlock." + peerGroup).classed("clicked", true);
 
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("clicked", false);
     d3.selectAll(".countyProfile #peerGroupMap .county." + peerGroup).classed("clicked", true);
