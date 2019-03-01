@@ -143,12 +143,13 @@ function renderCountyPage(pagename, county_id, peer_group, state_id, state_abbv)
 
     var county = data.filter(function(d) { return d.geography === "county"; })[0]["name"];
     var countyName = county.split(",")[0];
+    var peerGroupName = data.filter(function(d) { return d.geography === "peer_group"; })[0]["name"];
 
     // update county name in searchbox if using query parameters
     if(window.location.search !== "") $("#countySearch").val(countyName + ", "  + state_abbv);
 
     // update county name in title, peer group name and peer group link in sentence beneath county name
-    populateCountySentence(countyName, state_abbv, peer_group);
+    populateCountySentence(countyName, state_abbv, peer_group, peerGroupName);
 
     // update print link
 
@@ -178,13 +179,14 @@ function updateCountyPage(county_id, peer_group, state_id, state_abbv) {
 
     var county = data.filter(function(d) { return d.geography === "county"; })[0]["name"];
     var countyName = county.split(",")[0];
+    var peerGroupName = data.filter(function(d) { return d.geography === "peer_group"; })[0]["name"];
 
     // update county name in searchbox
 
     // center map over state and highlight county
 
     // update county name in title, peer group name and peer group link in sentence beneath county name
-    populateCountySentence(countyName, state_abbv, peer_group);
+    populateCountySentence(countyName, state_abbv, peer_group, peerGroupName);
 
     // update print link
 
@@ -269,9 +271,9 @@ function updateCharts(data, parentPage) {
     updateBarChart("rural_population", data, parentPage);
 }
 
-function populateCountySentence(countyName, stateAbbv, peerGroupNumber) {
+function populateCountySentence(countyName, stateAbbv, peerGroupNumber, peerGroupName) {
     d3.select("h3.selectedCountyName").text(countyName + ", " + stateAbbv);
-    d3.select("a.peerGroupProfileLink").text(peerGroupNumber);
+    d3.select("a.peerGroupProfileLink").text(peerGroupName);
 
     var currentPeerGroupClass = getCurrentPeerGroupClass(d3.select("a.peerGroupProfileLink"));
     d3.select("a.peerGroupProfileLink").classed(currentPeerGroupClass, false);
