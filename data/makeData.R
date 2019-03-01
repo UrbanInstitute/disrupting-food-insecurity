@@ -2,6 +2,21 @@ library(tidyverse)
 library(readxl)
 library(urbnmapr)
 
+# map peer group numbers to names
+pg_names <- tibble(
+  pg_number = as.character(seq(1, 10)),
+  pg_names = c("Very high food insecurity, with multiple risk factors (mostly rural)",
+               "Very high food insecurity, with multiple risk factors and high housing costs",
+               "High food insecurity, with precarious physical, financial, and economic health (mostly rural)",
+               "High food insecurity, with the highest housing costs (mostly urban)",
+               "High food insecurity, with physical health challenges (rural)",
+               "Moderate food insecurity, with precarious physical, financial, and economic health (mostly urban)",
+               "Moderate food insecurity, with tenuous economic health (mostly rural)",
+               "Low food insecurity and low housing costs (mostly rural)",
+               "Low food insecurity, with strong physical, financial, and economic health",
+               "Low food insecurity and high housing costs (mostly urban)")
+)
+
 # make metric names consistent
 pg_metric_name_map <- tibble(
   original = c("Food insecure, all people", "Food insecure, children", 
@@ -9,7 +24,7 @@ pg_metric_name_map <- tibble(
                "Housing-cost burdened", "Severely housing-cost burdened", "Wage to afford fair market rent",
                "Median household income", "Below 200% of federal poverty level", "Unemployment rate",
                "Median credit score", "Debt in collections",
-               "Households with children", "Households with seniors (65+)", "People of color", "Some college or less",
+               "Households with children", "Households with seniors (65+)", "People of color", "No college degree",
                "Population in rural area"),
   label = c("food_insecure_all", "food_insecure_children",
             "low_birthweight", "diabetes", "disability", "no_insurance",
@@ -21,16 +36,20 @@ pg_metric_name_map <- tibble(
 )
 
 # read in peer group average data
-pg_dat <- read_excel("source/New summary table_dashMets_shortlabels.xlsx", range = c("A3:K29"))
+pg_dat <- read_excel("source/2019-02-25_summary table_unimputed_avgs-only_fmt.xlsx", 
+                     sheet = "group avs_unimp_2-25_dash mets", range = c("A3:K29"))
 
 pg <- pg_dat %>%
   filter(!is.na(`1`)) %>%
   left_join(pg_metric_name_map, by = c("Metric" = "original")) %>%
   gather(c(`1`:`10`), key = "id", value = "value") %>%
-  mutate(name = "", geography = "peer_group") %>%
+  mutate(geography = "peer_group") %>%
   select(-Metric) %>%
   spread(key = "label", value = "value") %>%
-  mutate(id = as.character(id))
+  left_join(pg_names, by = c("id" = "pg_number")) %>%
+  mutate(name = pg_names) %>%
+  select(id, name, everything(),-pg_names)
+ # mutate(id = as.character(id))
 
 
 # read in county level data
@@ -53,7 +72,6 @@ cnty <- cnty_dat %>%
          people_color = `People of color`, college_less = `Some college or less`,
          rural_population = `Population in rural area`) %>%
   mutate(id = str_pad(as.character(id), width = 5, pad = "0"), geography = "county")
-
 
 # read in state and national level data
 state_dat <- read_excel("source/state-natl.xlsx")
@@ -83,6 +101,11 @@ state <- state_dat %>%
 chartData <- bind_rows(cnty, state, pg)
 write_csv(chartData, "chart_data.csv")
 
+# getRanges <- chartData %>%
+#   gather(-id, -name, -geography, key = "metric", value = value) %>%
+#   group_by(metric) %>%
+#   summarise(min = min(value), max = max(value))
+# write_csv(getRanges, "metric_ranges.csv")
 
 # make dataset for map
 mapData <- get_urbn_map("counties") %>%
