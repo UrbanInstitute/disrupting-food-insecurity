@@ -273,7 +273,7 @@ function updateCharts(data, parentPage) {
 
 function populateCountySentence(countyName, stateAbbv, peerGroupNumber, peerGroupName) {
     d3.select("h3.selectedCountyName").text(countyName + ", " + stateAbbv);
-    d3.select("a.peerGroupProfileLink").text(peerGroupName);
+    d3.select("a.peerGroupProfileLink").text(peerGroupName.toLowerCase());
 
     var currentPeerGroupClass = getCurrentPeerGroupClass(d3.select("a.peerGroupProfileLink"));
     d3.select("a.peerGroupProfileLink").classed(currentPeerGroupClass, false);
