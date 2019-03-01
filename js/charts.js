@@ -14,7 +14,7 @@ var metricNameMapping = {
     below_poverty: "Below 200% of federal poverty level",
     unemployment: "Unemployment rate",
     no_insurance: "No health insurance",
-    college_less: "Some college or less",
+    college_less: "No college degree",
     people_color: "People of color",
     children: "Households with children",
     seniors: "Households with seniors (65+)",
@@ -154,7 +154,7 @@ function renderCountyPage(pagename, county_id, peer_group, state_id, state_abbv)
 
     // update charts and legend
     populateCharts(data, "countyProfile");
-    populateLegends("countyProfile", countyName, "AL", peer_group);
+    populateLegends("countyProfile", countyName, state_abbv, peer_group);
 
     if(!isPrint) {
         // after all charts have rendered, grab drawer heights and close all except the first drawer
@@ -323,15 +323,19 @@ function updateBarChart(chartID, data, parentPage) {
     barGrps.select(".bar")
         .transition()
         .attr("class", function(d) { return d.geography === "county" ? "bar peerGroup" + peerGroupNumber : "bar " + d.geography; })
-        .attr("y", function(d) { return yScale(d[chartID]); })
-        .attr("height", function(d) { return yScale(0) - yScale(d[chartID]); });
+        .attr("y", function(d) { return isNaN(d[chartID]) ? 0 : yScale(d[chartID]); })
+        .attr("height", function(d) { return isNaN(d[chartID]) ? 0: yScale(0) - yScale(d[chartID]); });
 
     barGrps.select(".barLabel")
         .transition()
-        .attr("y", function(d) { return yScale(d[chartID]) - 5; })
-        .text(function(d) { if(chartID === "credit_score") { return COMMAFORMAT(d[chartID]); }
-                            else if(chartID === "wage_fair_market_rent" || chartID === "median_income") { return DOLLARFORMAT(d[chartID]); }
-                            else { return PCTFORMATONEDECIMAL(d[chartID]/100); }});
+        .attr("y", function(d) { return isNaN(d[chartID]) ? chartDimensions.height - 5 : yScale(d[chartID]) - 5; })
+        .text(function(d) { if(isNaN(d[chartID])) { return "*"; }
+                            else {
+                                if(chartID === "credit_score") { return COMMAFORMAT(d[chartID]); }
+                                else if(chartID === "wage_fair_market_rent" || chartID === "median_income") { return DOLLARFORMAT(d[chartID]); }
+                                else { return PCTFORMATONEDECIMAL(d[chartID]/100); }
+                            }
+                        });
 }
 
 function getData(parentPage, countyId, peerGroupId, stateId) {
@@ -358,18 +362,22 @@ function drawBars(svg, data, metric, parentPage) {
         .attr("class", function(d) { if(parentPage === "peerGroupProfile") { return d.geography === "peer_group" ? "bar peerGroup" + d.id : "bar " + d.geography; }
                                      else { return d.geography === "county" ? "bar peerGroup" + peerGroupNumber : "bar " + d.geography; } })
         .attr("x", function(d) { return parentPage === "peerGroupProfile" ? xScalePG(d.geography) : xScaleCnty(d.geography); })
-        .attr("y", function(d) { return yScale(d[metric]); })
-        .attr("height", function(d) { return yScale(0) - yScale(d[metric]); })
+        .attr("y", function(d) { return isNaN(d[metric]) ? 0 : yScale(d[metric]); })
+        .attr("height", function(d) { return isNaN(d[metric]) ? 0 : yScale(0) - yScale(d[metric]); })
         .attr("width", parentPage === "peerGroupProfile" ? xScalePG.bandwidth() : xScaleCnty.bandwidth());
 
     barGrps.append("text")
         .attr("class", "barLabel")
         .attr("x", function(d) { if(parentPage === "peerGroupProfile") { return xScalePG(d.geography) + xScalePG.bandwidth()/2; }
                                  else { return xScaleCnty(d.geography) + xScaleCnty.bandwidth()/2; } })
-        .attr("y", function(d) { return yScale(d[metric]) - 5; })
-        .text(function(d) { if(metric === "credit_score") { return COMMAFORMAT(d[metric]); }
-                            else if(metric === "wage_fair_market_rent" || metric === "median_income") { return DOLLARFORMAT(d[metric]); }
-                            else { return PCTFORMATONEDECIMAL(d[metric]/100); }});
+        .attr("y", function(d) { return isNaN(d[metric]) ? chartDimensions.height - 5 : yScale(d[metric]) - 5; })
+        .text(function(d) { if(isNaN(d[metric])) { return "*"; }
+                            else {
+                                if(metric === "credit_score") { return COMMAFORMAT(d[metric]); }
+                                else if(metric === "wage_fair_market_rent" || metric === "median_income") { return DOLLARFORMAT(d[metric]); }
+                                else { return PCTFORMATONEDECIMAL(d[metric]/100); }
+                            }
+                        });
 
     var xAxisElements = svg.append("g")
         .attr("class", "axis axis--x")
