@@ -53,23 +53,26 @@ pg <- pg_dat %>%
 
 
 # read in county level data
-cnty_dat <- read_excel("source/clusterdata_11-8_county data.xlsx")
+cnty_dat <- read_excel("source/2019-02-26_Walmart_county data_excl impute_CB Nlt50_fmt.xlsx",
+                       sheet = "cnty data_unimp_2-25_dash mets", range = c("A4:W3146"),
+                       na = c("n/a*", "n/a**"))
 
 cnty <- cnty_dat %>%
-  select(-County, -State, -`Peer Group`, -`Limited access to healthy food`, -`Transportation costs as percent of income`,
-         -`Premature deaths per 100,000 people`, -`Average unsecured debt`, -`Medical debt in collections`,
-         -`Income inequality`, -`Households receiving SNAP`, -Immigrants) %>%
-  rename(id = `County FIPS code`, name = `Full County Name`,
-         food_insecure_all = `Food insecure, all`, food_insecure_children = `Food insecure, children`,
-         low_birthweight = `Low-birthweight births`, diabetes = Diabetic, 
-         disability = Disabled, no_insurance = `No health insurance`,
+  # select(-County, -State, -`Peer Group`, -`Limited access to healthy food`, -`Transportation costs as percent of income`,
+  #        -`Premature deaths per 100,000 people`, -`Average unsecured debt`, -`Medical debt in collections`,
+  #        -`Income inequality`, -`Households receiving SNAP`, -Immigrants) %>%
+  select(-`Peer Group Number`, -`State Name`) %>%
+  rename(id = `County FIPS`, name = `County Name`,
+         food_insecure_all = `Food insecure, all people`, food_insecure_children = `Food insecure, children`,
+         low_birthweight = `Low-birthweight births`, diabetes = `People with diabetes`, 
+         disability = `People with disability`, no_insurance = `No health insurance`,
          housing_cost_burdened = `Housing-cost burdened`, severely_housing_cost_burdened = `Severely housing-cost burdened`, 
          wage_fair_market_rent = `Wage to afford fair market rent`,
          median_income = `Median household income`, below_poverty = `Below 200% of federal poverty level`, 
          unemployment = `Unemployment rate`,
          credit_score = `Median credit score`, debt = `Debt in collections`, 
          children = `Households with children`, seniors = `Households with seniors (65+)`, 
-         people_color = `People of color`, college_less = `Some college or less`,
+         people_color = `People of color`, college_less = `No college degree`,
          rural_population = `Population in rural area`) %>%
   mutate(id = str_pad(as.character(id), width = 5, pad = "0"), geography = "county")
 
@@ -111,7 +114,7 @@ write_csv(chartData, "chart_data.csv")
 mapData <- get_urbn_map("counties") %>%
   select(county_fips, county_name, state_fips, state_name, state_abbv) %>%
   distinct %>%
-  left_join(cnty_dat, by = c("county_name" = "County", "state_name" = "State")) %>%
-  select(county_fips, county_name, state_fips, state_name, state_abbv, peer_group = `Peer Group`)
+  left_join(cnty_dat, by = c("county_name" = "County Name", "state_name" = "State Name")) %>%
+  select(county_fips, county_name, state_fips, state_name, state_abbv, peer_group = `Peer Group Number`)
 
 write_csv(mapData, "map_data.csv")
