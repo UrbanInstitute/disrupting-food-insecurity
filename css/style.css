@@ -141,7 +141,7 @@ button:hover, button:focus {
 /************ SUBNAV ***************/
 .peerGroupMenu {
     width: 100%;
-    height: 616px;
+    /*height: 616px;*/
     background-color: #f9f9f9;
     border: 1px solid #f9f9f9;
     position: fixed;
