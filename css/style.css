@@ -742,7 +742,7 @@ section.peerGroupMap .map {
 }
 
 #countySearch {
-    width: 210px;
+    width: 250px;
     height: 39px;
     background-color: #e5e5e5;
     border: none;
@@ -770,7 +770,7 @@ section.peerGroupMap .map {
     /*max-height: 300px;*/
     overflow-y: auto;
     overflow-x: hidden;
-    font-size: 12px;
+    font-size: 16px;
     font-style: italic;
 }
 
