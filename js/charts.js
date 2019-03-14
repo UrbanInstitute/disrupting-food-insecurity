@@ -26,7 +26,7 @@ var PCTFORMATONEDECIMAL = d3.format(".1%");
 var COMMAFORMAT = d3.format(",.0f");
 var DOLLARFORMAT = d3.format("$,.0f");
 
-var chartDimensions = {width_pg: 120, width_cnty: 180, height: 100, margin: {top: 20, right: 0, bottom: 5, left: 0}};
+var chartDimensions = {width_pg: 130, width_cnty: 220, height: 100, margin: {top: 20, right: 0, bottom: 5, left: 0}};
 var mapMargins = 10;
 
 var xScalePG = d3.scaleBand()
@@ -37,7 +37,7 @@ var xScalePG = d3.scaleBand()
 var xScaleCnty = d3.scaleBand()
     .domain(["county", "peer_group", "state", "national"])
     .range([0, chartDimensions.width_cnty])
-    .padding(0.35);
+    .padding(0.3);
 
 var yScale = d3.scaleLinear()
     .range([chartDimensions.height, 0]);
