@@ -195,7 +195,7 @@ button:hover, button:focus {
     font-size: 18px;
 }
 
-.peerGroupLink a:hover, .peerGroupLink a:focus {
+.peerGroupLink:hover, .peerGroupLink:focus {
     font-weight: bold;
 }
 
