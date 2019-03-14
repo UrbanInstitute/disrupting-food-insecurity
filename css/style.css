@@ -665,7 +665,12 @@ a.peerGroupProfileLink.peerGroup10 {
     fill: #fff;
 }
 
-.highlighted {
+/*.highlighted {
+    stroke: #000;
+    stroke-width: 2px;
+}
+*/
+.peerGroupProfile .county.highlighted {
     stroke: #000;
     stroke-width: 2px;
 }
@@ -721,6 +726,7 @@ section.peerGroupMap {
 
 .selected {
     opacity: 1;
+    stroke: #d2d2d2;
 }
 
 .resetMapLink {
