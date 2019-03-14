@@ -815,14 +815,21 @@ a.peerGroupProfileLink {
 }
 
 section.peerGroupSummary {
-    margin-top: 60px;
+    margin-top: 40px;
+}
+
+section.peerGroupSummary p {
+    color: #353535;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 300;
 }
 
 .peerGroupBullets {
-    width: 350px;
+    width: 370px;
     display: inline-block;
     vertical-align: top;
-    margin-right: 40px;
+    margin-right: 20px;
     color: #353535;
     font-size: 24px;
     font-style: italic;
@@ -841,7 +848,7 @@ section.peerGroupSummary {
     font-style: italic;
     font-weight: 300;
 */    list-style: none;
-    padding-left: 45px;
+    padding-left: 25px;
 }
 
 .peerGroupBullets li {
