@@ -25,7 +25,8 @@ body, html {
     max-width: 1100px;
 }
 
-text {
+text,
+input {
     font-family: "Lato", sans-serif;
 }
 
