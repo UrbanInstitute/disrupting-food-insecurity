@@ -568,7 +568,7 @@ a.peerGroupProfileLink.peerGroup10 {
 }
 
 .chartName {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .bar.peer_group {
@@ -592,7 +592,7 @@ a.peerGroupProfileLink.peerGroup10 {
 
 .legendText {
     font-family: Lato;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 20px;
     float: left;
     display: inline-block;
