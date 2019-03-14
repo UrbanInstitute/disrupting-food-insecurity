@@ -332,10 +332,16 @@ function updateBarChart(chartID, data, parentPage) {
     barGrps.select(".bar")
         .transition()
         .attr("class", function(d) { return d.geography === "county" ? "bar peerGroup" + peerGroupNumber : "bar " + d.geography; })
+        .attr("y", chartDimensions.height)
+        .attr("height", 0)
+        .transition()
+        .attr("class", function(d) { return d.geography === "county" ? "bar peerGroup" + peerGroupNumber : "bar " + d.geography; })
         .attr("y", function(d) { return isNaN(d[chartID]) ? 0 : yScale(d[chartID]); })
         .attr("height", function(d) { return isNaN(d[chartID]) ? 0: yScale(0) - yScale(d[chartID]); });
 
     barGrps.select(".barLabel")
+        .transition()
+        .attr("y", chartDimensions.height)
         .transition()
         .attr("y", function(d) { return isNaN(d[chartID]) ? chartDimensions.height - 5 : yScale(d[chartID]) - 5; })
         .text(function(d) { if(isNaN(d[chartID])) { return "*"; }
