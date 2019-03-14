@@ -691,6 +691,8 @@ function initializeSearchbox() {
     });
 }
 
+d3.select("#countySearch").on("click", function() { $("#countySearch").val(""); });
+
 function addAnd(geo) {
     var geoArray = geo.split(",");
     if(geoArray.length === 1) {
