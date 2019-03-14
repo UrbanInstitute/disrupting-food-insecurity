@@ -315,10 +315,10 @@ function makeBarChart(chartID, data, parentPage) {
     drawBars(svg, data, chartID, parentPage);
 
     // add name of metric below each chart
-    d3.select("#" + chartID)
-        .append("div")
-        .attr("class", "chartName")
-        .text(metricNameMapping[chartID]);
+    // d3.select("#" + chartID)
+    //     .append("div")
+    //     .attr("class", "chartName")
+    //     .text(metricNameMapping[chartID]);
 }
 
 function updateBarChart(chartID, data, parentPage) {
