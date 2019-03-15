@@ -651,6 +651,7 @@ a.peerGroupProfileLink.peerGroup10 {
     stroke: none;
     stroke-width: 0.5px;
     opacity: 0.1;
+    cursor: pointer;
 }
 
 .countyProfile .county {
@@ -660,6 +661,7 @@ a.peerGroupProfileLink.peerGroup10 {
 .map .state {
     fill: none;
     stroke: #d2d2d2;
+    cursor: pointer;
 }
 
 .countyProfile .map .state {
