@@ -730,8 +730,8 @@ a.peerGroupProfileLink.peerGroup10 {
 }
 
 .zoomOutMapBtn img {
-    width: 30px;
-    height: 30px;
+    width: 48px;
+    height: 48px;
     cursor: pointer;
     position: absolute;
     bottom: 10px;
@@ -778,7 +778,10 @@ section.peerGroupMap {
 }
 
 .resetMapLink {
-    text-transform: uppercase;
+    line-height: 40px;
+    font-size: 14px;
+    font-style: italic;
+    color: #1696d2;
     margin-top: 24px;
     cursor: pointer;
 }
