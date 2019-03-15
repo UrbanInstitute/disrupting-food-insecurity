@@ -674,7 +674,7 @@ a.peerGroupProfileLink.peerGroup10 {
 }
 
 .countyProfile .map .state.greyedOut {
-    opacity: 0.5;
+    opacity: 0.7;
     fill: #fff;
 }
 
