@@ -278,61 +278,61 @@ ul#menu li:hover ul a {
 /*********** PEER GROUP STYLES **********/
 h1.peerGroup1,
 .peerGroupLink.peerGroup1,
-.peerGroupBlock.peerGroup1 {
+.peerGroupBlock.peerGroup1 .peerGroupBlockText {
     border-left: 7px solid #A4201D;
 }
 
 h1.peerGroup2,
 .peerGroupLink.peerGroup2,
-.peerGroupBlock.peerGroup2 {
+.peerGroupBlock.peerGroup2 .peerGroupBlockText {
     border-left: 7px solid #DB2B27;
 }
 
 h1.peerGroup3,
 .peerGroupLink.peerGroup3,
-.peerGroupBlock.peerGroup3 {
+.peerGroupBlock.peerGroup3 .peerGroupBlockText {
     border-left: 7px solid #CA5800;
 }
 
 h1.peerGroup4,
 .peerGroupLink.peerGroup4,
-.peerGroupBlock.peerGroup4 {
+.peerGroupBlock.peerGroup4 .peerGroupBlockText {
     border-left: 7px solid #E88E2D;
 }
 
 h1.peerGroup5,
 .peerGroupLink.peerGroup5,
-.peerGroupBlock.peerGroup5 {
+.peerGroupBlock.peerGroup5 .peerGroupBlockText {
     border-left: 7px solid #FDBF11;
 }
 
 h1.peerGroup6,
 .peerGroupLink.peerGroup6,
-.peerGroupBlock.peerGroup6 {
+.peerGroupBlock.peerGroup6 .peerGroupBlockText {
     border-left: 7px solid #FDD870;
 }
 
 h1.peerGroup7,
 .peerGroupLink.peerGroup7,
-.peerGroupBlock.peerGroup7 {
+.peerGroupBlock.peerGroup7 .peerGroupBlockText {
     border-left: 7px solid #FCE39E;
 }
 
 h1.peerGroup8,
 .peerGroupLink.peerGroup8,
-.peerGroupBlock.peerGroup8 {
+.peerGroupBlock.peerGroup8 .peerGroupBlockText {
     border-left: 7px solid #12719E;
 }
 
 h1.peerGroup9,
 .peerGroupLink.peerGroup9,
-.peerGroupBlock.peerGroup9 {
+.peerGroupBlock.peerGroup9 .peerGroupBlockText {
     border-left: 7px solid #1696D2;
 }
 
 h1.peerGroup10,
 .peerGroupLink.peerGroup10,
-.peerGroupBlock.peerGroup10 {
+.peerGroupBlock.peerGroup10 .peerGroupBlockText {
     border-left: 7px solid #73BFE2;
 }
 
@@ -753,8 +753,12 @@ section.peerGroupMap {
 }
 
 .peerGroupBlock {
+    padding: 5px 0;
+}
+
+.peerGroupBlockText {
     font-size: 14px;
-    margin: 10px 0;
+    /*margin: 10px 0;*/
     padding-left: 10px;
     min-height: 40px;
     color: rgba(0, 0, 0, 0.5);
@@ -767,7 +771,7 @@ section.peerGroupMap {
     stroke: #d2d2d2;
 }
 
-.peerGroupBlock.selected {
+.selected .peerGroupBlockText {
     color: rgba(0, 0, 0, 1);
 }
 
