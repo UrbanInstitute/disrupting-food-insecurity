@@ -21,6 +21,11 @@ body, html {
     text-align: left;
 }
 
+/*.crosshatch {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4JyBoZWlnaHQ9JzgnPgogIDxyZWN0IHdpZHRoPSc4JyBoZWlnaHQ9JzgnIGZpbGw9JyNmZmYnLz4KICA8cGF0aCBkPSdNMCAwTDggOFpNOCAwTDAgOFonIHN0cm9rZS13aWR0aD0nMC41JyBzdHJva2U9JyNhYWEnLz4KPC9zdmc+Cg==");
+    background-repeat: repeat;
+}*/
+
 .main {
     max-width: 1100px;
 }
@@ -554,7 +559,7 @@ a.peerGroupProfileLink.peerGroup10 {
     display: inline-block;
     float: left;
     margin: 20px;
-    margin-right: 40px;
+    /*margin-right: 40px;*/
 }
 
 .peerGroupProfile .chart {
@@ -992,9 +997,13 @@ section.dashboardDrawers {
 }
 
 .metricDescription {
-    width: 100%;
-    clear: both;
+    width: 50%;
+    /*clear: both;*/
     padding: 20px;
+}
+
+.peerGroupProfile .metricDescription {
+    width: 60%;
 }
 
 .metricDescription p {
@@ -1009,8 +1018,13 @@ section.dashboardDrawers {
 }
 
 .charts {
-    width: 100%;
+    width: 50%;
+    float: right;
     /*height: 150px;*/
+}
+
+.peerGroupProfile .charts {
+    width: 40%;
 }
 
 /********header (below urban menu)**********/
