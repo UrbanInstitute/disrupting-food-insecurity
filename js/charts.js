@@ -331,11 +331,12 @@ function updateBarChart(chartID, data, parentPage) {
 
     barGrps.select(".bar")
         .transition()
-        .attr("class", function(d) { return d.geography === "county" ? "bar peerGroup" + peerGroupNumber : "bar " + d.geography; })
         .attr("y", chartDimensions.height)
         .attr("height", 0)
         .transition()
-        .attr("class", function(d) { return d.geography === "county" ? "bar peerGroup" + peerGroupNumber : "bar " + d.geography; })
+        .attr("class", function(d) { if(d.geography === "peer_group") { return parentPage === "countyProfile" ? "bar peer_group" + d.id : "bar peerGroup" + d.id; }
+                                     else if(d.geography === "county") { return "bar peerGroup" + peerGroupNumber; }
+                                     else { return "bar " + d.geography; } })
         .attr("y", function(d) { return isNaN(d[chartID]) ? 0 : yScale(d[chartID]); })
         .attr("height", function(d) { return isNaN(d[chartID]) ? 0: yScale(0) - yScale(d[chartID]); });
 
@@ -350,7 +351,8 @@ function updateBarChart(chartID, data, parentPage) {
                                 else if(chartID === "wage_fair_market_rent" || chartID === "median_income") { return DOLLARFORMAT(d[chartID]); }
                                 else { return PCTFORMATONEDECIMAL(d[chartID]/100); }
                             }
-                        });
+                        }
+            );
 }
 
 function getData(parentPage, countyId, peerGroupId, stateId) {
@@ -374,8 +376,9 @@ function drawBars(svg, data, metric, parentPage) {
         .attr("class", "barGrp");
 
     barGrps.append("rect")
-        .attr("class", function(d) { if(parentPage === "peerGroupProfile") { return d.geography === "peer_group" ? "bar peerGroup" + d.id : "bar " + d.geography; }
-                                     else { return d.geography === "county" ? "bar peerGroup" + peerGroupNumber : "bar " + d.geography; } })
+        .attr("class", function(d) { if(d.geography === "peer_group") { return parentPage === "countyProfile" ? "bar peer_group" + d.id : "bar peerGroup" + d.id; }
+                                     else if(d.geography === "county") { return "bar peerGroup" + peerGroupNumber; }
+                                     else { return "bar " + d.geography; } })
         .attr("x", function(d) { return parentPage === "peerGroupProfile" ? xScalePG(d.geography) : xScaleCnty(d.geography); })
         .attr("y", function(d) { return isNaN(d[metric]) ? 0 : yScale(d[metric]); })
         .attr("height", function(d) { return isNaN(d[metric]) ? 0 : yScale(0) - yScale(d[metric]); })

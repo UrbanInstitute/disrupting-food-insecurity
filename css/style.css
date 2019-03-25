@@ -552,6 +552,10 @@ a.peerGroupProfileLink.peerGroup10 {
 
 
 /********** CHART STYLES ****************/
+#patternDefinitionSvg {
+    height: 0;
+}
+
 .chart {
     /*height: 150px;*/
     /*width: 130px;*/
@@ -584,8 +588,46 @@ a.peerGroupProfileLink.peerGroup10 {
     margin-bottom: 20px;
 }
 
-.bar.peer_group {
-    fill: #353535;
+.countyProfile .bar.peer_group1 {
+    /*fill: #353535;*/
+    fill: url(#pattern-crosshatch-peergroup1);
+    /*mask: url(#mask-crosshatch);*/
+}
+
+.countyProfile .bar.peer_group2 {
+    fill: url(#pattern-crosshatch-peergroup2);
+}
+
+.countyProfile .bar.peer_group3 {
+    fill: url(#pattern-crosshatch-peergroup3);
+}
+
+.countyProfile .bar.peer_group4 {
+    fill: url(#pattern-crosshatch-peergroup4);
+}
+
+.countyProfile .bar.peer_group5 {
+    fill: url(#pattern-crosshatch-peergroup5);
+}
+
+.countyProfile .bar.peer_group6 {
+    fill: url(#pattern-crosshatch-peergroup6);
+}
+
+.countyProfile .bar.peer_group7 {
+    fill: url(#pattern-crosshatch-peergroup7);
+}
+
+.countyProfile .bar.peer_group8 {
+    fill: url(#pattern-crosshatch-peergroup8);
+}
+
+.countyProfile .bar.peer_group9 {
+    fill: url(#pattern-crosshatch-peergroup9);
+}
+
+.countyProfile .bar.peer_group10 {
+    fill: url(#pattern-crosshatch-peergroup10);
 }
 
 .bar.state {
