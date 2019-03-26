@@ -739,12 +739,12 @@ a.peerGroupProfileLink.peerGroup10 {
 
 .tooltip {
     position: absolute;
-    font-size: 12px;
+    /*font-size: 12px;*/
     background-color: #efefef;
     border: 1px solid #efefef;
     padding: 4px;
     text-align: center;
-    pointer-events: none;
+    /*pointer-events: none;*/
 }
 
 .tooltip:after, .tooltip:before {
@@ -769,6 +769,11 @@ a.peerGroupProfileLink.peerGroup10 {
     border-top-color: #efefef;
     border-width: 9px;
     margin-left: -9px;
+}
+
+.tooltip .countyName,
+.tooltip .countyProfileLink {
+    font-size: 12px;
 }
 
 .zoomOutMapBtn img {

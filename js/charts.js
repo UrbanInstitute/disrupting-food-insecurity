@@ -395,7 +395,7 @@ function drawBars(svg, data, metric, parentPage) {
                                 else if(metric === "wage_fair_market_rent" || metric === "median_income") { return DOLLARFORMAT(d[metric]); }
                                 else { return PCTFORMATONEDECIMAL(d[metric]/100); }
                             }
-                        });
+            });
 
     var xAxisElements = svg.append("g")
         .attr("class", "axis axis--x")
@@ -449,7 +449,8 @@ function renderMap(page, peerGroupNumber, width, height) {
             .attr("class", function(d) { return d.properties.peer_group === peerGroupNumber ? "county selected county_" + d.properties.county_fips + " peerGroup" + peerGroupNumber : "county county_" + d.properties.county_fips; })
             .attr("d", path)
             .on("mouseover", function(d) { if(d.properties.peer_group === peerGroupNumber) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "peerGroupProfile"); }})
-            .on("mouseout", function(d) { unHighlightCounty(d); });
+            .on("mouseout", function(d) { unHighlightCounty(d); })
+            .on("click", function(d) { window.location.assign("index.html?county=" + slugify(d.properties.county_name) + "&state=" + d.properties.state_abbv); });
     }
     else {
         svg.append("g")
@@ -481,19 +482,23 @@ function renderMap(page, peerGroupNumber, width, height) {
     }
 }
 
+//keep map tooltip visible until it is moused out on so link can be clickable without interfering with selecting other counties
+d3.select(".peerGroupSummary .tooltip").on("mouseover", function() { d3.select(this).classed("hidden", false); });
+d3.select(".peerGroupSummary .tooltip").on("mouseout", function() { d3.select(this).classed("hidden", true); });
+
 function highlightCounty(county, mouseX, mouseY, page) {
     d3.select("#peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true).moveToFront();
 
     if(page === "peerGroupProfile") {
-        d3.select(".tooltip")
-            .text(county.properties.county_name + ", " + county.properties.state_abbv)
-            .classed("hidden", false);
+        d3.select(".tooltip .countyName").text(county.properties.county_name + ", " + county.properties.state_abbv);
+        d3.select(".tooltip .countyProfileLink").attr("href", "index.html?county=" + slugify(county.properties.county_name) + "&state=" + county.properties.state_abbv);
+        d3.select(".tooltip").classed("hidden", false);
 
-        var tooltipWidth = d3.select(".tooltip").node().getBoundingClientRect().width;
+        var tooltipWidth = d3.select(".tooltip .countyName").node().getBoundingClientRect().width;
 
         d3.select(".tooltip")
             .style("left", mouseX - (tooltipWidth/2) + "px")
-            .style("top", mouseY - 25 + "px");
+            .style("top", mouseY - 45 + "px");
     }
     else {
         d3.select(".geoLabel").text(county.properties.county_name + ", " + county.properties.state_abbv);
@@ -502,7 +507,7 @@ function highlightCounty(county, mouseX, mouseY, page) {
 
 function unHighlightCounty() {
     d3.selectAll("#peerGroupMap .county").classed("highlighted", false);
-    d3.select(".tooltip").text("").classed("hidden", true);
+    // d3.select(".tooltip").classed("hidden", true);
 
     if(d3.select(".countyProfile #peerGroupMap .countyClicked").nodes().length > 0) {
         d3.select(".countyProfile #peerGroupMap .countyClicked").classed("highlighted", true).moveToFront();
