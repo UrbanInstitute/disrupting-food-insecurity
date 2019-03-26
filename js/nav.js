@@ -167,13 +167,19 @@ function highlightPeerGroupInMap(peerGroupBlock) {
 
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("selected", false);
     d3.selectAll(".countyProfile #peerGroupMap .county." + peerGroup).classed("selected", true);
+
+    // show link to peer group profile page
+    d3.selectAll(".countyProfile .peerGroupBlockLink").classed("hidden", true);
+    d3.select(".countyProfile .peerGroupBlock." + peerGroup + " .peerGroupBlockLink").classed("hidden", false);
 }
 
 function removePeerGroupHighlightInMap() {
     d3.selectAll(".countyProfile .peerGroupBlock").classed("selected", false);
+    d3.selectAll(".countyProfile .peerGroupBlockLink").classed("hidden", true);
 
     if(d3.selectAll(".countyProfile #peerGroupMap .county.clicked").nodes().length > 0) {
         d3.select(".countyProfile .peerGroupBlock.clicked").classed("selected", true);
+        d3.select(".countyProfile .peerGroupBlock.clicked .peerGroupBlockLink").classed("hidden", false);
 
         d3.selectAll(".countyProfile #peerGroupMap .county").classed("selected", false);
         d3.selectAll(".countyProfile #peerGroupMap .county.clicked").classed("selected", true);

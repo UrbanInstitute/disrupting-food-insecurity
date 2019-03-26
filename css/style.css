@@ -822,6 +822,12 @@ section.peerGroupMap {
     cursor: pointer;
 }
 
+.peerGroupBlockLink {
+    font-size: 14px;
+    font-style: italic;
+    padding-left: 30px;
+}
+
 .selected {
     opacity: 1;
     stroke: #d2d2d2;
