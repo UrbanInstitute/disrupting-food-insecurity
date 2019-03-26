@@ -639,10 +639,17 @@ a.peerGroupProfileLink.peerGroup10 {
 }
 
 /********** LEGEND STYLES **************/
+.legend {
+    width: 100%;
+    /*height: 30px;*/
+    padding: 24px 20px 20px;
+    /*margin-bottom: 20px;*/
+}
+
 .legendEntry {
     display: inline-block;
-    /*width: 200px;*/
-    margin-right: 40px;
+    width: 49%;
+    /*margin-right: 40px;*/
 }
 
 .legendText {
@@ -1068,13 +1075,6 @@ section.dashboardDrawers {
 
 .metricDescription p {
     max-width: 100%;
-}
-
-.legend {
-    width: 100%;
-    height: 30px;
-    padding: 20px;
-    margin-bottom: 20px;
 }
 
 .charts {
