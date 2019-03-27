@@ -729,6 +729,11 @@ a.peerGroupProfileLink.peerGroup10 {
     fill: #fff;
 }
 
+.countyProfile .map .state.stateClicked {
+    stroke: none;
+    /*stroke-width: 2px;*/
+}
+
 /*.highlighted {
     stroke: #000;
     stroke-width: 2px;
