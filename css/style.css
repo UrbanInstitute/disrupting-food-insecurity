@@ -574,6 +574,7 @@ a.peerGroupProfileLink.peerGroup10 {
 .barLabel {
     font-size: 12px;
     text-anchor: middle;
+    font-weight: bold;
 }
 
 .chartName {
@@ -840,7 +841,7 @@ section.peerGroupMap {
 .peerGroupBlockLink {
     font-size: 14px;
     font-style: italic;
-    padding-left: 30px;
+    padding-left: 18px;
 }
 
 .selected {
@@ -854,7 +855,7 @@ section.peerGroupMap {
 
 .resetMapLink {
     line-height: 40px;
-    font-size: 14px;
+    font-size: 16px;
     font-style: italic;
     color: #1696d2;
     margin-top: 24px;
@@ -915,7 +916,7 @@ html .ui-autocomplete {  /* need this because IE doesn't support max-height */
     display: inline-block;
     float: left;
     line-height: 40px;
-    font-size: 14px;
+    font-size: 16px;
     font-style: italic;
     cursor: pointer;
     color: #1696d2;
