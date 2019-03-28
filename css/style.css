@@ -817,6 +817,11 @@ section.peerGroupMap {
     padding: 5px 0;
 }
 
+.peerGroupBlock.disabled {
+    pointer-events: none;
+    opacity: 0.2;
+}
+
 .peerGroupBlockText {
     font-size: 14px;
     /*margin: 10px 0;*/

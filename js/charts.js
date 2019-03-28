@@ -55,7 +55,8 @@ var path = d3.geoPath()
 var dashboardData,
     mapData;
 
-var countyLookup = {};
+var countyLookup = {},
+    statePeerGroups = {};  // object mapping state names to the peer groups in them
 
 var isIE = navigator.userAgent.indexOf("MSIE") !== -1 || navigator.userAgent.indexOf("Trident") !== -1;
 
@@ -94,8 +95,18 @@ d3.csv("data/chart_data.csv", function(d) {
         mapData = json;
         // console.log(json.objects.counties.geometries);
 
+        // map county names to their corresponding ids and peer groups to be used for the searchbox
+        // also get the peer groups that are contained within each state to disable highlighting of peer groups that aren't in the state
         json.objects.counties.geometries.forEach(function(county){
             countyLookup[county.properties.county_name + ", " + county.properties.state_abbv] = county.properties.county_fips + "," + county.properties.state_fips + "," + county.properties.peer_group;
+
+            var state = county.properties.state_name
+            if(Object.keys(statePeerGroups).indexOf(state) === -1) {
+                statePeerGroups[state] = [county.properties.peer_group];
+            }
+            else {
+                statePeerGroups[state].indexOf(county.properties.peer_group) === -1 && statePeerGroups[state].push(county.properties.peer_group);
+            }
         });
 
         var page = window.location.pathname;
@@ -611,9 +622,16 @@ function zoomToState(state, bounds) {
     d3.selectAll(".countyProfile #peerGroupMap g.counties .county").style("pointer-events", "all");
     d3.selectAll(".countyProfile #peerGroupMap g.states .state:not(.stateClicked)").style("pointer-events", "all");
     d3.selectAll(".countyProfile #peerGroupMap g.states .state.stateClicked").style("pointer-events", "none");
+
+    // disable hover over peer groups in the peer group list that aren't represented in the state
+    d3.selectAll(".peerGroupBlock").classed("disabled", true);
+    var peerGroupsInState = statePeerGroups[state.properties.state_name];
+    peerGroupsInState.forEach(function(pg) {
+        d3.select(".peerGroupBlock.peerGroup" + pg).classed("disabled", false);
+    });
 }
 
-d3.select(".zoomOutMapBtn").on("click", function() { resetMap(); });
+d3.select(".zoomOutMapBtn").on("click", function() { resetMap(); d3.selectAll(".peerGroupBlock").classed("disabled", false); });
 
 function resetMap() {
     // reset map to national view with no states or counties highlighted
@@ -643,7 +661,8 @@ d3.select(".clearSearchbox").on("click", function() { resetMap();
                                                       d3.selectAll(".countyProfile #peerGroupMap .county").classed("countyClicked", false);
                                                       d3.select(".dashboardDrawers").classed("hidden", true);
                                                       d3.select(".geoLabel").text("");
-                                                      $("#countySearch").val(""); });
+                                                      $("#countySearch").val("");
+                                                      d3.selectAll(".peerGroupBlock").classed("disabled", false); });
 
 // function getParentDivWidth(elementId) {
 //     var width = document.getElementById(elementId).clientWidth;
