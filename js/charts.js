@@ -98,7 +98,9 @@ d3.csv("data/chart_data.csv", function(d) {
         // map county names to their corresponding ids and peer groups to be used for the searchbox
         // also get the peer groups that are contained within each state to disable highlighting of peer groups that aren't in the state
         json.objects.counties.geometries.forEach(function(county){
-            countyLookup[county.properties.county_name + ", " + county.properties.state_abbv] = county.properties.county_fips + "," + county.properties.state_fips + "," + county.properties.peer_group;
+            if(county.properties.peer_group !== "NA") {
+                countyLookup[county.properties.county_name + ", " + county.properties.state_abbv] = county.properties.county_fips + "," + county.properties.state_fips + "," + county.properties.peer_group;
+            }
 
             var state = county.properties.state_name
             if(Object.keys(statePeerGroups).indexOf(state) === -1) {
@@ -471,7 +473,8 @@ function renderMap(page, peerGroupNumber, width, height) {
             .data(topojson.feature(mapData, mapData.objects.counties).features)
             .enter()
             .append("path")
-            .attr("class", function(d) { return "county selected county_" + d.properties.county_fips + " peerGroup" + d.properties.peer_group; })
+            .attr("class", function(d) { var classes = "county selected county_" + d.properties.county_fips;
+                                         return d.properties.peer_group !== "NA" ? classes + " peerGroup" + d.properties.peer_group : classes + " disabled"; })
             .attr("d", path)
             .style("pointer-events", "none")
             .on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "countyProfile"); })
@@ -619,7 +622,7 @@ function zoomToState(state, bounds) {
     d3.select(".zoomOutMapBtn").classed("hidden", false);
 
     // activate counties and deactivate state that's been clicked on
-    d3.selectAll(".countyProfile #peerGroupMap g.counties .county").style("pointer-events", "all");
+    d3.selectAll(".countyProfile #peerGroupMap g.counties .county:not(.disabled)").style("pointer-events", "all");
     d3.selectAll(".countyProfile #peerGroupMap g.states .state:not(.stateClicked)").style("pointer-events", "all");
     d3.selectAll(".countyProfile #peerGroupMap g.states .state.stateClicked").style("pointer-events", "none");
 
