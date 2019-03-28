@@ -538,6 +538,11 @@ function selectCounty(county) {
     updateQueryString("?county=" + slugify(county.properties.county_name) + "&state=" + county.properties.state_abbv);
     $("#countySearch").val(county.properties.county_name + ", " + county.properties.state_abbv);
     updateCountyPage(county.properties.county_fips, county.properties.peer_group, county.properties.state_fips, county.properties.state_abbv);
+
+    // scroll page down to top of dashboard section
+    var position = $(".dashboardDrawers").offset().top - $("#header-pinned").height();
+    $("html, body").animate({ scrollTop: position}, 500);
+
     d3.select(".dashboardDrawers").classed("hidden", false);
 }
 
