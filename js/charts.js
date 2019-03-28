@@ -563,7 +563,7 @@ function selectCounty(county) {
 
     // scroll page down to top of dashboard section
     var position = $(".dashboardDrawers").offset().top - $("#header-pinned").height();
-    $("html, body").animate({ scrollTop: position}, 500);
+    $("html, body").animate({ scrollTop: position}, 1000);
 }
 
 function highlightState(stateAbbv, stateName) {
