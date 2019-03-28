@@ -550,11 +550,11 @@ function selectCounty(county) {
     $("#countySearch").val(county.properties.county_name + ", " + county.properties.state_abbv);
     updateCountyPage(county.properties.county_fips, county.properties.peer_group, county.properties.state_fips, county.properties.state_abbv);
 
+    d3.select(".dashboardDrawers").classed("hidden", false);
+
     // scroll page down to top of dashboard section
     var position = $(".dashboardDrawers").offset().top - $("#header-pinned").height();
     $("html, body").animate({ scrollTop: position}, 500);
-
-    d3.select(".dashboardDrawers").classed("hidden", false);
 }
 
 function highlightState(stateAbbv, stateName) {
@@ -712,12 +712,12 @@ function initializeSearchbox() {
             var state = ui.item.label.split(",")[1].trim();
             var geoIDs = countyLookup[ui.item.label].split(",");
 
+            var d_county = d3.select("#peerGroupMap .county.county_" + geoIDs[0]).datum();
+            selectCounty(d_county);
+
             // zoom map into state of selected county and apply highlighting
             var d_state = d3.select("#peerGroupMap .state." + state).datum();
             zoomToState(d_state, path.bounds(d_state));
-
-            var d_county = d3.select("#peerGroupMap .county.county_" + geoIDs[0]).datum();
-            selectCounty(d_county);
         },
         // open: function( event, ui ) {
         //     d3.select("#magnifyGlass").style("visibility", "hidden");
