@@ -342,11 +342,13 @@ function updateBarChart(chartID, data, parentPage) {
     var barGrps = d3.selectAll("#" + chartID + " .barGrp")
         .data(data);
 
+    var t = d3.transition().duration(750);
+
     barGrps.select(".bar")
-        .transition()
+        .transition(t)
         .attr("y", chartDimensions.height)
         .attr("height", 0)
-        .transition()
+        .transition(t)
         .attr("class", function(d) { if(d.geography === "peer_group") { return "bar peerGroup" + d.id; }
                                      else if(d.geography === "county") { return "bar peer_group" + peerGroupNumber; }
                                      else { return "bar " + d.geography; } })
@@ -354,9 +356,9 @@ function updateBarChart(chartID, data, parentPage) {
         .attr("height", function(d) { return isNaN(d[chartID]) ? 0: yScale(0) - yScale(d[chartID]); });
 
     barGrps.select(".barLabel")
-        .transition()
+        .transition(t)
         .attr("y", chartDimensions.height)
-        .transition()
+        .transition(t)
         .attr("y", function(d) { return isNaN(d[chartID]) ? chartDimensions.height - 5 : yScale(d[chartID]) - 5; })
         .text(function(d) { if(isNaN(d[chartID])) { return "*"; }
                             else {
@@ -420,6 +422,10 @@ function drawBars(svg, data, metric, parentPage) {
 
 function populateLegends(page, countyName, stateAbbv, peerGroupNumber) {
     // if(page === "peerGroupProfile") {
+    var currentPeerGroup = getCurrentPeerGroupClass(d3.selectAll(".peerGroupLegendEntry .legendSquare"));
+    if(currentPeerGroup !== null) {
+        d3.selectAll(".peerGroupLegendEntry .legendSquare").classed(currentPeerGroup, false);
+    }
     d3.selectAll(".peerGroupLegendEntry .legendSquare").classed("peerGroup" + peerGroupNumber, true);
     // }
     if(page === "countyProfile") {
