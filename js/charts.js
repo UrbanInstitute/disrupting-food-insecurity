@@ -347,8 +347,8 @@ function updateBarChart(chartID, data, parentPage) {
         .attr("y", chartDimensions.height)
         .attr("height", 0)
         .transition()
-        .attr("class", function(d) { if(d.geography === "peer_group") { return parentPage === "countyProfile" ? "bar peer_group" + d.id : "bar peerGroup" + d.id; }
-                                     else if(d.geography === "county") { return "bar peerGroup" + peerGroupNumber; }
+        .attr("class", function(d) { if(d.geography === "peer_group") { return "bar peerGroup" + d.id; }
+                                     else if(d.geography === "county") { return "bar peer_group" + peerGroupNumber; }
                                      else { return "bar " + d.geography; } })
         .attr("y", function(d) { return isNaN(d[chartID]) ? 0 : yScale(d[chartID]); })
         .attr("height", function(d) { return isNaN(d[chartID]) ? 0: yScale(0) - yScale(d[chartID]); });
@@ -389,8 +389,8 @@ function drawBars(svg, data, metric, parentPage) {
         .attr("class", "barGrp");
 
     barGrps.append("rect")
-        .attr("class", function(d) { if(d.geography === "peer_group") { return parentPage === "countyProfile" ? "bar peer_group" + d.id : "bar peerGroup" + d.id; }
-                                     else if(d.geography === "county") { return "bar peerGroup" + peerGroupNumber; }
+        .attr("class", function(d) { if(d.geography === "peer_group") { return "bar peerGroup" + d.id; }
+                                     else if(d.geography === "county") { return "bar peer_group" + peerGroupNumber; }
                                      else { return "bar " + d.geography; } })
         .attr("x", function(d) { return parentPage === "peerGroupProfile" ? xScalePG(d.geography) : xScaleCnty(d.geography); })
         .attr("y", function(d) { return isNaN(d[metric]) ? 0 : yScale(d[metric]); })
@@ -419,10 +419,10 @@ function drawBars(svg, data, metric, parentPage) {
 }
 
 function populateLegends(page, countyName, stateAbbv, peerGroupNumber) {
-    if(page === "peerGroupProfile") {
-        d3.selectAll(".peerGroupLegendEntry .legendSquare").classed("peerGroup" + peerGroupNumber, true);
-    }
-    else {
+    // if(page === "peerGroupProfile") {
+    d3.selectAll(".peerGroupLegendEntry .legendSquare").classed("peerGroup" + peerGroupNumber, true);
+    // }
+    if(page === "countyProfile") {
         d3.selectAll(".countyAvgLegendEntry .legendText").text(countyName + ", " + stateAbbv);
 
         var currentPeerGroupClass = getCurrentPeerGroupClass(d3.select(".countyAvgLegendEntry .legendSquare"));
