@@ -348,10 +348,10 @@ function updateBarChart(chartID, data, parentPage) {
         .transition(t)
         .attr("y", chartDimensions.height)
         .attr("height", 0)
-        .transition(t)
         .attr("class", function(d) { if(d.geography === "peer_group") { return "bar peerGroup" + d.id; }
                                      else if(d.geography === "county") { return "bar peer_group" + peerGroupNumber; }
                                      else { return "bar " + d.geography; } })
+        .transition(t)
         .attr("y", function(d) { return isNaN(d[chartID]) ? 0 : yScale(d[chartID]); })
         .attr("height", function(d) { return isNaN(d[chartID]) ? 0: yScale(0) - yScale(d[chartID]); });
 
