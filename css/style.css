@@ -1581,6 +1581,11 @@ div.print {
     font-weight: normal;
 }
 
+.print .peerGroupBullets {
+    width: 350px;
+    margin-right: 0;
+}
+
 .print .peerGroupBullets ul {
     font-size: 12px;
     padding-left: 24px;

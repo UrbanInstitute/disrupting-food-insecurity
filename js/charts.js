@@ -224,7 +224,7 @@ function renderPeerGroupPage(pagename, peer_group, isPrint) {
     populateBulletPoints(peer_group);
 
     // update map
-    isPrint ? renderMap("peerGroupProfile", peer_group, 300, 170, true) : renderMap("peerGroupProfile", peer_group, 700, 427, false);
+    isPrint ? renderMap("peerGroupProfile", peer_group, 370, 220, true) : renderMap("peerGroupProfile", peer_group, 700, 427, false);
 
     // update bar charts and legends
     populateCharts(data, "peerGroupProfile");
