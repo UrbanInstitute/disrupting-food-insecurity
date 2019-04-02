@@ -119,37 +119,40 @@ d3.csv("data/chart_data.csv", function(d) {
         }
         else {
             // render county profile page (i.e., homepage)
-            initializeSearchbox();
-            renderMap("index", "all", 750, 522, false);
+            var params = parseQueryString(window.location.search);
+
+            if(params["print"]) {
+                renderMap("index", "all", 370, 220, false);
+            }
+            else {
+                initializeSearchbox();
+                renderMap("index", "all", 750, 522, false);
+            }
 
             if(window.location.search !== "") {
                 // if query string has parameters, use those to populate the charts
-                var params = parseQueryString(window.location.search);
                 var geoIDs = countyLookup[deslugify(params.county) + ", " + params.state].split(",");
 
                 // zoom map into state of selected county and apply highlighting
                 var d_state = d3.select("#peerGroupMap .state." + params.state).datum();
                 zoomToState(d_state, path.bounds(d_state));
 
-                // var d_county = d3.select("#peerGroupMap .county.county_" + geoIDs[0]).datum();
-                // selectCounty(d_county);
                 d3.select(".countyProfile #peerGroupMap .county.county_" + geoIDs[0]).classed("countyClicked", true);
                 d3.select(".countyProfile #peerGroupMap .county.county_" + geoIDs[0]).classed("highlighted", true).moveToFront();
 
                 d3.select(".geoLabel").text(deslugify(params.county) + ", " + params.state);
-                renderCountyPage(page, geoIDs[0], geoIDs[2], geoIDs[1], params.state);
+                renderCountyPage(page, geoIDs[0], geoIDs[2], geoIDs[1], params.state, params["print"]);
             }
             else {
                 // else render page using Autauga County, AL in the dataset
-                renderCountyPage(page, "01001", "6", "01", "AL");
+                renderCountyPage(page, "01001", "6", "01", "AL", false);
             }
         }
         // window.addEventListener("resize", redraw);
     });
 });
 
-function renderCountyPage(pagename, county_id, peer_group, state_id, state_abbv) {
-    var isPrint = pagename.indexOf("print_") > -1;
+function renderCountyPage(pagename, county_id, peer_group, state_id, state_abbv, isPrint) {
 
     // get data
     var data = getData("county", county_id, peer_group, state_id);
@@ -165,12 +168,17 @@ function renderCountyPage(pagename, county_id, peer_group, state_id, state_abbv)
     populateCountySentence(countyName, state_abbv, peer_group, peerGroupName);
 
     // update print link
+    d3.selectAll("a[name='countyPrintLink']").attr("href", "index.html?county=" + slugify(countyName) + "&state=" + state_abbv + "&print=true");
 
     // update charts and legend
     populateCharts(data, "countyProfile");
     populateLegends("countyProfile", countyName, state_abbv, peer_group);
 
-    if(!isPrint) {
+    if(isPrint) {
+        d3.select("body").classed("print", true);
+        populateBulletPoints(peer_group);
+    }
+    else {
         // after all charts have rendered, grab drawer heights and close all except the first drawer
         getDrawerHeights();
         d3.selectAll(".metricDrawer").style("height", drawerTitleHeight + "px");
@@ -184,9 +192,6 @@ function renderCountyPage(pagename, county_id, peer_group, state_id, state_abbv)
 }
 
 function updateCountyPage(county_id, peer_group, state_id, state_abbv) {
-    // parse county from URL
-    // console.log(parseQueryString(window.location.search));
-
     // get data
     var data = getData("county", county_id, peer_group, state_id);
 
@@ -202,6 +207,7 @@ function updateCountyPage(county_id, peer_group, state_id, state_abbv) {
     populateCountySentence(countyName, state_abbv, peer_group, peerGroupName);
 
     // update print link
+    d3.select("a[name='countyPrintLink']").attr("href", "index.html?county=" + slugify(countyName) + "&state=" + state_abbv + "&print=true");
 
     // update charts and legend
     updateCharts(data, "countyProfile");
@@ -289,14 +295,14 @@ function updateCharts(data, parentPage) {
 }
 
 function populateCountySentence(countyName, stateAbbv, peerGroupNumber, peerGroupName) {
-    d3.select("h3.selectedCountyName").text(countyName + ", " + stateAbbv);
-    d3.select("a.peerGroupProfileLink").text(peerGroupName.toLowerCase());
+    d3.selectAll("h3.selectedCountyName").text(countyName + ", " + stateAbbv);
+    d3.selectAll("a.peerGroupProfileLink").text(peerGroupName.toLowerCase());
 
     var currentPeerGroupClass = getCurrentPeerGroupClass(d3.select("a.peerGroupProfileLink"));
-    d3.select("a.peerGroupProfileLink").classed(currentPeerGroupClass, false);
-    d3.select("a.peerGroupProfileLink").classed("peerGroup" + peerGroupNumber, true);
+    d3.selectAll("a.peerGroupProfileLink").classed(currentPeerGroupClass, false);
+    d3.selectAll("a.peerGroupProfileLink").classed("peerGroup" + peerGroupNumber, true);
 
-    d3.select("a.peerGroupProfileLink").attr("href", "peergroup.html?peergroup=" + peerGroupNumber);
+    d3.selectAll("a.peerGroupProfileLink").attr("href", "peergroup.html?peergroup=" + peerGroupNumber);
 }
 
 function populatePGPageTitle(peerGroupName, peerGroupNumber, peerGroupName) {

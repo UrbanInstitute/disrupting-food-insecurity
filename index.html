@@ -134,6 +134,11 @@
             </section>
 
             <section class="peerGroupMap">
+                <div class="printCountyTitle">
+                    <h3 class="selectedCountyName"></h3>
+                    <p class="peerGroupSentence">is in the <a class="peerGroupProfileLink" href="peergroup.html"></a> peer group.</p>
+                </div>
+
                 <div class="peerGroupList">
                     <h4>Peer Groups</h4>
                     <p>Short explanation of what a peer group is (no more than two lines)</p>
@@ -180,6 +185,16 @@
                         </div>
                     </div>
                     <div class="resetMapLink">Reset to view all peer groups</div>
+                </div>
+                <div class="peerGroupBullets">
+                    <ul>
+                        <li class="bullet food_insecurity_bullet">Food insecurity:</li>
+                        <li class="bullet physical_health_bullet">Physical health:</li>
+                        <li class="bullet financial_health_bullet">Financial and economic health:</li>
+                        <li class="bullet housing_cost_bullet">Housing cost burden:</li>
+                        <li class="bullet geography_bullet">Geography:</li>
+                        <li class="bullet demographics_bullet">Demographics:</li>
+                    </ul>
                 </div>
                 <div class="map">
                     <div class="mapTopBar">
@@ -261,7 +276,7 @@
 
                 <div class="expandDrawers">
                     <div class="expandDrawersLink">Expand all</div>
-                    <div class="printLink">Print</div>
+                    <div class="printLink"><a href="" name="countyPrintLink" target="_blank">Print</a></div>
                 </div>
                 <div class="metricDrawer Food_Insecurity">
                     <div class="metricDrawerTitle">Food Insecurity
@@ -582,6 +597,7 @@
         <script src="js/topojson.v1.min.js"></script>
         <script src="https://d3js.org/d3-geo.v1.min.js"></script>
         <!-- <script type="text/javascript" src="js/bootstrap.min.js"></script> -->
+       <script type="text/javascript" src="js/peerGroupBullets.js"></script>
         <script src="js/nav.js"></script>
         <script src="js/charts.js"></script>
 
