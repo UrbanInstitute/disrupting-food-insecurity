@@ -114,13 +114,13 @@ d3.csv("data/chart_data.csv", function(d) {
         var page = window.location.pathname;
         if(page.indexOf("peergroup.html") > -1) {
             // render peer group page charts based on group selected
-            var peer_group = parseQueryString(window.location.search)["peergroup"];
-            renderPeerGroupPage(page, peer_group);
+            var params = parseQueryString(window.location.search);
+            renderPeerGroupPage(page, params["peergroup"], params["print"]);
         }
         else {
             // render county profile page (i.e., homepage)
             initializeSearchbox();
-            renderMap("index", "all", 750, 522);
+            renderMap("index", "all", 750, 522, false);
 
             if(window.location.search !== "") {
                 // if query string has parameters, use those to populate the charts
@@ -208,8 +208,9 @@ function updateCountyPage(county_id, peer_group, state_id, state_abbv) {
     populateLegends("countyProfile", countyName, state_abbv, peer_group);
 }
 
-function renderPeerGroupPage(pagename, peer_group) {
-    var isPrint = pagename.indexOf("print_") > -1;
+function renderPeerGroupPage(pagename, peer_group, isPrint) {
+    // var isPrint = pagename.indexOf("print_") > -1;
+
     // get data
     var data = getData("peergroup", "", peer_group, "");
     var peerGroupName = data.filter(function(d) { return d.geography === "peer_group"; })[0]["name"];
@@ -223,16 +224,19 @@ function renderPeerGroupPage(pagename, peer_group) {
     populateBulletPoints(peer_group);
 
     // update map
-    isPrint ? renderMap("peerGroupProfile", peer_group, 231, 141) : renderMap("peerGroupProfile", peer_group, 700, 427);
+    isPrint ? renderMap("peerGroupProfile", peer_group, 300, 170, true) : renderMap("peerGroupProfile", peer_group, 700, 427, false);
 
     // update bar charts and legends
     populateCharts(data, "peerGroupProfile");
     populateLegends("peerGroupProfile", "", "", peer_group);
 
-    // update print link
-    d3.select("a[name='peerGroupPrintLink']").attr("href", "print_peergroup.html?peergroup=" + peer_group);
+    if(isPrint) {
+        d3.select("body").classed("print", true);
+    }
+    else {
+        // update print link
+        d3.select("a[name='peerGroupPrintLink']").attr("href", "peergroup.html?peergroup=" + peer_group + "&print=true");
 
-    if(!isPrint) {
         // after all charts have rendered, grab drawer heights and close all except the first drawer
         getDrawerHeights();
         d3.selectAll(".metricDrawer").style("height", drawerTitleHeight + "px");
@@ -437,7 +441,8 @@ function populateLegends(page, countyName, stateAbbv, peerGroupNumber) {
     }
 }
 
-function renderMap(page, peerGroupNumber, width, height) {
+function renderMap(page, peerGroupNumber, width, height, isPrint) {
+    if(isPrint) mapMargins = 0;
     // how to scale already projected data: https://stackoverflow.com/questions/42430361/scaling-d3-v4-map-to-fit-svg-or-at-all
     projection.fitSize([width - (mapMargins*2), height - (mapMargins*2)], topojson.feature(mapData, mapData.objects.counties));
 

@@ -569,7 +569,7 @@ a.peerGroupProfileLink.peerGroup10 {
 }
 
 .peerGroupProfile .chart {
-    width: 150px;
+    /*width: 150px;*/
 }
 
 
@@ -1031,11 +1031,12 @@ section.dashboardDrawers {
     cursor: pointer;
 }
 
-.printLink {
+.printLink a {
     margin-right: 40px;
+    color: #000;
 }
 
-.printLink:hover,
+.printLink a:hover,
 .expandDrawersLink:hover {
     font-weight: bold;
     color: #1696d2;
@@ -1496,21 +1497,50 @@ footer h3, footer h4 {
 
 
 /****************** PRINT STYLES ******************/
+.printHeader {
+    display: none;
+}
+
+body.print {
+    width: 8in;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.print #header-pinned {
+    display: none;
+}
+
+.print button,
+.print a {
+    display: none;
+}
+
+.print .wrapper {
+    padding-top: 0;
+    border: none;
+}
+
+.print .printHeader {
+    display: block;
+}
+
 div.print {
     font-size: 12px;
     color: #353535;
     text-align: left;
 }
 
-div.print.page {
-    width: 8in;
+.print div.page {
+/*    width: 8in;
     padding: 5px;
-    page-break-after: always;
+*/    page-break-after: always;
     border: 1px solid black;
 }
 
 .print p {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
+    font-size: 12px;
 }
 
 .printHeader h1 {
@@ -1538,16 +1568,23 @@ div.print.page {
 
 .print .peerGroupTitle {
     font-size: 18px;
-    margin-top: 40px
+    margin-top: 40px;
+    padding-left: 10px;
 }
 
-.print .peerGroupSummary {
+.print section.peerGroupSummary {
     margin-top: 20px;
+}
+
+.print section.peerGroupSummary p {
+    font-size: 12px;
+    font-weight: normal;
 }
 
 .print .peerGroupBullets ul {
     font-size: 12px;
     padding-left: 24px;
+    font-weight: normal;
 }
 
 .print .peerGroupBullets li {
@@ -1555,8 +1592,12 @@ div.print.page {
 }
 
 .print .map {
-    width: 231px;
+/*    width: 231px;
     height: 141px;
+*/}
+
+.print .expandDrawers {
+    display: none;
 }
 
 .print .metricDrawer {
@@ -1565,7 +1606,8 @@ div.print.page {
 
 .print .metricDrawerTitle {
     font-size: 14px;
-    height: 20px;
+    font-weight: normal;
+    height: 30px;
     line-height: 20px;
     background: none;
     cursor: auto;
@@ -1573,17 +1615,36 @@ div.print.page {
     padding-left: 0;
 }
 
+.print .drawerCarat {
+    display: none;
+}
+
+.print .peerGroupProfile .charts {
+    width: 50%;
+}
+
 .print .legend {
-    height: 20px;
-    padding: 15px 0;
+    padding: 0;
 }
 
 .print .legendSquare {
     border-width: 7px;
+    margin-right: 7px;
 }
 
 .print .legendText {
+    font-size: 12px;
     line-height: 14px;
+}
+
+.print .chart {
+    margin: 20px 4px;
+}
+
+.print .chartName {
+    font-size: 14px;
+    margin-bottom: 5px;
+    width: 180px;
 }
 
 .print .map .counties {
@@ -1592,6 +1653,15 @@ div.print.page {
 
 .print .metricDescription {
     padding: 0;
+}
+
+.print footer h4 {
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.print footer p {
+    font-size: 12px;
 }
 
 @media print{
