@@ -606,11 +606,6 @@ a.peerGroupProfileLink.peerGroup10 {
     /*margin-right: 40px;*/
 }
 
-.peerGroupProfile .chart {
-    /*width: 150px;*/
-}
-
-
 .barLabel {
     font-size: 12px;
     text-anchor: middle;
@@ -679,6 +674,12 @@ a.peerGroupProfileLink.peerGroup10 {
     fill: #c4c4c4;
 }
 
+@media screen and (max-width: 600px) {
+    .peerGroupProfile .chart {
+        width: 190px;
+        margin: 20px 0;
+    }
+}
 /********** LEGEND STYLES **************/
 .legend {
     width: 100%;
@@ -733,16 +734,27 @@ a.peerGroupProfileLink.peerGroup10 {
 
 @media screen and (max-width: 600px) {
     .legend {
-        padding: 10px 20px 0;
+        padding: 0;
     }
 
     .legendEntry {
-        width: 100%;
         margin-bottom: 5px;
     }
 
     .legendText {
         width: 153px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .legendEntry {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 451px) and (max-width: 600px) {
+    .legendEntry {
+        width: 49%;
     }
 }
 /********** MAP STYLES ***************/
@@ -1177,6 +1189,10 @@ section.dashboardDrawers {
 }
 
 @media screen and (max-width: 600px) {
+    .metricDrawerContent {
+        padding: 20px;
+    }
+
     .charts,
     .metricDescription,
     .peerGroupProfile .charts,
@@ -1190,6 +1206,7 @@ section.dashboardDrawers {
 
     .metricDescription {
         clear: both;
+        padding: 0;
     }
 }
 /********header (below urban menu)**********/
