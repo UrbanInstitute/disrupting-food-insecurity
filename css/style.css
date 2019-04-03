@@ -869,7 +869,16 @@ a.peerGroupProfileLink.peerGroup10 {
     right: 10px;
 }
 
+@media screen and (max-width: 600px) {
+    .map {
+        width: 100%;
+    }
 
+    .tooltip {
+        display: none;
+        pointer-events: none;
+    }
+}
 /********** COUNTY VIEW PAGE STYLES *************/
 section.peerGroupMap {
     margin-top: 40px;

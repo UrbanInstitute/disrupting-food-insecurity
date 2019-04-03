@@ -148,7 +148,7 @@ d3.csv("data/chart_data.csv", function(d) {
                 renderCountyPage(page, "01001", "6", "01", "AL", false);
             }
         }
-        // window.addEventListener("resize", redraw);
+        window.addEventListener("resize", redraw);
     });
 });
 
@@ -230,7 +230,14 @@ function renderPeerGroupPage(pagename, peer_group, isPrint) {
     populateBulletPoints(peer_group);
 
     // update map
-    isPrint ? renderMap("peerGroupProfile", peer_group, 370, 220, true) : renderMap("peerGroupProfile", peer_group, 700, 427, false);
+    if(isPrint) {
+        renderMap("peerGroupProfile", peer_group, 370, 220, true)
+    }
+    else {
+        var mapDivWidth = d3.select(".map").node().getBoundingClientRect().width;
+        if(mapDivWidth <= 600) renderMap("peerGroupProfile", peer_group, mapDivWidth, mapDivWidth * 0.67);
+        else renderMap("peerGroupProfile", peer_group, 700, 427, false);
+    }
 
     // update bar charts and legends
     populateCharts(data, "peerGroupProfile");
@@ -684,13 +691,15 @@ d3.select(".clearSearchbox").on("click", function() { resetMap();
                                                       $("#countySearch").val("");
                                                       d3.selectAll(".peerGroupBlock").classed("disabled", false); });
 
-// function getParentDivWidth(elementId) {
-//     var width = document.getElementById(elementId).clientWidth;
-//     // console.log(width)
-//     return width;
-// }
+function getParentDivWidth(elementId) {
+    var width = document.getElementById(elementId).clientWidth;
+    // console.log(width)
+    return width;
+}
 
-// function redraw() {
+function redraw() {
+    // get new drawer heights
+    getDrawerHeights();
 //     exampleChartDimensions.width = Math.min(getParentDivWidth("exampleEquityChart") - 70, 575);
 
 //     if(getParentDivWidth("equityChart") >= 1150) {
@@ -721,7 +730,7 @@ d3.select(".clearSearchbox").on("click", function() { resetMap();
 //     $("#downloadChart .comparisonBar").empty();
 //     $("#downloadChart .withEquityBar").empty();
 //     makeEquityBarChart("#downloadChart", getIndicatorSelected(), getBaseGeography(), getComparisonGeography(), toolChartDimensions);
-// }
+}
 
 function initializeSearchbox() {
     $("#countySearch").autocomplete({
