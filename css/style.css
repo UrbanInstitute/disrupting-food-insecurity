@@ -139,6 +139,18 @@ button:hover, button:focus {
     border-color: #1696d2;
 }
 
+@media screen and (max-width: 600px) {
+    button {
+        width: 100%;
+        height: auto;
+        margin: 15px 0;
+    }
+
+    button.dataDownloadBtn {
+        width: 100%;
+    }
+}
+
 .downloadIcon {
     margin-right: 8px;
     vertical-align: bottom;
@@ -213,6 +225,32 @@ button:hover, button:focus {
     margin: 40px auto;
 }
 
+@media screen and (max-width: 600px) {
+    .peerGroupMenu {
+        padding: 40px;
+        height: calc(100% - 52px);
+        overflow-y: scroll;
+    }
+
+    .peerGroupMenu:before,
+    .peerGroupMenu:after {
+        display: none;
+    }
+
+    .peerGroupRow {
+        margin: 0;
+    }
+
+    .peerGroupLink {
+        width: 100%;
+        padding: 0 0 0 10px;
+        margin: 10px 0;
+    }
+
+    .peerGroupMenu hr {
+        display: none;
+    }
+}
 /**************** Intro section styles **************/
 section.intro {
     padding: 40px 0;
@@ -693,6 +731,20 @@ a.peerGroupProfileLink.peerGroup10 {
     border-color: #c4c4c4;
 }
 
+@media screen and (max-width: 600px) {
+    .legend {
+        padding: 10px 20px 0;
+    }
+
+    .legendEntry {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .legendText {
+        width: 153px;
+    }
+}
 /********** MAP STYLES ***************/
 #peerGroupMap {
     position: relative;
@@ -1015,7 +1067,11 @@ section.peerGroupSummary p {
     vertical-align: top;
 }
 
-
+@media screen and (max-width: 600px) {
+    .peerGroupBullets {
+        width: 100%;
+    }
+}
 
 /******************* DRAWER STYLES ****************/
 section.dashboardDrawers {
@@ -1120,6 +1176,22 @@ section.dashboardDrawers {
     width: 40%;
 }
 
+@media screen and (max-width: 600px) {
+    .charts,
+    .metricDescription,
+    .peerGroupProfile .charts,
+    .peerGroupProfile .metricDescription {
+        width: 100%;
+    }
+
+    .charts {
+        float: none;
+    }
+
+    .metricDescription {
+        clear: both;
+    }
+}
 /********header (below urban menu)**********/
 
 
@@ -1456,7 +1528,7 @@ footer h3, footer h4 {
 /*browser windows smaller than 850px*/
 @media (max-width: 399px) {
     .wrapper {
-        padding-top:80px;
+        padding: 100px 20px 20px;
     }
 
     .headerimage{
@@ -1470,7 +1542,7 @@ footer h3, footer h4 {
 
 @media (max-width: 600px) and (min-width:400px) {
     .wrapper {
-        padding-top:80px;
+        padding: 100px 20px 20px;
     }
 
     .headerimage {

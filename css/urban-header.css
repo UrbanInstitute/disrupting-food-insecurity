@@ -107,6 +107,14 @@ body{
     font-weight: bold;
 }
 
+@media screen and (max-width: 600px) {
+    #header-pinned .navLinks {
+        width: 100%;
+        text-align: center;
+        background-color: #efefef;
+    }
+}
+
 #header-pinned .homeLink {
     border-right: 1px solid #696969;
 }
