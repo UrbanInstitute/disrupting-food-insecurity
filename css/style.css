@@ -874,6 +874,11 @@ a.peerGroupProfileLink.peerGroup10 {
         width: 100%;
     }
 
+    .county {
+        pointer-events: none;
+        cursor: default;
+    }
+
     .tooltip {
         display: none;
         pointer-events: none;

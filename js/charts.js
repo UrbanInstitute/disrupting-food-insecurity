@@ -27,7 +27,7 @@ var COMMAFORMAT = d3.format(",.0f");
 var DOLLARFORMAT = d3.format("$,.0f");
 
 var chartDimensions = {width_pg: 130, width_cnty: 220, height: 100, margin: {top: 20, right: 0, bottom: 5, left: 0}};
-var mapMargins = 10;
+var mapWidth, mapHeight, mapMargin;
 
 var xScalePG = d3.scaleBand()
     .domain(["peer_group", "national"])
@@ -122,11 +122,11 @@ d3.csv("data/chart_data.csv", function(d) {
             var params = parseQueryString(window.location.search);
 
             if(params["print"]) {
-                renderMap("index", "all", 370, 220, false);
+                renderMap("index", "all", true);
             }
             else {
                 initializeSearchbox();
-                renderMap("index", "all", 750, 522, false);
+                renderMap("index", "all", false);
             }
 
             if(window.location.search !== "") {
@@ -230,14 +230,7 @@ function renderPeerGroupPage(pagename, peer_group, isPrint) {
     populateBulletPoints(peer_group);
 
     // update map
-    if(isPrint) {
-        renderMap("peerGroupProfile", peer_group, 370, 220, true)
-    }
-    else {
-        var mapDivWidth = d3.select(".map").node().getBoundingClientRect().width;
-        if(mapDivWidth <= 600) renderMap("peerGroupProfile", peer_group, mapDivWidth, mapDivWidth * 0.67);
-        else renderMap("peerGroupProfile", peer_group, 700, 427, false);
-    }
+    renderMap("peerGroupProfile", peer_group, isPrint)
 
     // update bar charts and legends
     populateCharts(data, "peerGroupProfile");
@@ -454,19 +447,37 @@ function populateLegends(page, countyName, stateAbbv, peerGroupNumber) {
     }
 }
 
-function renderMap(page, peerGroupNumber, width, height, isPrint) {
-    if(isPrint) mapMargins = 0;
+function renderMap(page, peerGroupNumber, isPrint) {
+    mapMargin = 10;
+    var pageWidth = d3.select(".main").node().getBoundingClientRect().width;
+
+    if(isPrint) {
+        mapMargin = 0;
+        mapWidth = 370;
+        mapHeight = 220;
+    }
+    else {
+        if(pageWidth < 600) {
+            mapMargin = 0;
+            mapWidth = d3.select(".map").node().getBoundingClientRect().width;
+            mapHeight = mapWidth * 0.62;
+        }
+        else {
+            page === "peerGroupProfile" ? mapWidth = 700 : mapWidth = 750;
+            page === "peerGroupProfile" ? mapHeight = 427 : mapHeight = 522;
+        }
+    }
     // how to scale already projected data: https://stackoverflow.com/questions/42430361/scaling-d3-v4-map-to-fit-svg-or-at-all
-    projection.fitSize([width - (mapMargins*2), height - (mapMargins*2)], topojson.feature(mapData, mapData.objects.counties));
+    projection.fitSize([mapWidth - (mapMargin*2), mapHeight - (mapMargin*2)], topojson.feature(mapData, mapData.objects.counties));
 
     var svg = d3.select("#peerGroupMap")
         .append("svg")
-        .attr("width", width)
-        .attr("height", height);
+        .attr("width", mapWidth)
+        .attr("height", mapHeight);
 
     if(page === "peerGroupProfile") {
         svg.append("g")
-            .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")
+            .attr("transform", "translate(" + mapMargin + "," + mapMargin + ")")
             .attr("class", "states")
             .selectAll("path")
             .data(topojson.feature(mapData, mapData.objects.states).features)
@@ -477,7 +488,7 @@ function renderMap(page, peerGroupNumber, width, height, isPrint) {
             .style("pointer-events", "none");
 
         svg.append("g")
-            .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")
+            .attr("transform", "translate(" + mapMargin + "," + mapMargin + ")")
             .attr("class", "counties")
             .selectAll("path")
             .data(topojson.feature(mapData, mapData.objects.counties).features)
@@ -491,7 +502,7 @@ function renderMap(page, peerGroupNumber, width, height, isPrint) {
     }
     else {
         svg.append("g")
-            .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")
+            .attr("transform", "translate(" + mapMargin + "," + mapMargin + ")")
             .attr("class", "counties")
             .selectAll("path")
             .data(topojson.feature(mapData, mapData.objects.counties).features)
@@ -506,7 +517,7 @@ function renderMap(page, peerGroupNumber, width, height, isPrint) {
             .on("click", function(d) { selectCounty(d); });
 
         svg.append("g")
-            .attr("transform", "translate(" + mapMargins + "," + mapMargins + ")")
+            .attr("transform", "translate(" + mapMargin + "," + mapMargin + ")")
             .attr("class", "states")
             .selectAll("path")
             .data(topojson.feature(mapData, mapData.objects.states).features)
@@ -698,8 +709,16 @@ function getParentDivWidth(elementId) {
 }
 
 function redraw() {
+    var page = window.location.pathname.indexOf("peergroup.html") > -1 ? "peerGroupProfile" : "countyProfile";
+    var params = parseQueryString(window.location.search);
+
     // get new drawer heights
     getDrawerHeights();
+
+    // resize map
+    $("#peerGroupMap svg").remove();
+    renderMap(page, params["peergroup"], false);
+
 //     exampleChartDimensions.width = Math.min(getParentDivWidth("exampleEquityChart") - 70, 575);
 
 //     if(getParentDivWidth("equityChart") >= 1150) {
