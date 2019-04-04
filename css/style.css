@@ -1112,7 +1112,23 @@ a.peerGroupProfileLink {
 }
 
 @media screen and (max-width: 600px) {
-    section.peerGroupMap {
+    .peerGroupList {
+        display: none;
+    }
+
+    section.peerGroupMap .map {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    #countySearch {
+        width: 100%;
+        height: 46px;
+    }
+
+    .geoLabel,
+    .clearSearchbox,
+    .zoomOutMapBtn {
         display: none;
     }
 }
@@ -1611,12 +1627,6 @@ footer h3, footer h4 {
   margin-bottom: 15px;
 }
 
-@media screen and (max-width: 500px) {
-    .content {
-        padding: 0;
-    }
-}
-
 @media (max-width: 1000px) {
 
     .subnav a{
@@ -1723,6 +1733,12 @@ footer h3, footer h4 {
 
     .overhalf{
         width:100%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .content {
+        padding: 0;
     }
 }
 
@@ -1906,6 +1922,23 @@ body.print {
     margin-left: 0;
 }
 
+.print .county {
+    stroke-width: 0.2px;
+    cursor: auto;
+}
+
+.print .map .state {
+    cursor: auto;
+}
+
+.print .countyProfile .map .state {
+    stroke-width: 0.5px;
+}
+
+.print .countyProfile .county.highlighted {
+    stroke-width: 0.4px;
+}
+
 .print .zoomOutMapBtn {
     display: none;
 }
@@ -1917,6 +1950,7 @@ body.print {
 .print a.peerGroupProfileLink {
     display: inline-block;
     pointer-events: none;
+    border-bottom-width: 4px;
 }
 
 .print .metricDrawer {
@@ -1952,7 +1986,7 @@ body.print {
 }
 
 .print .legendText {
-    font-size: 12px;
+    font-size: 10px;
     line-height: 14px;
 }
 

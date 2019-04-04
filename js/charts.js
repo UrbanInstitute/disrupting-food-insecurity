@@ -135,7 +135,7 @@ d3.csv("data/chart_data.csv", function(d) {
 
                 // zoom map into state of selected county and apply highlighting
                 var d_state = d3.select("#peerGroupMap .state." + params.state).datum();
-                zoomToState(d_state, path.bounds(d_state));
+                zoomToState(d_state, path.bounds(d_state), params["print"]);
 
                 d3.select(".countyProfile #peerGroupMap .county.county_" + geoIDs[0]).classed("countyClicked", true);
                 d3.select(".countyProfile #peerGroupMap .county.county_" + geoIDs[0]).classed("highlighted", true).moveToFront();
@@ -487,7 +487,7 @@ function renderMap(page, peerGroupNumber, isPrint) {
             .attr("d", path)
             .style("pointer-events", "none");
 
-        svg.append("g")
+        var counties = svg.append("g")
             .attr("transform", "translate(" + mapMargin + "," + mapMargin + ")")
             .attr("class", "counties")
             .selectAll("path")
@@ -495,13 +495,16 @@ function renderMap(page, peerGroupNumber, isPrint) {
             .enter()
             .append("path")
             .attr("class", function(d) { return d.properties.peer_group === peerGroupNumber ? "county selected county_" + d.properties.county_fips + " peerGroup" + peerGroupNumber : "county county_" + d.properties.county_fips; })
-            .attr("d", path)
-            .on("mouseover", function(d) { if(d.properties.peer_group === peerGroupNumber) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "peerGroupProfile"); }})
-            .on("mouseout", function(d) { unHighlightCounty(d); })
-            .on("click", function(d) { window.location.assign("index.html?county=" + slugify(d.properties.county_name) + "&state=" + d.properties.state_abbv); });
+            .attr("d", path);
+
+        if(!isPrint && pageWidth > 600) {
+            counties.on("mouseover", function(d) { if(d.properties.peer_group === peerGroupNumber) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "peerGroupProfile"); }})
+                .on("mouseout", function(d) { unHighlightCounty(d); })
+                .on("click", function(d) { window.location.assign("index.html?county=" + slugify(d.properties.county_name) + "&state=" + d.properties.state_abbv); });
+        }
     }
     else {
-        svg.append("g")
+        var counties = svg.append("g")
             .attr("transform", "translate(" + mapMargin + "," + mapMargin + ")")
             .attr("class", "counties")
             .selectAll("path")
@@ -511,12 +514,9 @@ function renderMap(page, peerGroupNumber, isPrint) {
             .attr("class", function(d) { var classes = "county selected county_" + d.properties.county_fips;
                                          return d.properties.peer_group !== "NA" ? classes + " peerGroup" + d.properties.peer_group : classes + " disabled"; })
             .attr("d", path)
-            .style("pointer-events", "none")
-            .on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "countyProfile"); })
-            .on("mouseout", function(d) { unHighlightCounty(d); })
-            .on("click", function(d) { selectCounty(d); });
+            .style("pointer-events", "none");
 
-        svg.append("g")
+        var states = svg.append("g")
             .attr("transform", "translate(" + mapMargin + "," + mapMargin + ")")
             .attr("class", "states")
             .selectAll("path")
@@ -524,10 +524,17 @@ function renderMap(page, peerGroupNumber, isPrint) {
             .enter()
             .append("path")
             .attr("class", function(d) { return "state " + d.properties.state_abbv; })
-            .attr("d", path)
-            .on("mouseover", function(d) { highlightState(d.properties.state_abbv, d.properties.state_name); })
-            .on("mouseout", function() { unHighlightState(); })
-            .on("click", function(d) { zoomToState(d, path.bounds(d)); });
+            .attr("d", path);
+
+        if(!isPrint && pageWidth > 600){
+            counties.on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "countyProfile"); })
+                .on("mouseout", function(d) { unHighlightCounty(d); })
+                .on("click", function(d) { selectCounty(d); });
+
+            states.on("mouseover", function(d) { highlightState(d.properties.state_abbv, d.properties.state_name); })
+                .on("mouseout", function() { unHighlightState(); })
+                .on("click", function(d) { zoomToState(d, path.bounds(d), false); });
+        }
     }
 }
 
@@ -624,7 +631,7 @@ function unHighlightState() {
     }
 }
 
-function zoomToState(state, bounds) {
+function zoomToState(state, bounds, isPrint) {
     var mapDimensions = d3.select("#peerGroupMap svg").node().getBoundingClientRect();
     var dx = bounds[1][0] - bounds[0][0],
         dy = bounds[1][1] - bounds[0][1],
@@ -634,14 +641,15 @@ function zoomToState(state, bounds) {
         shiftX = (mapDimensions.width/2) - scale * x,
         shiftY = (mapDimensions.height/2) - scale * y;
 
+    var t = d3.transition().duration(800);
+    if(isPrint) t = d3.transition().duration(0);
+
     d3.selectAll(".countyProfile #peerGroupMap g.states")
-        .transition()
-        .duration(800)
+        .transition(t)
         .attr("transform", "translate(" + shiftX + "," + shiftY + ")scale(" + scale + ")");
 
     d3.selectAll(".countyProfile #peerGroupMap g.counties")
-        .transition()
-        .duration(800)
+        .transition(t)
         .attr("transform", "translate(" + shiftX + "," + shiftY + ")scale(" + scale + ")")
     d3.select(".geoLabel").text(state.properties.state_name);
     // d3.select(".tooltip").attr("transform", "translate(" + shiftX + "," + shiftY + ")");
@@ -717,7 +725,7 @@ function redraw() {
 
     // resize map
     $("#peerGroupMap svg").remove();
-    renderMap(page, params["peergroup"], false);
+    page === "peerGroupProfile" ? renderMap(page, params["peergroup"], false) : renderMap(page, "all", false);
 
 //     exampleChartDimensions.width = Math.min(getParentDivWidth("exampleEquityChart") - 70, 575);
 
@@ -765,7 +773,7 @@ function initializeSearchbox() {
 
             // zoom map into state of selected county and apply highlighting
             var d_state = d3.select("#peerGroupMap .state." + state).datum();
-            zoomToState(d_state, path.bounds(d_state));
+            zoomToState(d_state, path.bounds(d_state), false);
         },
         // open: function( event, ui ) {
         //     d3.select("#magnifyGlass").style("visibility", "hidden");
