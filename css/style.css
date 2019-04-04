@@ -674,9 +674,16 @@ a.peerGroupProfileLink.peerGroup10 {
     fill: #c4c4c4;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 470px) {
     .peerGroupProfile .chart {
         width: 190px;
+        margin: 20px 0;
+    }
+}
+
+@media screen and (min-width: 471px) and (max-width: 600px) {
+    .peerGroupProfile .chart {
+        width: 45%;
         margin: 20px 0;
     }
 }
