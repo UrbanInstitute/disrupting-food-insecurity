@@ -158,6 +158,19 @@ button:hover, button:focus {
     height: 18px;
 }
 
+@media screen and (max-width: 500px) {
+    h1.peerGroupTitle {
+        font-size: 24px;
+    }
+
+    button {
+        font-size: 16px;
+    }
+}
+
+
+
+
 /************ SUBNAV ***************/
 .peerGroupMenu {
     width: 100%;
@@ -682,11 +695,21 @@ a.peerGroupProfileLink.peerGroup10 {
 }
 
 @media screen and (min-width: 471px) and (max-width: 600px) {
+    .chart {
+        width: 240px;
+        margin: 20px 0;
+    }
+
     .peerGroupProfile .chart {
         width: 45%;
         margin: 20px 0;
     }
 }
+
+
+
+
+
 /********** LEGEND STYLES **************/
 .legend {
     width: 100%;
@@ -739,6 +762,12 @@ a.peerGroupProfileLink.peerGroup10 {
     border-color: #c4c4c4;
 }
 
+@media screen and (max-width: 500px) {
+    .legendText {
+        font-size: 12px;
+    }
+}
+
 @media screen and (max-width: 600px) {
     .legend {
         padding: 0;
@@ -746,10 +775,6 @@ a.peerGroupProfileLink.peerGroup10 {
 
     .legendEntry {
         margin-bottom: 5px;
-    }
-
-    .legendText {
-        width: 153px;
     }
 }
 
@@ -761,9 +786,13 @@ a.peerGroupProfileLink.peerGroup10 {
 
 @media screen and (min-width: 451px) and (max-width: 600px) {
     .legendEntry {
-        width: 49%;
+        width: 45%;
     }
 }
+
+
+
+
 /********** MAP STYLES ***************/
 #peerGroupMap {
     position: relative;
@@ -891,6 +920,11 @@ a.peerGroupProfileLink.peerGroup10 {
         pointer-events: none;
     }
 }
+
+
+
+
+
 /********** COUNTY VIEW PAGE STYLES *************/
 section.peerGroupMap {
     margin-top: 40px;
@@ -1031,6 +1065,13 @@ a.peerGroupProfileLink {
     color: #000;
 }
 
+@media screen and (max-width: 600px) {
+    section.peerGroupMap {
+        display: none;
+    }
+}
+
+
 
 
 /********** PEER GROUP PROFILE PAGE STYLES ***********/
@@ -1100,11 +1141,22 @@ section.peerGroupSummary p {
     vertical-align: top;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 500px) {
     .peerGroupBullets {
         width: 100%;
+        font-size: 16px;
+    }
+
+    .peerGroupBullets li {
+        margin-bottom: 20px;
+    }
+
+    section.peerGroupSummary p {
+        font-size: 18px;
     }
 }
+
+
 
 /******************* DRAWER STYLES ****************/
 section.dashboardDrawers {
@@ -1207,6 +1259,21 @@ section.dashboardDrawers {
 
 .peerGroupProfile .charts {
     width: 40%;
+}
+
+@media screen and (max-width: 500px) {
+    .metricDrawerTitle {
+        font-size: 18px;
+    }
+
+    .chartName {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    .metricDescription p {
+        font-size: 14px;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -1457,6 +1524,16 @@ footer h2 {
 
 footer h3, footer h4 {
     font-weight: 400;
+}
+
+@media screen and (max-width: 500px) {
+    .peerGroupProfile footer h4 {
+        font-size: 24px;
+    }
+
+    .peerGroupProfile footer p {
+        font-size: 14px;
+    }
 }
 
 .credits {
