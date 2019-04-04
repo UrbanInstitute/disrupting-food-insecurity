@@ -159,8 +159,20 @@ button:hover, button:focus {
 }
 
 @media screen and (max-width: 500px) {
+    h1 {
+        font-size: 30px;
+    }
+
+    h2 {
+        font-size: 26px;
+    }
+
     h1.peerGroupTitle {
         font-size: 24px;
+    }
+
+    h3 {
+        font-size: 20px;
     }
 
     button {
@@ -264,6 +276,10 @@ button:hover, button:focus {
         display: none;
     }
 }
+
+
+
+
 /**************** Intro section styles **************/
 section.intro {
     padding: 40px 0;
@@ -286,6 +302,19 @@ section.intro {
     color: #353535;
     max-width: 100%;
 }
+
+@media screen and (max-width: 500px) {
+    .publishedDate {
+        font-size: 16px;
+    }
+
+    .intro p {
+        font-size: 16px;
+    }
+}
+
+
+
 
 /***************** mobile chapter (replacing the subnav for smaller screens) ******************/
 
@@ -390,43 +419,43 @@ h1.peerGroup10,
 }
 
 a.peerGroupProfileLink.peerGroup1 {
-    border-bottom: 7px solid #A4201D;
+    border-bottom-color: #A4201D;
 }
 
 a.peerGroupProfileLink.peerGroup2 {
-    border-bottom: 7px solid #DB2B27;
+    border-bottom-color: #DB2B27;
 }
 
 a.peerGroupProfileLink.peerGroup3 {
-    border-bottom: 7px solid #CA5800;
+    border-bottom-color: #CA5800;
 }
 
 a.peerGroupProfileLink.peerGroup4 {
-    border-bottom: 7px solid #E88E2D;
+    border-bottom-color: #E88E2D;
 }
 
 a.peerGroupProfileLink.peerGroup5 {
-    border-bottom: 7px solid #FDBF11;
+    border-bottom-color: #FDBF11;
 }
 
 a.peerGroupProfileLink.peerGroup6 {
-    border-bottom: 7px solid #FDD870;
+    border-bottom-color: #FDD870;
 }
 
 a.peerGroupProfileLink.peerGroup7 {
-    border-bottom: 7px solid #FCE39E;
+    border-bottom-color: #FCE39E;
 }
 
 a.peerGroupProfileLink.peerGroup8 {
-    border-bottom: 7px solid #12719E;
+    border-bottom-color: #12719E;
 }
 
 a.peerGroupProfileLink.peerGroup9 {
-    border-bottom: 7px solid #1696D2;
+    border-bottom-color: #1696D2;
 }
 
 a.peerGroupProfileLink.peerGroup10 {
-    border-bottom: 7px solid #73BFE2;
+    border-bottom-color: #73BFE2;
 }
 
 .peerGroupBullets li.bullet.peerGroup1::before {
@@ -688,6 +717,11 @@ a.peerGroupProfileLink.peerGroup10 {
 }
 
 @media screen and (max-width: 470px) {
+    .chart {
+        width: 240px;
+        margin: 20px 0;
+    }
+
     .peerGroupProfile .chart {
         width: 190px;
         margin: 20px 0;
@@ -1061,8 +1095,20 @@ html .ui-autocomplete {  /* need this because IE doesn't support max-height */
 }
 
 a.peerGroupProfileLink {
+    border-bottom-width: 7px;
+    border-bottom-style: solid;
     font-weight: normal;
     color: #000;
+}
+
+@media screen and (max-width: 500px) {
+    .peerGroupSentence {
+        font-size: 18px;
+    }
+
+    a.peerGroupProfileLink {
+        border-bottom-width: 4px;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -1262,6 +1308,11 @@ section.dashboardDrawers {
 }
 
 @media screen and (max-width: 500px) {
+    .printLink,
+    .expandDrawersLink {
+        font-size: 16px;
+    }
+
     .metricDrawerTitle {
         font-size: 18px;
     }
@@ -1560,6 +1611,12 @@ footer h3, footer h4 {
   margin-bottom: 15px;
 }
 
+@media screen and (max-width: 500px) {
+    .content {
+        padding: 0;
+    }
+}
+
 @media (max-width: 1000px) {
 
     .subnav a{
@@ -1577,7 +1634,7 @@ footer h3, footer h4 {
 
     .content {
         width:auto;
-        padding:0px 30px
+        padding:0px 30px;
     }
 
     .container {
