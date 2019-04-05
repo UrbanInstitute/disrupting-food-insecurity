@@ -457,7 +457,7 @@ function renderMap(page, peerGroupNumber, isPrint) {
         mapHeight = 220;
     }
     else {
-        if(pageWidth < 600) {
+        if(pageWidth < 768) {
             mapMargin = 0;
             mapWidth = d3.select(".map").node().getBoundingClientRect().width;
             mapHeight = mapWidth * 0.62;
@@ -497,7 +497,7 @@ function renderMap(page, peerGroupNumber, isPrint) {
             .attr("class", function(d) { return d.properties.peer_group === peerGroupNumber ? "county selected county_" + d.properties.county_fips + " peerGroup" + peerGroupNumber : "county county_" + d.properties.county_fips; })
             .attr("d", path);
 
-        if(!isPrint && pageWidth > 600) {
+        if(!isPrint && pageWidth > 768) {
             counties.on("mouseover", function(d) { if(d.properties.peer_group === peerGroupNumber) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "peerGroupProfile"); }})
                 .on("mouseout", function(d) { unHighlightCounty(d); })
                 .on("click", function(d) { window.location.assign("index.html?county=" + slugify(d.properties.county_name) + "&state=" + d.properties.state_abbv); });
@@ -526,7 +526,7 @@ function renderMap(page, peerGroupNumber, isPrint) {
             .attr("class", function(d) { return "state " + d.properties.state_abbv; })
             .attr("d", path);
 
-        if(!isPrint && pageWidth > 600){
+        if(!isPrint && pageWidth > 768){
             counties.on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "countyProfile"); })
                 .on("mouseout", function(d) { unHighlightCounty(d); })
                 .on("click", function(d) { selectCounty(d); });

@@ -4,9 +4,17 @@ d3.select(".menuLink").on("mouseover", showPeerGroupMenu);
 // keep peer group menu open as long as user is hovering over it
 d3.select(".peerGroupMenu").on("mouseover", showPeerGroupMenu);
 
+// for screens larger than 768 pixels:
 // close peer group menu when user stops hovering over it or clicks the "PEER GROUPS" link in the header nav
-d3.select(".peerGroupMenu").on("mouseout", hidePeerGroupMenu);
-d3.select(".menuLink").on("click", hidePeerGroupMenu);
+if(d3.select(".main").node().getBoundingClientRect().width > 768) {
+    d3.select(".peerGroupMenu").on("mouseout", hidePeerGroupMenu);
+    d3.select(".menuLink").on("click", hidePeerGroupMenu);
+}
+// for screens less than 768 pixels:
+// clicking the peer group link opens or closes the menu
+else {
+    d3.select(".menuLink").on("click", showPeerGroupMenu);
+}
 
 // mousing over HOME link or social share button also hides the peer group menu
 d3.select(".homeLinkDiv").on("mouseover", hidePeerGroupMenu);
@@ -35,8 +43,6 @@ function hidePeerGroupMenu() {
         d3.select(".menuLink").classed("selected", true);
     }
 }
-
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // functions for opening/closing dashboard drawers

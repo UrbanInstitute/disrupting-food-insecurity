@@ -151,6 +151,12 @@ button:hover, button:focus {
     }
 }
 
+@media screen and (min-width: 601px) and (max-width: 768px) {
+    button {
+        margin-bottom: 30px;
+    }
+}
+
 .downloadIcon {
     margin-right: 8px;
     vertical-align: bottom;
@@ -250,7 +256,7 @@ button:hover, button:focus {
     margin: 40px auto;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
     .peerGroupMenu {
         padding: 40px;
         height: calc(100% - 52px);
@@ -740,7 +746,17 @@ a.peerGroupProfileLink.peerGroup10 {
     }
 }
 
+@media screen and (min-width: 601px) and (max-width: 768px) {
+    .chart {
+        width: 240px;
+        margin: 20px 0;
+    }
 
+    .peerGroupProfile .chart {
+        width: 200px;
+        margin: 20px 0;
+    }
+}
 
 
 
@@ -802,7 +818,7 @@ a.peerGroupProfileLink.peerGroup10 {
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
     .legend {
         padding: 0;
     }
@@ -824,7 +840,11 @@ a.peerGroupProfileLink.peerGroup10 {
     }
 }
 
-
+@media screen and (min-width: 601px) and (max-width: 768px) {
+    .legendEntry {
+        width: 230px;
+    }
+}
 
 
 /********** MAP STYLES ***************/
@@ -939,7 +959,7 @@ a.peerGroupProfileLink.peerGroup10 {
     right: 10px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
     .map {
         width: 100%;
     }
@@ -1218,6 +1238,15 @@ section.peerGroupSummary p {
     }
 }
 
+@media screen and (min-width: 501px) and (max-width: 768px) {
+    .peerGroupBullets {
+        width: 100%;
+    }
+
+    .peerGroupBullets li {
+        margin-bottom: 20px;
+    }
+}
 
 
 /******************* DRAWER STYLES ****************/
@@ -1343,7 +1372,7 @@ section.dashboardDrawers {
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
     .metricDrawerContent {
         padding: 20px;
     }
@@ -1722,7 +1751,7 @@ footer h3, footer h4 {
     }
 }
 
-@media (max-width: 600px) and (min-width:400px) {
+@media (max-width: 768px) and (min-width:400px) {
     .wrapper {
         padding: 100px 20px 20px;
     }
