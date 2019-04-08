@@ -11,7 +11,7 @@ if(d3.select(".main").node().getBoundingClientRect().width > 768) {
     d3.select(".menuLink").on("click", hidePeerGroupMenu);
 }
 // for screens less than 768 pixels:
-// clicking the peer group link opens or closes the menu
+// clicking the peer group link opens the menu
 else {
     d3.select(".menuLink").on("click", showPeerGroupMenu);
 }
