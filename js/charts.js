@@ -224,7 +224,7 @@ function renderPeerGroupPage(pagename, peer_group, isPrint) {
 
     // update title
     // var peerGroupName = data.filter(function(d) { return d.id === peer_group; })[0]["name"];
-    populatePGPageTitle(peerGroupName, peer_group, peerGroupName);
+    populatePGPageTitle(peerGroupName, peer_group);
 
     // update bullets
     populateBulletPoints(peer_group);
@@ -235,6 +235,9 @@ function renderPeerGroupPage(pagename, peer_group, isPrint) {
     // update bar charts and legends
     populateCharts(data, "peerGroupProfile");
     populateLegends("peerGroupProfile", "", "", peer_group);
+
+    // update strategies
+    populateStrategies(peerGroupName, peer_group);
 
     if(isPrint) {
         d3.select("body").classed("print", true);
@@ -305,7 +308,7 @@ function populateCountySentence(countyName, stateAbbv, peerGroupNumber, peerGrou
     d3.selectAll("a.peerGroupProfileLink").attr("href", "peergroup.html?peergroup=" + peerGroupNumber);
 }
 
-function populatePGPageTitle(peerGroupName, peerGroupNumber, peerGroupName) {
+function populatePGPageTitle(peerGroupName, peerGroupNumber) {
     // d3.select("h1.peerGroupTitle").text(peerGroupName);
     d3.select("h1.peerGroupTitle").text(peerGroupName);
     d3.select("h1.peerGroupTitle").classed("peerGroup" + peerGroupNumber, true);
@@ -320,6 +323,10 @@ function populateBulletPoints(peerGroupNumber) {
     d3.select(".housing_cost_bullet").text("Housing cost burden: " + bulletText.housing_cost_burden);
     d3.select(".geography_bullet").text("Geography: " + bulletText.geography);
     d3.select(".demographics_bullet").text("Demographics: " + bulletText.demographics);
+}
+
+function populateStrategies(peerGroupName, peer_group) {
+    d3.select(".peerGroupStrategies h4 span.peerGroupName").text(peerGroupName.toLowerCase());
 }
 
 function makeBarChart(chartID, data, parentPage) {

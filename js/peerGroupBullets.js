@@ -13,7 +13,7 @@ var peerGroupBullets = {
         financial_economic_health: "well below average",
         housing_cost_burden: "high",
         geography: "clustered in the south, mix of urban and rural areas within counties",
-        demographics: "above average share of residents with without a college degree, above average share of residents who are people of color"
+        demographics: "above average share of residents without a college degree, above average share of residents who are people of color"
     },
     peerGroup3: {
         food_insecurity: "high (17 percent)",
@@ -41,15 +41,15 @@ var peerGroupBullets = {
     },
     peerGroup6: {
         food_insecurity: "moderate (14 percent)",
-        physical_health: "average",
+        physical_health: "slightly below average",
         financial_economic_health: "slightly below average",
         housing_cost_burden: "average",
         geography: "mix of urban and rural areas within counties",
-        demographics: "above average share of residents without a college degree"
+        demographics: "above above average share of residents without a college degree"
     },
     peerGroup7: {
         food_insecurity: "moderate (14 percent)",
-        physical_health: "waverage",
+        physical_health: "average",
         financial_economic_health: "average",
         housing_cost_burden: "slightly below average",
         geography: "more rural",
@@ -59,9 +59,9 @@ var peerGroupBullets = {
         food_insecurity: "low (11 percent)",
         physical_health: "slightly above average",
         financial_economic_health: "above average",
-        housing_cost_burden: "slightly below average",
-        geography: "mix of urban and rural areas within counties",
-        demographics: "below average share of residents are people of color"
+        housing_cost_burden: "lowest",
+        geography: "rural",
+        demographics: "residents are less diverse; high share of seniors and lowest share of households with children"
     },
     peerGroup9: {
         food_insecurity: "low (11 percent)",
@@ -77,6 +77,6 @@ var peerGroupBullets = {
         financial_economic_health: "above average to high",
         housing_cost_burden: "above average",
         geography: "mostly urban",
-        demographics: "lower share of seniors and higher share of households with children, residents tend to be more diverse, high shares with a college degree"
+        demographics: "lower share of seniors and higher share of households with children, high shares with a college degree"
     }
 }

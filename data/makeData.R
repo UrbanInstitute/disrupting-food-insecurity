@@ -5,16 +5,16 @@ library(urbnmapr)
 # map peer group numbers to names
 pg_names <- tibble(
   pg_number = as.character(seq(1, 10)),
-  pg_names = c("Very high food insecurity, with multiple risk factors (mostly rural)",
-               "Very high food insecurity, with multiple risk factors and high housing costs",
-               "High food insecurity, with precarious physical, financial, and economic health (mostly rural)",
+  pg_names = c("Very high food insecurity, with multidimensional risks (mostly rural)",
+               "Very high food insecurity, with high housing costs",
+               "High food insecurity, with economic challenges (mostly rural)",
                "High food insecurity, with the highest housing costs (mostly urban)",
                "High food insecurity, with physical health challenges (rural)",
-               "Moderate food insecurity, with precarious physical, financial, and economic health (mostly urban)",
-               "Moderate food insecurity, with tenuous economic health (mostly rural)",
-               "Low food insecurity and low housing costs (mostly rural)",
-               "Low food insecurity, with strong physical, financial, and economic health",
-               "Low food insecurity and high housing costs (mostly urban)")
+               "Moderate food insecurity, with tenuous economic security (mostly urban)",
+               "Moderate food insecurity, with moderate resilience (mostly rural)",
+               "Low food insecurity, with low housing costs (mostly rural)",
+               "Low food insecurity, with high resilience",
+               "Low food insecurity, with high housing costs (mostly urban)")
 )
 
 # make metric names consistent

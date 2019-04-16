@@ -613,15 +613,15 @@ a.peerGroupProfileLink.peerGroup10 {
     list-style: outside none none;
     width: 100%;
     margin: 0 auto;
-    text-align: center;
+    /*text-align: center;*/
     padding-bottom: 10px;
 }
 
 .content ul li {
-    display: inline-block;
+/*    display: inline-block;
     text-align: center;
     text-transform: uppercase;
-    padding-left: 1%;
+    padding-left: 1%;*/
 }
 
 .text {
@@ -652,6 +652,11 @@ a.peerGroupProfileLink.peerGroup10 {
     float: left;
     margin: 20px;
     /*margin-right: 40px;*/
+}
+
+.peerGroupProfile .chart {
+    width: 130px;
+    margin-right: 40px;
 }
 
 .barLabel {
@@ -1194,11 +1199,11 @@ section.peerGroupSummary p {
 
 .peerGroupBullets ul {
     margin: 0;
-/*    color: #353535;
+    /*color: #353535;*/
     font-size: 24px;
-    font-style: italic;
-    font-weight: 300;
-*/    list-style: none;
+    /*font-style: italic;*/
+    /*font-weight: 300;*/
+    list-style: none;
     padding-left: 25px;
 }
 
@@ -1630,6 +1635,16 @@ footer h3, footer h4 {
     .peerGroupProfile footer p {
         font-size: 14px;
     }
+}
+
+footer ol, ul {
+    font-size: 14px;
+    margin-left: 13px;
+    margin-bottom: 24px;
+}
+
+footer li {
+    margin-bottom: 20px;
 }
 
 .credits {
