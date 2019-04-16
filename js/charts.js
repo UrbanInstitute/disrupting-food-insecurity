@@ -306,6 +306,7 @@ function populateCountySentence(countyName, stateAbbv, peerGroupNumber, peerGrou
     d3.selectAll("a.peerGroupProfileLink").classed("peerGroup" + peerGroupNumber, true);
 
     d3.selectAll("a.peerGroupProfileLink").attr("href", "peergroup.html?peergroup=" + peerGroupNumber);
+    d3.select("a.peerGroupStrategiesLink").attr("href", "peergroup.html?peergroup=" + peerGroupNumber + "#strategies");
 }
 
 function populatePGPageTitle(peerGroupName, peerGroupNumber) {
