@@ -327,7 +327,7 @@ function populateBulletPoints(peerGroupNumber) {
 }
 
 function populateStrategies(peerGroupName, peer_group) {
-    d3.select(".peerGroupStrategies h4 span.peerGroupName").text(peerGroupName.toLowerCase());
+    // d3.select(".peerGroupStrategies h4 span.peerGroupName").text(peerGroupName.toLowerCase());
 }
 
 function makeBarChart(chartID, data, parentPage) {
