@@ -769,7 +769,12 @@ function redraw() {
 
 function initializeSearchbox() {
     $("#countySearch").autocomplete({
-        source: Object.keys(countyLookup),
+        source: function( request, response ) {
+          var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+          response( $.grep( Object.keys(countyLookup), function( item ){
+              return matcher.test( item );
+          }) );
+      },
         select: function( event, ui ) {
             $("#countySearch").val(ui.item.label);   // need this so when user clicks on a county name instead of hitting the enter key, the full name is captured by getSchoolName (otherwise, only typed letters will get captured)
             var county = ui.item.label.split(",")[0].trim();
