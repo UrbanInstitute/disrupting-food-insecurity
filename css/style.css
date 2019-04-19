@@ -921,7 +921,7 @@ a.peerGroupProfileLink.peerGroup10 {
     /*font-size: 12px;*/
     background-color: #efefef;
     border: 1px solid #efefef;
-    padding: 4px;
+    padding: 8px;
     text-align: center;
     /*pointer-events: none;*/
 }
@@ -1032,6 +1032,7 @@ section.peerGroupMap {
     font-size: 14px;
     font-style: italic;
     padding-left: 18px;
+    margin-top: 5px;
 }
 
 .selected {
