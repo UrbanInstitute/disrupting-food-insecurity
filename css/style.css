@@ -90,7 +90,7 @@ h1.peerGroupTitle {
 }
 
 h2 {
-    font-size: 48px;
+    font-size: 40px;
     font-weight: lighter;
     color: #353535;
     text-align: center;
@@ -104,7 +104,6 @@ h3 {
 h4 {
     font-size: 18px;
     text-transform: uppercase;
-    font-weight: normal;
 }
 
 /* needed for IE so images with transparent backgrounds used in buttons don't show up with a grey background */
@@ -118,16 +117,16 @@ button {
     text-transform: uppercase;
     color: #353535;
     padding: 10px 15px;
-    margin: 10px 30px 50px 0;
+    margin: 30px 30px 50px 0;
     cursor: pointer;
 }
 
-button.viewStrategiesBtn {
+/*button.viewStrategiesBtn {
     background-color: #1696d2;
     color: #fff;
     border: 0.5px solid #1696d2;
 }
-
+*/
 button.dataDownloadBtn {
     width: 367px;
     padding-left: 10px;
@@ -228,14 +227,14 @@ button:hover, button:focus {
 }
 
 .peerGroupRow {
-    width: 100%;
-    max-width: 1138px;
+    /*width: 100%;*/
+    max-width: 1010px;
     margin: 0 auto 30px;
 }
 
 .peerGroupLink {
     display: inline-block;
-    width: 49%;
+    width: 500px;
     min-height: 45px;
     vertical-align: top;
     padding: 0 40px 0 10px;
@@ -252,8 +251,8 @@ button:hover, button:focus {
 
 .peerGroupMenu hr {
     border: 1px solid #d2d2d2;
-    max-width: 1138px;
-    margin: 40px auto;
+    max-width: 1108px;
+    margin: 30px auto;
 }
 
 @media screen and (max-width: 768px) {
@@ -655,8 +654,8 @@ a.peerGroupProfileLink.peerGroup10 {
 }
 
 .peerGroupProfile .chart {
-    width: 130px;
-    margin-right: 40px;
+    width: 180px;
+    margin-right: 20px;
 }
 
 .barLabel {
@@ -670,6 +669,7 @@ a.peerGroupProfileLink.peerGroup10 {
     min-width: 180px;
     height: 34px;
     margin-bottom: 15px;
+    font-weight: bold;
 }
 
 .countyProfile .chartName {
@@ -775,8 +775,8 @@ a.peerGroupProfileLink.peerGroup10 {
 
 .legendEntry {
     display: inline-block;
-    width: 49%;
-    /*margin-right: 40px;*/
+    /*width: 49%;*/
+    margin-right: 40px;
 }
 
 .legendText {
@@ -952,7 +952,11 @@ a.peerGroupProfileLink.peerGroup10 {
 
 .tooltip .countyName,
 .tooltip .countyProfileLink {
-    font-size: 12px;
+    font-size: 14px;
+}
+
+.tooltip .countyName {
+    font-weight: bold;
 }
 
 .zoomOutMapBtn img {
@@ -1001,6 +1005,8 @@ section.peerGroupMap {
 .peerGroupList p {
     font-style: italic;
     line-height: 24px;
+    font-size: 16px;
+    margin-top: 5px;
 }
 
 .peerGroupBlock {
@@ -1013,7 +1019,7 @@ section.peerGroupMap {
 }
 
 .peerGroupBlockText {
-    font-size: 14px;
+    font-size: 16px;
     /*margin: 10px 0;*/
     padding-left: 10px;
     min-height: 40px;
@@ -1042,7 +1048,7 @@ section.peerGroupMap {
     font-size: 16px;
     font-style: italic;
     color: #1696d2;
-    margin-top: 24px;
+    margin-top: 14px;
     cursor: pointer;
 }
 
@@ -1061,7 +1067,7 @@ section.peerGroupMap .map {
 #countySearch {
     width: 250px;
     height: 39px;
-    background-color: #e5e5e5;
+    background-color: #e3e3e3;
     border: none;
     font-size: 14px;
     display: inline-block;
@@ -1298,10 +1304,10 @@ section.dashboardDrawers {
 .metricDrawerTitle {
     width: 100%;
     height: 50px;
-    background-color: #efefef;
+    background-color: #e3e3e3;
     color: #000;
     font-size: 24px;
-    font-weight: 300;
+    font-weight: 400;
     text-transform: uppercase;
     line-height: 50px;
     padding-left: 20px;
@@ -1334,29 +1340,29 @@ section.dashboardDrawers {
 }
 
 .metricDescription {
-    width: 50%;
-    /*clear: both;*/
+    /*width: 50%;*/
+    clear: both;
     padding: 20px;
 }
 
-.peerGroupProfile .metricDescription {
+/*.peerGroupProfile .metricDescription {
     width: 60%;
-}
+}*/
 
 .metricDescription p {
     max-width: 100%;
 }
 
 .charts {
-    width: 50%;
-    float: right;
-    /*height: 150px;*/
+    /*width: 50%;*/
+    /*float: right;*/
+    height: 150px;
 }
 
-.peerGroupProfile .charts {
+/*.peerGroupProfile .charts {
     width: 40%;
 }
-
+*/
 @media screen and (max-width: 500px) {
     .printLink,
     .expandDrawersLink {
