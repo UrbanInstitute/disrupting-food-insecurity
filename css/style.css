@@ -287,7 +287,7 @@ button:hover, button:focus {
 
 /**************** Intro section styles **************/
 section.intro {
-    padding: 40px 0;
+    padding: 40px 0 22px;
     border-bottom: 1px solid #d2d2d2;
 }
 
@@ -990,7 +990,7 @@ a.peerGroupProfileLink.peerGroup10 {
 
 /********** COUNTY VIEW PAGE STYLES *************/
 section.peerGroupMap {
-    margin-top: 40px;
+    margin-top: 50px;
 }
 
 .printCountyTitle {
@@ -1527,7 +1527,7 @@ footer {
     /*position: fixed;*/
     /*background-color: #f1f2f2;*/
     width: 100%;
-    margin-top: 185px;
+    margin-top: 70px;
     padding-top: 50px;
     padding-bottom: 25px;
     /*bottom: 0;*/
