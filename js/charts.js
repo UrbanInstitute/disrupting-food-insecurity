@@ -242,6 +242,9 @@ function renderPeerGroupPage(pagename, peer_group, isPrint) {
 
     if(isPrint) {
         d3.select("body").classed("print", true);
+        setTimeout(function() {
+            window.print();
+        }, 500);
     }
     else {
         // update print link
