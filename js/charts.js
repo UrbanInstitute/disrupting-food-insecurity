@@ -462,8 +462,14 @@ function populateLegends(page, countyName, stateAbbv, peerGroupNumber) {
         d3.selectAll(".countyAvgLegendEntry .legendText").text(countyName + ", " + stateAbbv);
 
         var currentPeerGroupClass = getCurrentPeerGroupClass(d3.select(".countyAvgLegendEntry .legendSquare"));
-        d3.selectAll(".countyAvgLegendEntry .legendSquare").classed(currentPeerGroupClass, false);
-        d3.selectAll(".countyAvgLegendEntry .legendSquare").classed("peerGroup" + peerGroupNumber, true);
+        // d3.selectAll(".countyAvgLegendEntry .legendSquare").classed(currentPeerGroupClass, false);
+        // d3.selectAll(".countyAvgLegendEntry .legendSquare").classed("peerGroup" + peerGroupNumber, true);
+        if(peerGroupNumber < 10) {
+            d3.selectAll(".countyAvgLegendEntry .legendSquare.county").style("background-image", "url('/img/peerGroup-0" + peerGroupNumber + ".png')");
+        }
+        else {
+            d3.selectAll(".countyAvgLegendEntry .legendSquare.county").style("background-image", "url('/img/peerGroup-" + peerGroupNumber + ".png')");
+        }
     }
 }
 

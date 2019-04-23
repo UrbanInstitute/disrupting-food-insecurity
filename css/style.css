@@ -803,6 +803,11 @@ a.peerGroupProfileLink.peerGroup10 {
 
 .legendSquare.county {
     opacity: 1;
+    border: none;
+    width: 20px;
+    height: 20px;
+    /*background-image: url('/img/peerGroup-01.png');*/
+    background-size: contain;
 }
 
 /*.legendSquare.peergroup {
