@@ -27,6 +27,8 @@ var COMMAFORMAT = d3.format(",.0f");
 var DOLLARFORMAT = d3.format("$,.0f");
 
 var chartDimensions = {width_pg: 130, width_cnty: 220, height: 100, margin: {top: 20, right: 0, bottom: 5, left: 0}};
+var chartDimensionsPrint = {width_pg: 120, width_cnty: 200, height: 90, margin: {top: 20, right: 0, bottom: 5, left: 0}};
+
 var mapWidth, mapHeight, mapMargin;
 
 var xScalePG = d3.scaleBand()
@@ -215,7 +217,6 @@ function updateCountyPage(county_id, peer_group, state_id, state_abbv) {
 }
 
 function renderPeerGroupPage(pagename, peer_group, isPrint) {
-    // var isPrint = pagename.indexOf("print_") > -1;
 
     // get data
     var data = getData("peergroup", "", peer_group, "");
@@ -233,7 +234,7 @@ function renderPeerGroupPage(pagename, peer_group, isPrint) {
     renderMap("peerGroupProfile", peer_group, isPrint)
 
     // update bar charts and legends
-    populateCharts(data, "peerGroupProfile");
+    populateCharts(data, "peerGroupProfile", isPrint);
     populateLegends("peerGroupProfile", "", "", peer_group);
 
     // update strategies
@@ -253,26 +254,26 @@ function renderPeerGroupPage(pagename, peer_group, isPrint) {
     }
 }
 
-function populateCharts(data, parentPage) {
-    makeBarChart("food_insecure_all", data, parentPage);
-    makeBarChart("food_insecure_children", data, parentPage);
-    makeBarChart("low_birthweight", data, parentPage);
-    makeBarChart("diabetes", data, parentPage);
-    makeBarChart("disability", data, parentPage);
-    makeBarChart("no_insurance", data, parentPage);
-    makeBarChart("severely_housing_cost_burdened", data, parentPage);
-    makeBarChart("housing_cost_burdened", data, parentPage);
-    makeBarChart("wage_fair_market_rent", data, parentPage);
-    makeBarChart("median_income", data, parentPage);
-    makeBarChart("below_poverty", data, parentPage);
-    makeBarChart("unemployment", data, parentPage);
-    makeBarChart("credit_score", data, parentPage);
-    makeBarChart("debt", data, parentPage);
-    makeBarChart("children", data, parentPage);
-    makeBarChart("seniors", data, parentPage);
-    makeBarChart("people_color", data, parentPage);
-    makeBarChart("college_less", data, parentPage);
-    makeBarChart("rural_population", data, parentPage);
+function populateCharts(data, parentPage, isPrint) {
+    makeBarChart("food_insecure_all", data, parentPage, isPrint);
+    makeBarChart("food_insecure_children", data, parentPage, isPrint);
+    makeBarChart("low_birthweight", data, parentPage, isPrint);
+    makeBarChart("diabetes", data, parentPage, isPrint);
+    makeBarChart("disability", data, parentPage, isPrint);
+    makeBarChart("no_insurance", data, parentPage, isPrint);
+    makeBarChart("severely_housing_cost_burdened", data, parentPage, isPrint);
+    makeBarChart("housing_cost_burdened", data, parentPage, isPrint);
+    makeBarChart("wage_fair_market_rent", data, parentPage, isPrint);
+    makeBarChart("median_income", data, parentPage, isPrint);
+    makeBarChart("below_poverty", data, parentPage, isPrint);
+    makeBarChart("unemployment", data, parentPage, isPrint);
+    makeBarChart("credit_score", data, parentPage, isPrint);
+    makeBarChart("debt", data, parentPage, isPrint);
+    makeBarChart("children", data, parentPage, isPrint);
+    makeBarChart("seniors", data, parentPage, isPrint);
+    makeBarChart("people_color", data, parentPage, isPrint);
+    makeBarChart("college_less", data, parentPage, isPrint);
+    makeBarChart("rural_population", data, parentPage, isPrint);
 }
 
 function updateCharts(data, parentPage) {
@@ -330,20 +331,28 @@ function populateStrategies(peerGroupName, peer_group) {
     // d3.select(".peerGroupStrategies h4 span.peerGroupName").text(peerGroupName.toLowerCase());
 }
 
-function makeBarChart(chartID, data, parentPage) {
+function makeBarChart(chartID, data, parentPage, isPrint) {
+
+    var chartSize = isPrint ? chartDimensionsPrint : chartDimensions;
 
     yScale.domain([0, d3.max(data, function(d) { return d[chartID]; })]);
 
-    var chartWidth = parentPage === "peerGroupProfile" ? chartDimensions.width_pg : chartDimensions.width_cnty;
+    if(isPrint) {
+        yScale.range([chartDimensionsPrint.height, 0]);
+        xScalePG.range([0, chartDimensionsPrint.width_pg]);
+        xScaleCnty.range([0, chartDimensionsPrint.width_cnty]);
+    }
+
+    var chartWidth = parentPage === "peerGroupProfile" ? chartSize.width_pg : chartSize.width_cnty;
 
     var svg = d3.select("#" + chartID)
         .append("svg")
-        .attr("width", chartWidth + chartDimensions.margin.left + chartDimensions.margin.right)
-        .attr("height", chartDimensions.height + chartDimensions.margin.top + chartDimensions.margin.bottom)
+        .attr("width", chartWidth + chartSize.margin.left + chartSize.margin.right)
+        .attr("height", chartSize.height + chartSize.margin.top + chartSize.margin.bottom)
         .append("g")
-        .attr("transform", "translate(" + chartDimensions.margin.left + "," + chartDimensions.margin.top + ")");
+        .attr("transform", "translate(" + chartSize.margin.left + "," + chartSize.margin.top + ")");
 
-    drawBars(svg, data, chartID, parentPage);
+    drawBars(svg, data, chartID, chartSize.height, parentPage);
 
     // add name of metric below each chart
     // d3.select("#" + chartID)
@@ -397,7 +406,7 @@ function getData(parentPage, countyId, peerGroupId, stateId) {
     }
 }
 
-function drawBars(svg, data, metric, parentPage) {
+function drawBars(svg, data, metric, chartHeight, parentPage) {
     var peerGroupNumber = data.filter(function(d) { return d.geography === "peer_group"; })[0]["id"];
 
     var xAxis = parentPage === "peerGroupProfile" ? d3.axisBottom(xScalePG).ticks(null) : d3.axisBottom(xScaleCnty).ticks(null);
@@ -421,7 +430,7 @@ function drawBars(svg, data, metric, parentPage) {
         .attr("class", "barLabel")
         .attr("x", function(d) { if(parentPage === "peerGroupProfile") { return xScalePG(d.geography) + xScalePG.bandwidth()/2; }
                                  else { return xScaleCnty(d.geography) + xScaleCnty.bandwidth()/2; } })
-        .attr("y", function(d) { return isNaN(d[metric]) ? chartDimensions.height - 5 : yScale(d[metric]) - 5; })
+        .attr("y", function(d) { return isNaN(d[metric]) ? chartHeight - 5 : yScale(d[metric]) - 5; })
         .text(function(d) { if(isNaN(d[metric])) { return "*"; }
                             else {
                                 if(metric === "credit_score") { return COMMAFORMAT(d[metric]); }
@@ -432,7 +441,7 @@ function drawBars(svg, data, metric, parentPage) {
 
     var xAxisElements = svg.append("g")
         .attr("class", "axis axis--x")
-        .attr("transform", "translate(0," + chartDimensions.height + ")")
+        .attr("transform", "translate(0," + chartHeight + ")")
         .call(xAxis.tickSize(0));
 
     xAxisElements.selectAll("text").remove();

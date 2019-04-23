@@ -1830,13 +1830,12 @@ div.print {
 /*    width: 8in;
     padding: 5px;
 */    page-break-after: always;
-    border: 1px solid black;
 }
 
 body.print {
     width: 8in;
     padding: 5px;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
 .print p {
@@ -1844,9 +1843,13 @@ body.print {
     font-size: 12px;
 }
 
-.print button,
-.print a {
+.print button {
     display: none;
+}
+
+.print a {
+    pointer-events: none;
+    color: #353535;
 }
 
 .print #header-pinned {
@@ -1930,7 +1933,7 @@ body.print {
 }
 
 .print .peerGroupBullets {
-    width: 350px;
+    width: 340px;
     margin-right: 0;
 }
 
@@ -2004,6 +2007,10 @@ body.print {
     border-bottom-width: 4px;
 }
 
+.print a.topOfPageLink {
+    display: none;
+}
+
 .print .metricDrawer {
     background: none;
 }
@@ -2017,16 +2024,17 @@ body.print {
     cursor: auto;
     pointer-events: none;
     padding-left: 0;
+    margin-top: 50px;
 }
 
 .print .drawerCarat {
     display: none;
 }
 
-.print .peerGroupProfile .charts {
+/*.print .peerGroupProfile .charts {
     width: 50%;
 }
-
+*/
 .print .legend {
     padding: 0;
 }
@@ -2043,6 +2051,7 @@ body.print {
 
 .print .chart {
     margin: 20px 4px;
+    width: 170px;
 }
 
 .print .chartName {
