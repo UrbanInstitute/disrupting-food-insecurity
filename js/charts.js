@@ -662,6 +662,8 @@ function unHighlightState() {
 }
 
 function zoomToState(state, bounds, isPrint) {
+    var pageWidth = d3.select(".main").node().getBoundingClientRect().width;
+
     var mapDimensions = d3.select("#peerGroupMap svg").node().getBoundingClientRect();
     var dx = bounds[1][0] - bounds[0][0],
         dy = bounds[1][1] - bounds[0][1],
@@ -695,9 +697,11 @@ function zoomToState(state, bounds, isPrint) {
     d3.select(".zoomOutMapBtn").classed("hidden", false);
 
     // activate counties and deactivate state that's been clicked on
-    d3.selectAll(".countyProfile #peerGroupMap g.counties .county:not(.disabled)").style("pointer-events", "all");
-    d3.selectAll(".countyProfile #peerGroupMap g.states .state:not(.stateClicked)").style("pointer-events", "all");
-    d3.selectAll(".countyProfile #peerGroupMap g.states .state.stateClicked").style("pointer-events", "none");
+    if(pageWidth > 768) {
+        d3.selectAll(".countyProfile #peerGroupMap g.counties .county:not(.disabled)").style("pointer-events", "all");
+        d3.selectAll(".countyProfile #peerGroupMap g.states .state:not(.stateClicked)").style("pointer-events", "all");
+        d3.selectAll(".countyProfile #peerGroupMap g.states .state.stateClicked").style("pointer-events", "none");
+    }
 
     // disable hover over peer groups in the peer group list that aren't represented in the state
     d3.selectAll(".peerGroupBlock").classed("disabled", true);
@@ -710,6 +714,8 @@ function zoomToState(state, bounds, isPrint) {
 d3.select(".zoomOutMapBtn").on("click", function() { resetMap(); d3.selectAll(".peerGroupBlock").classed("disabled", false); });
 
 function resetMap() {
+    var pageWidth = d3.select(".main").node().getBoundingClientRect().width;
+
     // reset map to national view with no states or counties highlighted
     d3.selectAll(".countyProfile #peerGroupMap g.states")
         .transition()
@@ -723,8 +729,10 @@ function resetMap() {
 
     d3.selectAll(".countyProfile #peerGroupMap .state").classed("greyedOut", false);
 
-    d3.selectAll(".countyProfile #peerGroupMap g.counties .county").style("pointer-events", "none");
-    d3.selectAll(".countyProfile #peerGroupMap g.states .state").style("pointer-events", "all");
+    if(pageWidth > 768) {
+        d3.selectAll(".countyProfile #peerGroupMap g.counties .county").style("pointer-events", "none");
+        d3.selectAll(".countyProfile #peerGroupMap g.states .state").style("pointer-events", "all");
+    }
 
     // hide map reset button
     d3.select(".zoomOutMapBtn").classed("hidden", true);

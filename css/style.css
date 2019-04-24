@@ -148,11 +148,19 @@ button:hover, button:focus {
     button.dataDownloadBtn {
         width: 100%;
     }
+
+    a.topOfPageLink {
+        padding: 34px 0 20px 0;
+    }
 }
 
 @media screen and (min-width: 601px) and (max-width: 768px) {
     button {
         margin-bottom: 30px;
+    }
+
+    a.topOfPageLink {
+        padding: 34px 0 20px 0;
     }
 }
 
@@ -185,6 +193,27 @@ button:hover, button:focus {
     }
 }
 
+@media screen and (min-width: 501px) and (max-width: 768px) {
+    h1 {
+        font-size: 48px;
+    }
+
+    h2 {
+        font-size: 30px;
+    }
+
+    h1.peerGroupTitle {
+        font-size: 24px;
+    }
+
+    h3 {
+        font-size: 28px;
+    }
+
+    button {
+        font-size: 16px;
+    }
+}
 
 
 
@@ -318,7 +347,11 @@ section.intro {
     }
 }
 
-
+@media screen and (min-width: 501px) and (max-width: 768px) {
+    .intro p {
+        font-size: 22px;
+    }
+}
 
 
 /***************** mobile chapter (replacing the subnav for smaller screens) ******************/
@@ -747,14 +780,14 @@ a.peerGroupProfileLink.peerGroup10 {
 
     .peerGroupProfile .chart {
         width: 45%;
-        margin: 20px 0;
+        margin: 20px 0 20px 5px;
     }
 }
 
 @media screen and (min-width: 601px) and (max-width: 768px) {
     .chart {
         width: 240px;
-        margin: 20px 0;
+        margin: 20px 19px 20px 0;
     }
 
     .peerGroupProfile .chart {
@@ -836,6 +869,7 @@ a.peerGroupProfileLink.peerGroup10 {
 
     .legendEntry {
         margin-bottom: 5px;
+        width: 45%;
     }
 }
 
@@ -847,13 +881,14 @@ a.peerGroupProfileLink.peerGroup10 {
 
 @media screen and (min-width: 451px) and (max-width: 600px) {
     .legendEntry {
-        width: 45%;
+        margin-right: 20px;
     }
 }
 
 @media screen and (min-width: 601px) and (max-width: 768px) {
     .legendEntry {
         width: 230px;
+        margin-right: 0;
     }
 }
 
@@ -979,7 +1014,8 @@ a.peerGroupProfileLink.peerGroup10 {
         width: 100%;
     }
 
-    .county {
+    .county,
+    .state {
         pointer-events: none;
         cursor: default;
     }
@@ -1156,7 +1192,7 @@ a.peerGroupProfileLink {
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1100px) {
     .peerGroupList {
         display: none;
     }
@@ -1413,6 +1449,7 @@ section.dashboardDrawers {
 
     .metricDrawerTitle {
         font-size: 18px;
+        padding-left: 10px;
     }
 
     .chartName {
