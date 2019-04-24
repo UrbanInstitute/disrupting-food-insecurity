@@ -206,6 +206,9 @@ function selectPeerGroupInMap(peerGroupBlock) {
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("clicked", false);
     d3.selectAll(".countyProfile #peerGroupMap .county." + peerGroup).classed("clicked", true);
     highlightPeerGroupInMap(peerGroupBlock);
+
+    // make "Reset to view all peer groups" link active
+    d3.select(".countyProfile .resetMapLink").classed("disabled", false);
 }
 
 d3.select(".countyProfile .resetMapLink").on("click", function() { deselectAllPeerGroups(); });
@@ -215,4 +218,7 @@ function deselectAllPeerGroups() {
     d3.selectAll(".countyProfile .peerGroupBlock").classed("clicked", false);
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("selected", true);
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("clicked", false);
+
+    // make "Reset to view all peer groups" link inactive
+    d3.select(".countyProfile .resetMapLink").classed("disabled", true);
 }

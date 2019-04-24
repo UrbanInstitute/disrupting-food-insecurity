@@ -143,6 +143,7 @@ d3.csv("data/chart_data.csv", function(d) {
                 d3.select(".countyProfile #peerGroupMap .county.county_" + geoIDs[0]).classed("highlighted", true).moveToFront();
 
                 d3.select(".geoLabel").text(deslugify(params.county) + ", " + params.state);
+                d3.select(".clearSearchbox").classed("disabled", false);
                 renderCountyPage(page, geoIDs[0], geoIDs[2], geoIDs[1], params.state, params["print"]);
             }
             else {
@@ -200,10 +201,6 @@ function updateCountyPage(county_id, peer_group, state_id, state_abbv) {
     var county = data.filter(function(d) { return d.geography === "county"; })[0]["name"];
     var countyName = county.split(",")[0];
     var peerGroupName = data.filter(function(d) { return d.geography === "peer_group"; })[0]["name"];
-
-    // update county name in searchbox
-
-    // center map over state and highlight county
 
     // update county name in title, peer group name and peer group link in sentence beneath county name
     populateCountySentence(countyName, state_abbv, peer_group, peerGroupName);
@@ -629,6 +626,8 @@ function selectCounty(county) {
     // scroll page down to top of dashboard section
     var position = $(".dashboardDrawers").offset().top - $("#header-pinned").height();
     $("html, body").animate({ scrollTop: position}, 1000);
+
+    d3.select(".clearSearchbox").classed("disabled", false);
 }
 
 function highlightState(stateAbbv, stateName) {
@@ -737,7 +736,8 @@ d3.select(".clearSearchbox").on("click", function() { resetMap();
                                                       d3.select(".dashboardDrawers").classed("hidden", true);
                                                       d3.select(".geoLabel").text("");
                                                       $("#countySearch").val("");
-                                                      d3.selectAll(".peerGroupBlock").classed("disabled", false); });
+                                                      d3.selectAll(".peerGroupBlock").classed("disabled", false);
+                                                      d3.select(".clearSearchbox").classed("disabled", true); });
 
 function getParentDivWidth(elementId) {
     var width = document.getElementById(elementId).clientWidth;
