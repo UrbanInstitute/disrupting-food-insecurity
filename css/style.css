@@ -50,7 +50,7 @@ a.topOfPageLink {
     color: #353535;
     text-transform: uppercase;
     /*margin-left: 16px;*/
-    padding-top: 24px;
+    padding-top: 44px;
     float: right;
 }
 
@@ -1240,6 +1240,34 @@ section.peerGroupSummary p {
     vertical-align: top;
 }
 
+.peerGroupProfile section#strategies .content {
+    max-width: 100%;
+    padding: 0;
+}
+
+.peerGroupProfile section#strategies h4{
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: none;
+    padding: 50px 0 30px;
+}
+
+.peerGroupProfile section#strategies p {
+    max-width: 100%;
+    font-size: 16px;
+}
+
+
+@media screen and (max-width: 500px) {
+    .peerGroupProfile section#strategies h4 {
+        font-size: 24px;
+    }
+
+    .peerGroupProfile section#strategies p {
+        font-size: 14px;
+    }
+}
+
 @media screen and (max-width: 500px) {
     .peerGroupBullets {
         width: 100%;
@@ -1548,18 +1576,8 @@ footer {
     }
 }
 
-.peerGroupProfile footer {
-    border-top: none;
-    margin-top: 0;
-}
-
 footer .content{
     max-width: 700px;
-}
-
-.peerGroupProfile footer .content {
-    max-width: 100%;
-    padding: 0;
 }
 
 footer h4 {
@@ -1569,12 +1587,6 @@ footer h4 {
     line-height: 1.3;
     text-transform: uppercase;
     font-weight: 700;
-}
-
-.peerGroupProfile footer h4 {
-    font-size: 28px;
-    font-weight: bold;
-    text-transform: none;
 }
 
 #left {
@@ -1625,10 +1637,6 @@ footer p {
     font-size: 14px;
 }
 
-.peerGroupProfile footer p {
-    max-width: 100%;
-    font-size: 16px;
-}
 
 footer h2 {
     text-transform: uppercase;
@@ -1637,16 +1645,6 @@ footer h2 {
 
 footer h3, footer h4 {
     font-weight: 400;
-}
-
-@media screen and (max-width: 500px) {
-    .peerGroupProfile footer h4 {
-        font-size: 24px;
-    }
-
-    .peerGroupProfile footer p {
-        font-size: 14px;
-    }
 }
 
 footer ol, ul {
