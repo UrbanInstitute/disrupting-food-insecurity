@@ -584,12 +584,14 @@ function highlightCounty(county, mouseX, mouseY, page) {
     }
     else {
         d3.select(".geoLabel").text(county.properties.county_name + ", " + county.properties.state_abbv);
+        d3.select(".peerGroupBlock.peerGroup" + county.properties.peer_group).classed("selected", true);
     }
 }
 
 function unHighlightCounty() {
     d3.selectAll("#peerGroupMap .county").classed("highlighted", false);
     // d3.select(".tooltip").classed("hidden", true);
+    d3.selectAll(".peerGroupBlock").classed("selected", false);
 
     if(d3.select(".countyProfile #peerGroupMap .countyClicked").nodes().length > 0) {
         d3.select(".countyProfile #peerGroupMap .countyClicked").classed("highlighted", true).moveToFront();
