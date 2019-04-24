@@ -527,6 +527,9 @@ function renderMap(page, peerGroupNumber, isPrint) {
             counties.on("mouseover", function(d) { if(d.properties.peer_group === peerGroupNumber) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "peerGroupProfile"); }})
                 .on("mouseout", function(d) { unHighlightCounty(d); })
                 .on("click", function(d) { window.location.assign("index.html?county=" + slugify(d.properties.county_name) + "&state=" + d.properties.state_abbv); });
+
+            // hide tooltip when mouse leaves the map
+            svg.on("mouseleave", function() { d3.select(".tooltip").classed("hidden", true); });
         }
     }
     else {
