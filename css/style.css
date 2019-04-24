@@ -2060,15 +2060,20 @@ body.print {
     line-height: 14px;
 }
 
-.print .chart {
+.print .peerGroupProfile .chart {
     margin: 20px 4px;
     width: 170px;
+}
+
+.print .countyProfile .chart {
+    margin: 20px 30px 20px 0px;
 }
 
 .print .chartName {
     font-size: 14px;
     margin-bottom: 5px;
     width: 180px;
+    height: 34px;
 }
 
 .print .map .counties {
@@ -2079,16 +2084,7 @@ body.print {
     padding: 0;
 }
 
-.print footer h4 {
-    font-size: 16px;
-    margin-bottom: 12px;
-}
-
-.print footer p {
-    font-size: 12px;
-}
-
-.print .countyProfile footer {
+.print footer {
     display: none;
 }
 

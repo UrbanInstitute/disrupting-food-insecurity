@@ -27,7 +27,7 @@ var COMMAFORMAT = d3.format(",.0f");
 var DOLLARFORMAT = d3.format("$,.0f");
 
 var chartDimensions = {width_pg: 130, width_cnty: 220, height: 100, margin: {top: 20, right: 0, bottom: 5, left: 0}};
-var chartDimensionsPrint = {width_pg: 120, width_cnty: 200, height: 90, margin: {top: 20, right: 0, bottom: 5, left: 0}};
+var chartDimensionsPrint = {width_pg: 120, width_cnty: 180, height: 80, margin: {top: 20, right: 0, bottom: 5, left: 0}};
 
 var mapWidth, mapHeight, mapMargin;
 
@@ -174,7 +174,7 @@ function renderCountyPage(pagename, county_id, peer_group, state_id, state_abbv,
     d3.selectAll("a[name='countyPrintLink']").attr("href", "index.html?county=" + slugify(countyName) + "&state=" + state_abbv + "&print=true");
 
     // update charts and legend
-    populateCharts(data, "countyProfile");
+    populateCharts(data, "countyProfile", isPrint);
     populateLegends("countyProfile", countyName, state_abbv, peer_group);
 
     if(isPrint) {
