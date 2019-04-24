@@ -580,7 +580,7 @@ function highlightCounty(county, mouseX, mouseY, page) {
 
         d3.select(".tooltip")
             .style("left", mouseX - (tooltipWidth/2) + "px")
-            .style("top", mouseY - 45 + "px");
+            .style("top", mouseY - 55 + "px");
     }
     else {
         d3.select(".geoLabel").text(county.properties.county_name + ", " + county.properties.state_abbv);
