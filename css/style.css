@@ -257,16 +257,16 @@ button:hover, button:focus {
 
 .peerGroupRow {
     /*width: 100%;*/
-    max-width: 1010px;
+    max-width: 970px;
     margin: 0 auto 30px;
 }
 
 .peerGroupLink {
     display: inline-block;
-    width: 500px;
+    width: 480px;
     min-height: 45px;
     vertical-align: top;
-    padding: 0 40px 0 10px;
+    padding: 0 40px 0 20px;
 }
 
 .peerGroupLink a {
@@ -280,7 +280,7 @@ button:hover, button:focus {
 
 .peerGroupMenu hr {
     border: 1px solid #d2d2d2;
-    max-width: 1108px;
+    max-width: 1040px;
     margin: 30px auto;
 }
 
