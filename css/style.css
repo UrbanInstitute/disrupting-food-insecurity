@@ -284,7 +284,11 @@ button:hover, button:focus {
     margin: 30px auto;
 }
 
-@media screen and (max-width: 768px) {
+.peerGroupMenu .closeBtn {
+    display: none;
+}
+
+@media screen and (max-width: 980px) {
     .peerGroupMenu {
         padding: 40px;
         height: calc(100% - 52px);
@@ -309,9 +313,26 @@ button:hover, button:focus {
     .peerGroupMenu hr {
         display: none;
     }
+
+    .peerGroupMenu .closeBtn {
+        display: block;
+        height: 20px;
+        margin-bottom: 10px;
+    }
+
+    .peerGroupMenu .closeBtn img {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        right: 50px;
+    }
 }
 
-
+@media screen and (min-width: 981px) and (max-width: 1140px) {
+    .peerGroupLink {
+        width: 400px;
+    }
+}
 
 
 /**************** Intro section styles **************/

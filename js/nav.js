@@ -14,6 +14,7 @@ if(d3.select(".main").node().getBoundingClientRect().width > 768) {
 // clicking the peer group link opens the menu
 else {
     d3.select(".menuLink").on("click", showPeerGroupMenu);
+    d3.select(".peerGroupMenu .closeBtn img").on("click", hidePeerGroupMenu);
 }
 
 // mousing over HOME link or social share button also hides the peer group menu
