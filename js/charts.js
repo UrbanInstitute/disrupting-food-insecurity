@@ -180,6 +180,10 @@ function renderCountyPage(pagename, county_id, peer_group, state_id, state_abbv,
     if(isPrint) {
         d3.select("body").classed("print", true);
         populateBulletPoints(peer_group);
+
+        setTimeout(function() {
+            window.print();
+        }, 500);
     }
     else {
         // after all charts have rendered, grab drawer heights and close all except the first drawer
@@ -462,10 +466,14 @@ function populateLegends(page, countyName, stateAbbv, peerGroupNumber) {
         // d3.selectAll(".countyAvgLegendEntry .legendSquare").classed(currentPeerGroupClass, false);
         // d3.selectAll(".countyAvgLegendEntry .legendSquare").classed("peerGroup" + peerGroupNumber, true);
         if(peerGroupNumber < 10) {
-            d3.selectAll(".countyAvgLegendEntry .legendSquare.county").style("background-image", "url('img/peerGroup-0" + peerGroupNumber + ".png')");
+            d3.selectAll(".countyAvgLegendEntry .legendSquare.county img")
+                .attr("src", "img/peerGroup-0" + peerGroupNumber + ".png");
+                // .style("background-image", "url('img/peerGroup-0" + peerGroupNumber + ".png')");
         }
         else {
-            d3.selectAll(".countyAvgLegendEntry .legendSquare.county").style("background-image", "url('img/peerGroup-" + peerGroupNumber + ".png')");
+            d3.selectAll(".countyAvgLegendEntry .legendSquare.county img")
+                .attr("src", "img/peerGroup-10.png");
+            // .style("background-image", "url('img/peerGroup-" + peerGroupNumber + ".png')");
         }
     }
 }

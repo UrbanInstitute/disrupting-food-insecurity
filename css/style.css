@@ -840,8 +840,11 @@ a.peerGroupProfileLink.peerGroup10 {
     border: none;
     width: 20px;
     height: 20px;
-    /*background-image: url('/img/peerGroup-01.png');*/
-    background-size: contain;
+}
+
+.legendSquare.county img {
+    width: 20px;
+    height: 20px;
 }
 
 /*.legendSquare.peergroup {
@@ -2090,6 +2093,18 @@ body.print {
 .print .legendSquare {
     border-width: 7px;
     margin-right: 7px;
+}
+
+.print .legendSquare.county {
+    border: none;
+    height: 14px;
+    width: 14px;
+}
+
+.print .legendSquare img {
+    width: 14px;
+    height: 14px;
+    vertical-align: top;
 }
 
 .print .legendText {
