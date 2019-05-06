@@ -605,6 +605,10 @@ function unHighlightCounty() {
         d3.select(".countyProfile #peerGroupMap .countyClicked").classed("highlighted", true).moveToFront();
         var countyClicked = d3.select(".countyProfile #peerGroupMap .countyClicked").datum().properties;
         d3.select(".geoLabel").text(countyClicked.county_name + ", " + countyClicked.state_abbv);
+        d3.select(".peerGroupBlock.peerGroup" + countyClicked.peer_group).classed("selected", true);
+    }
+    if(d3.selectAll(".peerGroupBlock.clicked").nodes().length > 0) {
+        d3.select(".peerGroupBlock.clicked").classed("selected", true);
     }
 }
 
@@ -613,6 +617,9 @@ function selectCounty(county) {
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("countyClicked", false);
     d3.select(".countyProfile #peerGroupMap .county.county_" + county.properties.county_fips).classed("countyClicked", true);
     d3.select(".countyProfile #peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true).moveToFront();
+
+    d3.selectAll(".peerGroupBlock").classed("selected", false);
+    d3.select(".peerGroupBlock.peerGroup" + county.properties.peer_group).classed("selected", true);
 
     d3.select(".geoLabel").text(county.properties.county_name + ", " + county.properties.state_abbv);
 
@@ -751,6 +758,7 @@ d3.select(".clearSearchbox").on("click", function() { resetMap();
                                                       d3.selectAll(".countyProfile #peerGroupMap .state").classed("stateSelected", false);
                                                       d3.selectAll(".countyProfile #peerGroupMap .county").classed("highlighted", false);
                                                       d3.selectAll(".countyProfile #peerGroupMap .county").classed("countyClicked", false);
+                                                      d3.selectAll(".peerGroupBlock").classed("selected", false);
                                                       d3.select(".dashboardDrawers").classed("hidden", true);
                                                       d3.select(".geoLabel").text("");
                                                       $("#countySearch").val("");

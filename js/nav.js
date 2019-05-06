@@ -220,6 +220,12 @@ function deselectAllPeerGroups() {
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("selected", true);
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("clicked", false);
 
+    // if a county has been selected, keep its peer group block selected
+    if(d3.select(".countyProfile #peerGroupMap .countyClicked").nodes().length > 0) {
+        var countyClicked = d3.select(".countyProfile #peerGroupMap .countyClicked").datum().properties;
+        d3.select(".peerGroupBlock.peerGroup" + countyClicked.peer_group).classed("selected", true);
+    }
+
     // make "Reset to view all peer groups" link inactive
     d3.select(".countyProfile .resetMapLink").classed("disabled", true);
 }
