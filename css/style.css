@@ -1221,7 +1221,7 @@ a.peerGroupProfileLink {
     }
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 768px) {
     .peerGroupList {
         display: none;
     }
@@ -1243,6 +1243,25 @@ a.peerGroupProfileLink {
     }
 }
 
+@media screen and (min-width: 769px) and (max-width: 1099px) {
+    .peerGroupList {
+        max-width: 100%;
+    }
+
+    .peerGroupList div {
+        overflow: auto;
+    }
+
+    .peerGroupBlockGroup {
+        width: 33%;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    section.peerGroupMap .map {
+        margin-left: 0;
+    }
+}
 
 
 
