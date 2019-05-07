@@ -65,6 +65,11 @@ a:hover {
     height: 10px;
 }
 
+img.urbanLogo,
+img.urbanLogo.oneLiner {
+    display: none;
+}
+
 p {
     margin-bottom: 24px;
     line-height: 1.56;
@@ -1898,10 +1903,14 @@ div.print {
     text-align: left;
 }
 
+.print div.firstPage {
+    page-break-after: always;
+}
+
 .print div.page {
-/*    width: 8in;
-    padding: 5px;
-*/    page-break-after: always;
+    position: relative;
+    height: 11in;
+    page-break-after: always;
 }
 
 body.print {
@@ -1964,6 +1973,21 @@ body.print {
 
 .print .printHeader {
     display: block;
+}
+
+.print img.urbanLogo {
+    display: block;
+    height: 46px;
+    margin-bottom: 30px;
+}
+
+.print img.urbanLogo.oneLiner {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 2in;
+    height: 14px;
+    margin: 0 auto;
 }
 
 .printHeader h1 {

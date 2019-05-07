@@ -128,6 +128,7 @@
         <div class="main wrapper peerGroupProfile" id="top">
             <!-- <div class="page"> -->
                 <div class="printHeader">
+                    <img class="urbanLogo" src="img/ui-logo-rgb.png" />
                     <h1>Disrupting Food Insecurity</h1>
                     <h2>Tapping data for strategies that go beyond charitable giving</h2>
                     <p>An estimated <a href="https://www.ers.usda.gov/webdocs/publications/90023/err-256.pdf?v=0" target="_blank">40 million Americans</a>—including <a href="https://www.ers.usda.gov/topics/food-nutrition-assistance/food-security-in-the-us/definitions-of-food-security.aspx" target="_blank">12.5 million children</a>—struggle with food insecurity, meaning they can’t afford an adequate diet. Federal nutrition programs and charitable meals make up the first line of defense, but solving this challenge will require communities to go beyond food to disrupt the root causes of economic distress.</p>
@@ -163,220 +164,227 @@
                     <div class="expandDrawersLink">Expand all</div>
                     <div class="printLink"><a href="" name="peerGroupPrintLink" target="_blank">Print</a></div>
                 </div>
-                <div class="metricDrawer Food_Insecurity page">
-                    <div class="metricDrawerTitle">Food Insecurity
-                        <div class="drawerCarat expanded"></div>
-                    </div>
-                    <div class="metricDrawerContent">
-                        <div class="charts">
-                            <div class="legend">
-                                <div class="legendEntry peerGroupLegendEntry">
-                                    <div class="legendSquare"></div>
-                                    <div class="legendText">Peer group average</div>
+
+                    <div class="metricDrawer Food_Insecurity firstPage">
+                        <div class="metricDrawerTitle">Food Insecurity
+                            <div class="drawerCarat expanded"></div>
+                        </div>
+                        <div class="metricDrawerContent">
+                            <div class="charts">
+                                <div class="legend">
+                                    <div class="legendEntry peerGroupLegendEntry">
+                                        <div class="legendSquare"></div>
+                                        <div class="legendText">Peer group average</div>
+                                    </div>
+                                    <div class="legendEntry nationalAvgLegendEntry">
+                                        <div class="legendSquare national"></div>
+                                        <div class="legendText">National average</div>
+                                    </div>
                                 </div>
-                                <div class="legendEntry nationalAvgLegendEntry">
-                                    <div class="legendSquare national"></div>
-                                    <div class="legendText">National average</div>
+                                <div class="chart" id="food_insecure_all">
+                                    <div class="chartName">Food insecure, all people</div>
+                                </div>
+                                <div class="chart" id="food_insecure_children">
+                                    <div class="chartName">Food insecure, children</div>
                                 </div>
                             </div>
-                            <div class="chart" id="food_insecure_all">
-                                <div class="chartName">Food insecure, all people</div>
-                            </div>
-                            <div class="chart" id="food_insecure_children">
-                                <div class="chartName">Food insecure, children</div>
+                            <div class="metricDescription">
+                                <p><a href="https://www.ers.usda.gov/topics/food-nutrition-assistance/food-security-in-the-us/definitions-of-food-security.aspx" target="_blank">Food insecurity</a> can have <a href="https://www.ncbi.nlm.nih.gov/pubmed/18317892" target="_blank">harmful effects</a> on <a href="https://www.healthaffairs.org/doi/full/10.1377/hlthaff.2015.0645" target="_blank">health and development</a> at all ages. Not having an adequate diet can also hinder children’s ability to <a href="https://www.ncbi.nlm.nih.gov/pubmed/11433053" target="_blank">learn in school</a> and <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2835994/" target="_blank">adults’ capacity to work</a> and be effective parents. The federal government funds several nutrition assistance programs, but <a href="https://www.feedingamerica.org/about-us/press-room/MMG2018Release" target="_blank">the vast majority of counties</a> include food-insecure families who are likely ineligible for benefits.</p>
                             </div>
                         </div>
-                        <div class="metricDescription">
-                            <p><a href="https://www.ers.usda.gov/topics/food-nutrition-assistance/food-security-in-the-us/definitions-of-food-security.aspx" target="_blank">Food insecurity</a> can have <a href="https://www.ncbi.nlm.nih.gov/pubmed/18317892" target="_blank">harmful effects</a> on <a href="https://www.healthaffairs.org/doi/full/10.1377/hlthaff.2015.0645" target="_blank">health and development</a> at all ages. Not having an adequate diet can also hinder children’s ability to <a href="https://www.ncbi.nlm.nih.gov/pubmed/11433053" target="_blank">learn in school</a> and <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2835994/" target="_blank">adults’ capacity to work</a> and be effective parents. The federal government funds several nutrition assistance programs, but <a href="https://www.feedingamerica.org/about-us/press-room/MMG2018Release" target="_blank">the vast majority of counties</a> include food-insecure families who are likely ineligible for benefits.</p>
+                    </div>
+                <div class="page">
+                    <div class="metricDrawer Physical_Health closed">
+                        <div class="metricDrawerTitle">Physical Health
+                            <div class="drawerCarat"></div>
+                        </div>
+                        <div class="metricDrawerContent">
+                            <div class="charts">
+                                <div class="legend">
+                                    <div class="legendEntry peerGroupLegendEntry">
+                                        <div class="legendSquare"></div>
+                                        <div class="legendText">Peer group average</div>
+                                    </div>
+                                    <div class="legendEntry nationalAvgLegendEntry">
+                                        <div class="legendSquare national"></div>
+                                        <div class="legendText">National average</div>
+                                    </div>
+                                </div>
+                                <div class="chart" id="low_birthweight">
+                                    <div class="chartName">Low-birthweight births</div>
+                                </div>
+                                <div class="chart" id="diabetes">
+                                    <div class="chartName">People with diabetes</div>
+                                </div>
+                                <div class="chart" id="disability">
+                                    <div class="chartName">People with disability</div>
+                                </div>
+                                <div class="chart" id="no_insurance">
+                                    <div class="chartName">No health insurance</div>
+                                </div>
+                            </div>
+                            <div class="metricDescription">
+                                <p>Food insecurity is associated with poorer health outcomes at every stage of life, from <a href="https://academic.oup.com/jn/article/137/9/2087/4664860" target="_blank">pregnancy</a> to <a href="https://academic.oup.com/jn/article/136/4/1073/4664203" target="_blank">childhood</a> and <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3632292/" target="_blank">adolescence</a> to <a href="https://academic.oup.com/jn/article/140/2/304/4600323" target="_blank">adulthood</a> and <a href="https://www.feedingamerica.org/research/senior-hunger-research" target="_blank">older age</a>. Food insecurity and poor nutrition can <a href="https://www.urban.org/urban-wire/how-food-insecurity-adding-our-health-care-costs" target="_blank">complicate the ability to manage illness—especially diet-related illnesses like diabetes—and can increase health care costs</a>. And households dealing with illness and food insecurity may have to make trade-offs between food and medicine.</p>
+                            </div>
                         </div>
                     </div>
+                    <div class="metricDrawer Housing_Costs closed">
+                        <div class="metricDrawerTitle">Housing Costs
+                            <div class="drawerCarat"></div>
+                        </div>
+                        <div class="metricDrawerContent">
+                            <div class="charts">
+                                <div class="legend">
+                                    <div class="legendEntry peerGroupLegendEntry">
+                                        <div class="legendSquare"></div>
+                                        <div class="legendText">Peer group average</div>
+                                    </div>
+                                    <div class="legendEntry nationalAvgLegendEntry">
+                                        <div class="legendSquare national"></div>
+                                        <div class="legendText">National average</div>
+                                    </div>
+                                </div>
+                                <div class="chart" id="housing_cost_burdened">
+                                    <div class="chartName">Housing-cost burdened</div>
+                                </div>
+                                <div class="chart" id="severely_housing_cost_burdened">
+                                    <div class="chartName">Severely housing-cost burdened</div>
+                                </div>
+                                <div class="chart" id="wage_fair_market_rent">
+                                    <div class="chartName">Wage to afford fair market rent</div>
+                                </div>
+                            </div>
+                            <div class="metricDescription">
+                                <p>Housing is a <a href="http://www.jchs.harvard.edu/sites/default/files/harvard_jchs_state_of_the_nations_housing_2017.pdf" target="_blank">major expense</a> for most low-income households, many of whom may face trade-offs between paying for <a href="https://www.feedingamerica.org/research/hunger-in-america" target="_blank">food, housing, utilities, and transportation</a>. Housing instability—such as trouble paying rent, doubling up, or moving frequently—is a risk factor for food insecurity. And once a family is evicted, food insecurity and other hardships <a href="https://scholar.harvard.edu/mdesmond/publications/eviction%E2%80%99s-fallout-housing-hardship-and-health" target="_blank">may persist</a> for years.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="metricDrawer Income_and_Employment closed">
+                        <div class="metricDrawerTitle">Income and Employment
+                            <div class="drawerCarat"></div>
+                        </div>
+                        <div class="metricDrawerContent">
+                            <div class="charts">
+                                <div class="legend">
+                                    <div class="legendEntry peerGroupLegendEntry">
+                                        <div class="legendSquare"></div>
+                                        <div class="legendText">Peer group average</div>
+                                    </div>
+                                    <div class="legendEntry nationalAvgLegendEntry">
+                                        <div class="legendSquare national"></div>
+                                        <div class="legendText">National average</div>
+                                    </div>
+                                </div>
+                                <div class="chart" id="median_income">
+                                    <div class="chartName">Median household income</div>
+                                </div>
+                                <div class="chart" id="below_poverty">
+                                    <div class="chartName">Below 200% of federal poverty level</div>
+                                </div>
+                                <div class="chart" id="unemployment">
+                                    <div class="chartName">Unemployment rate</div>
+                                </div>
+                            </div>
+                            <div class="metricDescription">
+                                <p>Insufficient and unstable <a href="https://www.researchgate.net/profile/Brent_Kreider/publication/227356453_The_Economics_of_Food_Insecurity_in_the_United_States/links/5610a2f308ae0fc513f14cc8/The-Economics-of-Food-Insecurity-in-the-United-States.pdf" target="_blank">income and employment</a> are significant drivers of food insecurity. <a href="https://www.ers.usda.gov/publications/pub-details/?pubid=45216" target="_blank">Job loss</a>, reduced work hours, and <a href="https://link.springer.com/article/10.1007/s11150-009-9075-4" target="_blank">unexpected expenses</a> such as medical bills can put stress on household budgets, leaving little to buy food.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <img class="urbanLogo oneLiner" src="img/ui-logo-rgb-singleline.png" />
                 </div>
-                <div class="metricDrawer Physical_Health closed">
-                    <div class="metricDrawerTitle">Physical Health
-                        <div class="drawerCarat"></div>
-                    </div>
-                    <div class="metricDrawerContent">
-                        <div class="charts">
-                            <div class="legend">
-                                <div class="legendEntry peerGroupLegendEntry">
-                                    <div class="legendSquare"></div>
-                                    <div class="legendText">Peer group average</div>
-                                </div>
-                                <div class="legendEntry nationalAvgLegendEntry">
-                                    <div class="legendSquare national"></div>
-                                    <div class="legendText">National average</div>
-                                </div>
-                            </div>
-                            <div class="chart" id="low_birthweight">
-                                <div class="chartName">Low-birthweight births</div>
-                            </div>
-                            <div class="chart" id="diabetes">
-                                <div class="chartName">People with diabetes</div>
-                            </div>
-                            <div class="chart" id="disability">
-                                <div class="chartName">People with disability</div>
-                            </div>
-                            <div class="chart" id="no_insurance">
-                                <div class="chartName">No health insurance</div>
-                            </div>
+                <div class="page">
+                    <div class="metricDrawer Financial_Health closed">
+                        <div class="metricDrawerTitle">Financial Health
+                            <div class="drawerCarat"></div>
                         </div>
-                        <div class="metricDescription">
-                            <p>Food insecurity is associated with poorer health outcomes at every stage of life, from <a href="https://academic.oup.com/jn/article/137/9/2087/4664860" target="_blank">pregnancy</a> to <a href="https://academic.oup.com/jn/article/136/4/1073/4664203" target="_blank">childhood</a> and <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3632292/" target="_blank">adolescence</a> to <a href="https://academic.oup.com/jn/article/140/2/304/4600323" target="_blank">adulthood</a> and <a href="https://www.feedingamerica.org/research/senior-hunger-research" target="_blank">older age</a>. Food insecurity and poor nutrition can <a href="https://www.urban.org/urban-wire/how-food-insecurity-adding-our-health-care-costs" target="_blank">complicate the ability to manage illness—especially diet-related illnesses like diabetes—and can increase health care costs</a>. And households dealing with illness and food insecurity may have to make trade-offs between food and medicine.</p>
+                        <div class="metricDrawerContent">
+                            <div class="charts">
+                                <div class="legend">
+                                    <div class="legendEntry peerGroupLegendEntry">
+                                        <div class="legendSquare"></div>
+                                        <div class="legendText">Peer group average</div>
+                                    </div>
+                                    <div class="legendEntry nationalAvgLegendEntry">
+                                        <div class="legendSquare national"></div>
+                                        <div class="legendText">National average</div>
+                                    </div>
+                                </div>
+                                <div class="chart" id="credit_score">
+                                    <div class="chartName">Median credit score</div>
+                                </div>
+                                <div class="chart" id="debt">
+                                    <div class="chartName">Debt in collections</div>
+                                </div>
+                            </div>
+                            <div class="metricDescription">
+                                <p>Poor financial health can be a warning sign of current and future food insecurity. Families with poor financial health may be unable to meet daily finances. They may also be vulnerable to economic shocks, such as a job loss or unexpected expense because they don’t have a savings cushion or because they have limited access to credit.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="metricDrawer Housing_Costs closed">
-                    <div class="metricDrawerTitle">Housing Costs
-                        <div class="drawerCarat"></div>
-                    </div>
-                    <div class="metricDrawerContent">
-                        <div class="charts">
-                            <div class="legend">
-                                <div class="legendEntry peerGroupLegendEntry">
-                                    <div class="legendSquare"></div>
-                                    <div class="legendText">Peer group average</div>
-                                </div>
-                                <div class="legendEntry nationalAvgLegendEntry">
-                                    <div class="legendSquare national"></div>
-                                    <div class="legendText">National average</div>
-                                </div>
-                            </div>
-                            <div class="chart" id="housing_cost_burdened">
-                                <div class="chartName">Housing-cost burdened</div>
-                            </div>
-                            <div class="chart" id="severely_housing_cost_burdened">
-                                <div class="chartName">Severely housing-cost burdened</div>
-                            </div>
-                            <div class="chart" id="wage_fair_market_rent">
-                                <div class="chartName">Wage to afford fair market rent</div>
-                            </div>
+                    <div class="metricDrawer Demographics closed">
+                        <div class="metricDrawerTitle">Demographics
+                            <div class="drawerCarat"></div>
                         </div>
-                        <div class="metricDescription">
-                            <p>Housing is a <a href="http://www.jchs.harvard.edu/sites/default/files/harvard_jchs_state_of_the_nations_housing_2017.pdf" target="_blank">major expense</a> for most low-income households, many of whom may face trade-offs between paying for <a href="https://www.feedingamerica.org/research/hunger-in-america" target="_blank">food, housing, utilities, and transportation</a>. Housing instability—such as trouble paying rent, doubling up, or moving frequently—is a risk factor for food insecurity. And once a family is evicted, food insecurity and other hardships <a href="https://scholar.harvard.edu/mdesmond/publications/eviction%E2%80%99s-fallout-housing-hardship-and-health" target="_blank">may persist</a> for years.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="metricDrawer Income_and_Employment closed page">
-                    <div class="metricDrawerTitle">Income and Employment
-                        <div class="drawerCarat"></div>
-                    </div>
-                    <div class="metricDrawerContent">
-                        <div class="charts">
-                            <div class="legend">
-                                <div class="legendEntry peerGroupLegendEntry">
-                                    <div class="legendSquare"></div>
-                                    <div class="legendText">Peer group average</div>
+                        <div class="metricDrawerContent">
+                            <div class="charts">
+                                <div class="legend">
+                                    <div class="legendEntry peerGroupLegendEntry">
+                                        <div class="legendSquare"></div>
+                                        <div class="legendText">Peer group average</div>
+                                    </div>
+                                    <div class="legendEntry nationalAvgLegendEntry">
+                                        <div class="legendSquare national"></div>
+                                        <div class="legendText">National average</div>
+                                    </div>
                                 </div>
-                                <div class="legendEntry nationalAvgLegendEntry">
-                                    <div class="legendSquare national"></div>
-                                    <div class="legendText">National average</div>
+                                <div class="chart" id="children">
+                                    <div class="chartName">Households with children</div>
+                                </div>
+                                <div class="chart" id="seniors">
+                                    <div class="chartName">Households with seniors (65+)</div>
+                                </div>
+                                <div class="chart" id="people_color">
+                                    <div class="chartName">People of color</div>
+                                </div>
+                                <div class="chart" id="college_less">
+                                    <div class="chartName">No college degree</div>
                                 </div>
                             </div>
-                            <div class="chart" id="median_income">
-                                <div class="chartName">Median household income</div>
+                            <div class="metricDescription">
+                                <p>Some populations, including many communities of color, have a greater risk of being food insecure.  And some groups, such as children and seniors, are particularly vulnerable to the health and developmental setbacks that can come with not having an adequate diet.</p>
                             </div>
-                            <div class="chart" id="below_poverty">
-                                <div class="chartName">Below 200% of federal poverty level</div>
-                            </div>
-                            <div class="chart" id="unemployment">
-                                <div class="chartName">Unemployment rate</div>
-                            </div>
-                        </div>
-                        <div class="metricDescription">
-                            <p>Insufficient and unstable <a href="https://www.researchgate.net/profile/Brent_Kreider/publication/227356453_The_Economics_of_Food_Insecurity_in_the_United_States/links/5610a2f308ae0fc513f14cc8/The-Economics-of-Food-Insecurity-in-the-United-States.pdf" target="_blank">income and employment</a> are significant drivers of food insecurity. <a href="https://www.ers.usda.gov/publications/pub-details/?pubid=45216" target="_blank">Job loss</a>, reduced work hours, and <a href="https://link.springer.com/article/10.1007/s11150-009-9075-4" target="_blank">unexpected expenses</a> such as medical bills can put stress on household budgets, leaving little to buy food.</p>
                         </div>
                     </div>
-                </div>
-                <div class="metricDrawer Financial_Health closed">
-                    <div class="metricDrawerTitle">Financial Health
-                        <div class="drawerCarat"></div>
-                    </div>
-                    <div class="metricDrawerContent">
-                        <div class="charts">
-                            <div class="legend">
-                                <div class="legendEntry peerGroupLegendEntry">
-                                    <div class="legendSquare"></div>
-                                    <div class="legendText">Peer group average</div>
-                                </div>
-                                <div class="legendEntry nationalAvgLegendEntry">
-                                    <div class="legendSquare national"></div>
-                                    <div class="legendText">National average</div>
-                                </div>
-                            </div>
-                            <div class="chart" id="credit_score">
-                                <div class="chartName">Median credit score</div>
-                            </div>
-                            <div class="chart" id="debt">
-                                <div class="chartName">Debt in collections</div>
-                            </div>
+                    <div class="metricDrawer Geography closed">
+                        <div class="metricDrawerTitle">Geography
+                            <div class="drawerCarat"></div>
                         </div>
-                        <div class="metricDescription">
-                            <p>Poor financial health can be a warning sign of current and future food insecurity. Families with poor financial health may be unable to meet daily finances. They may also be vulnerable to economic shocks, such as a job loss or unexpected expense because they don’t have a savings cushion or because they have limited access to credit.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="metricDrawer Demographics closed">
-                    <div class="metricDrawerTitle">Demographics
-                        <div class="drawerCarat"></div>
-                    </div>
-                    <div class="metricDrawerContent">
-                        <div class="charts">
-                            <div class="legend">
-                                <div class="legendEntry peerGroupLegendEntry">
-                                    <div class="legendSquare"></div>
-                                    <div class="legendText">Peer group average</div>
+                        <div class="metricDrawerContent">
+                            <div class="charts">
+                                <div class="legend">
+                                    <div class="legendEntry peerGroupLegendEntry">
+                                        <div class="legendSquare"></div>
+                                        <div class="legendText">Peer group average</div>
+                                    </div>
+                                    <div class="legendEntry nationalAvgLegendEntry">
+                                        <div class="legendSquare national"></div>
+                                        <div class="legendText">National average</div>
+                                    </div>
                                 </div>
-                                <div class="legendEntry nationalAvgLegendEntry">
-                                    <div class="legendSquare national"></div>
-                                    <div class="legendText">National average</div>
+                                <div class="chart" id="rural_population">
+                                    <div class="chartName">Population in rural area</div>
                                 </div>
                             </div>
-                            <div class="chart" id="children">
-                                <div class="chartName">Households with children</div>
-                            </div>
-                            <div class="chart" id="seniors">
-                                <div class="chartName">Households with seniors (65+)</div>
-                            </div>
-                            <div class="chart" id="people_color">
-                                <div class="chartName">People of color</div>
-                            </div>
-                            <div class="chart" id="college_less">
-                                <div class="chartName">No college degree</div>
+                            <div class="metricDescription">
+                                <p>Although food insecurity exists <a href="https://www.feedingamerica.org/research/map-the-meal-gap/overall-executive-summary?_ga=2.239580931.1256300838.1547849629-915939656.1545861398&s_src=WXXX1MTMG" target="_blank">in every county</a> in the US, some regions and types of communities experience higher rates than others. <a href="https://journals.sagepub.com/doi/pdf/10.1177/1536504214545766" target="_blank">Rural areas</a> have higher rates of food insecurity overall. However, large metro areas with lower rates may have a larger number of food-insecure households. The South has the highest rates of food insecurity among regions. And counties with a majority of residents of color <a href="http://map.feedingamerica.org/" target="_blank">are more likely</a> to have higher rates of food insecurity.</p>
                             </div>
                         </div>
-                        <div class="metricDescription">
-                            <p>Some populations, including many communities of color, have a greater risk of being food insecure.  And some groups, such as children and seniors, are particularly vulnerable to the health and developmental setbacks that can come with not having an adequate diet.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="metricDrawer Geography closed page">
-                    <div class="metricDrawerTitle">Geography
-                        <div class="drawerCarat"></div>
-                    </div>
-                    <div class="metricDrawerContent">
-                        <div class="charts">
-                            <div class="legend">
-                                <div class="legendEntry peerGroupLegendEntry">
-                                    <div class="legendSquare"></div>
-                                    <div class="legendText">Peer group average</div>
-                                </div>
-                                <div class="legendEntry nationalAvgLegendEntry">
-                                    <div class="legendSquare national"></div>
-                                    <div class="legendText">National average</div>
-                                </div>
-                            </div>
-                            <div class="chart" id="rural_population">
-                                <div class="chartName">Population in rural area</div>
-                            </div>
-                        </div>
-                        <div class="metricDescription">
-                            <p>Although food insecurity exists <a href="https://www.feedingamerica.org/research/map-the-meal-gap/overall-executive-summary?_ga=2.239580931.1256300838.1547849629-915939656.1545861398&s_src=WXXX1MTMG" target="_blank">in every county</a> in the US, some regions and types of communities experience higher rates than others. <a href="https://journals.sagepub.com/doi/pdf/10.1177/1536504214545766" target="_blank">Rural areas</a> have higher rates of food insecurity overall. However, large metro areas with lower rates may have a larger number of food-insecure households. The South has the highest rates of food insecurity among regions. And counties with a majority of residents of color <a href="http://map.feedingamerica.org/" target="_blank">are more likely</a> to have higher rates of food insecurity.</p>
-                        </div>
+                        <img class="urbanLogo oneLiner" src="img/ui-logo-rgb-singleline.png" />
                     </div>
                 </div>
             </section>
             <section id="strategies">
-                <div class="content peerGroupStrategies">
+                <div class="content peerGroupStrategies page">
                     <h4>Strategies to disrupt food insecurity for counties in this peer group</h4>
                     <p>Communities can address food insecurity directly by giving families resources to buy food and providing meals in schools. But decisionmakers should also consider indirect strategies that lift families up and tackle the root causes of financial distress.</p>
                     <p>[solutions...]</p>
@@ -385,6 +393,7 @@
                     <!-- <a name="peerGroupPrintLink" href="" target="_blank"><button id="printPeerGroupProfile">View/Print profile</button></a> -->
                     <button class="dataDownloadBtn"><img class="downloadIcon" src="img/download-icon-2x.png">Data and county comparison</button>
                     <a class="topOfPageLink" href="#top">Top of Page<img class="pageUpIcon" src="img/expanded-icon-2x.png"></a>
+                    <img class="urbanLogo oneLiner" src="img/ui-logo-rgb-singleline.png" />
                 </div>
             </section>
             <footer>
