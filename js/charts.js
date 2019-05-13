@@ -763,6 +763,7 @@ d3.select(".clearSearchbox").on("click", function() { resetMap();
                                                       d3.select(".geoLabel").text("");
                                                       $("#countySearch").val("");
                                                       d3.selectAll(".peerGroupBlock").classed("disabled", false);
+                                                      d3.selectAll(".peerGroupBlockLink").classed("hidden", true);
                                                       d3.select(".clearSearchbox").classed("disabled", true); });
 
 function getParentDivWidth(elementId) {
