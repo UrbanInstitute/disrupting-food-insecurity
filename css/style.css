@@ -923,6 +923,10 @@ a.peerGroupProfileLink.peerGroup10 {
 
 
 /********** MAP STYLES ***************/
+svg {
+    overflow: hidden;
+}
+
 #peerGroupMap {
     position: relative;
 }
