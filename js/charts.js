@@ -530,11 +530,11 @@ function renderMap(page, peerGroupNumber, isPrint) {
 
         if(!isPrint && pageWidth > 768) {
             counties.on("mouseenter", function(d) { if(d.properties.peer_group === peerGroupNumber) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "peerGroupProfile"); }})
-                .on("mouseleave", function(d) { unHighlightCounty(d); })
+                .on("mouseout", function(d) { unHighlightCounty(d); })
                 .on("click", function(d) { window.location.assign("index.html?county=" + slugify(d.properties.county_name) + "&state=" + d.properties.state_abbv); });
 
             // hide tooltip when mouse leaves the map
-            svg.on("mouseleave", function() { d3.select(".tooltip").classed("hidden", true); });
+            svg.on("mouseout", function() { d3.select(".tooltip").classed("hidden", true); });
         }
     }
     else {
@@ -562,11 +562,11 @@ function renderMap(page, peerGroupNumber, isPrint) {
 
         if(!isPrint && pageWidth > 768){
             counties.on("mouseenter", function(d) { console.log("mouseenter"); highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "countyProfile"); })
-                .on("mouseleave", function(d) { console.log("mouseleave"); unHighlightCounty(d); })
+                .on("mouseout", function(d) { console.log("mouseout"); unHighlightCounty(d); })
                 .on("click", function(d) { console.log("clicked"); selectCounty(d); });
 
             states.on("mouseenter", function(d) { console.log("mouseenter"); highlightState(d.properties.state_abbv, d.properties.state_name); })
-                .on("mouseleave", function() { console.log("mouseleave"); unHighlightState(); })
+                .on("mouseout", function() { console.log("mouseout"); unHighlightState(); })
                 .on("click", function(d) { console.log("click"); zoomToState(d, path.bounds(d), false); });
         }
     }
@@ -574,7 +574,7 @@ function renderMap(page, peerGroupNumber, isPrint) {
 
 //keep map tooltip visible until it is moused out on so link can be clickable without interfering with selecting other counties
 d3.select(".peerGroupSummary .tooltip").on("mouseenter", function() { d3.select(this).classed("hidden", false); });
-d3.select(".peerGroupSummary .tooltip").on("mouseleave", function() { d3.select(this).classed("hidden", true); });
+d3.select(".peerGroupSummary .tooltip").on("mouseout", function() { d3.select(this).classed("hidden", true); });
 
 function highlightCounty(county, mouseX, mouseY, page) {
     d3.select("#peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true).moveToFront();
