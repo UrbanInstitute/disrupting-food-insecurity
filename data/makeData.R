@@ -55,7 +55,9 @@ pg <- pg_dat %>%
 # read in county level data
 cnty_dat <- read_excel("source/2019-02-26_Walmart_county data_excl impute_CB Nlt50_fmt.xlsx",
                        sheet = "cnty data_unimp_2-25_dash mets", range = c("A4:W3146"),
-                       na = c("n/a*", "n/a**"))
+                       na = c("n/a*", "n/a**")) %>%
+  mutate(`County Name` = replace(`County Name`, `County Name` == "District Of Columbia", "District of Columbia")) %>%
+  mutate(`State Name` = replace(`State Name`, `State Name` == "District Of Columbia", "District of Columbia"))
 
 cnty <- cnty_dat %>%
   # select(-County, -State, -`Peer Group`, -`Limited access to healthy food`, -`Transportation costs as percent of income`,
@@ -97,7 +99,8 @@ state <- state_dat %>%
          rural_population = `Population in rural area`) %>%
   mutate(id = as.character(id),
          name = ifelse(name == "US", "US", str_to_title(name)),
-         geography = ifelse(name == "US", "national", "state"))
+         geography = ifelse(name == "US", "national", "state")) %>%
+  mutate(name = replace(name, name == "District Of Columbia", "District of Columbia"))
 
 
 # merge datasets together to make final dataset

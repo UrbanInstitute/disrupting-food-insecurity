@@ -318,7 +318,7 @@ county_fips,county_name,state_fips,state_name,state_abbv,peer_group
 10001,Kent County,10,Delaware,DE,10
 10003,New Castle County,10,Delaware,DE,10
 10005,Sussex County,10,Delaware,DE,9
-11001,District of Columbia,11,District of Columbia,DC,NA
+11001,District of Columbia,11,District of Columbia,DC,4
 12001,Alachua County,12,Florida,FL,4
 12003,Baker County,12,Florida,FL,3
 12005,Bay County,12,Florida,FL,4
