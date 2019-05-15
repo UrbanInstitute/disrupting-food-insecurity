@@ -1336,30 +1336,30 @@ section.peerGroupSummary p {
     vertical-align: top;
 }
 
-.peerGroupProfile section#strategies .content {
+section#strategies .content {
     max-width: 100%;
     padding: 0;
 }
 
-.peerGroupProfile section#strategies h4{
+section#strategies h4{
     font-size: 28px;
     font-weight: bold;
     text-transform: none;
     padding: 50px 0 30px;
 }
 
-.peerGroupProfile section#strategies p {
+section#strategies p {
     max-width: 100%;
     font-size: 16px;
 }
 
 
 @media screen and (max-width: 500px) {
-    .peerGroupProfile section#strategies h4 {
+    section#strategies h4 {
         font-size: 24px;
     }
 
-    .peerGroupProfile section#strategies p {
+    section#strategies p {
         font-size: 14px;
     }
 }
@@ -2202,6 +2202,10 @@ body.print {
 
 .print .metricDescription {
     padding: 0;
+}
+
+.print .countyProfile section#strategies {
+    display: none;
 }
 
 .print footer {
