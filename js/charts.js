@@ -140,7 +140,7 @@ d3.csv("data/chart_data.csv", function(d) {
                 zoomToState(d_state, path.bounds(d_state), params["print"]);
 
                 d3.select(".countyProfile #peerGroupMap .county.county_" + geoIDs[0]).classed("countyClicked", true);
-                d3.select(".countyProfile #peerGroupMap .county.county_" + geoIDs[0]).classed("highlighted", true);
+                d3.select(".countyProfile #peerGroupMap .county.county_" + geoIDs[0]).classed("highlighted", true).moveToFront();
 
                 d3.select(".geoLabel").text(deslugify(params.county) + ", " + params.state);
                 d3.select(".clearSearchbox").classed("disabled", false);
@@ -577,7 +577,7 @@ d3.select(".peerGroupSummary .tooltip").on("mouseenter", function() { d3.select(
 d3.select(".peerGroupSummary .tooltip").on("mouseout", function() { d3.select(this).classed("hidden", true); });
 
 function highlightCounty(county, mouseX, mouseY, page) {
-    d3.select("#peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true);
+    d3.select("#peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true).moveToFront();
 
     if(page === "peerGroupProfile") {
         d3.select(".tooltip .countyName").text(county.properties.county_name + ", " + county.properties.state_abbv);
@@ -602,7 +602,7 @@ function unHighlightCounty() {
     d3.selectAll(".peerGroupBlock").classed("selected", false);
 
     if(d3.select(".countyProfile #peerGroupMap .countyClicked").nodes().length > 0) {
-        d3.select(".countyProfile #peerGroupMap .countyClicked").classed("highlighted", true);
+        d3.select(".countyProfile #peerGroupMap .countyClicked").classed("highlighted", true).moveToFront();
         var countyClicked = d3.select(".countyProfile #peerGroupMap .countyClicked").datum().properties;
         d3.select(".geoLabel").text(countyClicked.county_name + ", " + countyClicked.state_abbv);
         d3.select(".peerGroupBlock.peerGroup" + countyClicked.peer_group).classed("selected", true);
@@ -616,7 +616,7 @@ function selectCounty(county) {
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("highlighted", false);
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("countyClicked", false);
     d3.select(".countyProfile #peerGroupMap .county.county_" + county.properties.county_fips).classed("countyClicked", true);
-    d3.select(".countyProfile #peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true);
+    d3.select(".countyProfile #peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true).moveToFront();
 
     d3.selectAll(".peerGroupBlock").classed("selected", false);
     d3.select(".peerGroupBlock.peerGroup" + county.properties.peer_group).classed("selected", true);
@@ -649,7 +649,9 @@ function selectCounty(county) {
 
 function highlightState(stateAbbv, stateName) {
     d3.select(".geoLabel").text(stateName);
-    d3.select(".countyProfile #peerGroupMap .state." + stateAbbv).classed("stateSelected", true);
+    if(!d3.select(".countyProfile #peerGroupMap .state." + stateAbbv).classed("stateSelected")) {
+        d3.select(".countyProfile #peerGroupMap .state." + stateAbbv).classed("stateSelected", true).moveToFront();
+    }
 }
 
 function unHighlightState() {
