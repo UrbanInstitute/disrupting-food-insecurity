@@ -561,13 +561,13 @@ function renderMap(page, peerGroupNumber, isPrint) {
             .attr("d", path);
 
         if(!isPrint && pageWidth > 768){
-            counties.on("mouseover", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "countyProfile"); })
-                .on("mouseleave", function(d) { unHighlightCounty(d); })
-                .on("click", function(d) { selectCounty(d); });
+            counties.on("mouseover", function(d) { console.log("mouseover"); highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "countyProfile"); })
+                .on("mouseleave", function(d) { console.log("mouseleave"); unHighlightCounty(d); })
+                .on("click", function(d) { console.log("clicked"); selectCounty(d); });
 
-            states.on("mouseover", function(d) { highlightState(d.properties.state_abbv, d.properties.state_name); })
-                .on("mouseleave", function() { unHighlightState(); })
-                .on("click", function(d) { zoomToState(d, path.bounds(d), false); });
+            states.on("mouseover", function(d) { console.log("mouseover"); highlightState(d.properties.state_abbv, d.properties.state_name); })
+                .on("mouseleave", function() { console.log("mouseleave"); unHighlightState(); })
+                .on("click", function(d) { console.log("click"); zoomToState(d, path.bounds(d), false); });
         }
     }
 }
