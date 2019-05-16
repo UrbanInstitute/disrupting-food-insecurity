@@ -531,7 +531,7 @@ function renderMap(page, peerGroupNumber, isPrint) {
         if(!isPrint && pageWidth > 768) {
             counties.on("mouseenter", function(d) { if(d.properties.peer_group === peerGroupNumber) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "peerGroupProfile"); }})
                 .on("mouseout", function(d) { unHighlightCounty(d); })
-                .on("click", function(d) { window.location.assign("index.html?county=" + slugify(d.properties.county_name) + "&state=" + d.properties.state_abbv); });
+                .on("mouseup", function(d) { window.location.assign("index.html?county=" + slugify(d.properties.county_name) + "&state=" + d.properties.state_abbv); });
 
             // hide tooltip when mouse leaves the map
             svg.on("mouseout", function() { d3.select(".tooltip").classed("hidden", true); });
@@ -561,13 +561,13 @@ function renderMap(page, peerGroupNumber, isPrint) {
             .attr("d", path);
 
         if(!isPrint && pageWidth > 768){
-            counties.on("mouseenter", function(d) { console.log("mouseenter"); highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "countyProfile"); })
-                .on("mouseout", function(d) { console.log("mouseout"); unHighlightCounty(d); })
-                .on("click", function(d) { console.log("clicked"); selectCounty(d); });
+            counties.on("mouseenter", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "countyProfile"); })
+                .on("mouseout", function(d) { unHighlightCounty(d); })
+                .on("mouseup", function(d) { selectCounty(d); });
 
-            states.on("mouseenter", function(d) { console.log("mouseenter"); highlightState(d.properties.state_abbv, d.properties.state_name); })
-                .on("mouseout", function() { console.log("mouseout"); unHighlightState(); })
-                .on("click", function(d) { console.log("click"); zoomToState(d, path.bounds(d), false); });
+            states.on("mouseenter", function(d) { highlightState(d.properties.state_abbv, d.properties.state_name); })
+                .on("mouseout", function() { unHighlightState(); })
+                .on("mouseup", function(d) { zoomToState(d, path.bounds(d), false); });
         }
     }
 }
