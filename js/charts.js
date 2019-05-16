@@ -563,7 +563,7 @@ function renderMap(page, peerGroupNumber, isPrint) {
         if(!isPrint && pageWidth > 768){
             counties.on("mouseenter", function(d) { highlightCounty(d, path.centroid(d)[0], path.bounds(d)[0][1], "countyProfile"); })
                 .on("mouseout", function(d) { unHighlightCounty(d); })
-                .on("mouseup", function(d) { selectCounty(d); });
+                .on("mouseup", function(d) { selectCounty(d, false); });
 
             states.on("mouseenter", function(d) { highlightState(d.properties.state_abbv, d.properties.state_name); })
                 .on("mouseout", function() { unHighlightState(); })
@@ -612,7 +612,7 @@ function unHighlightCounty() {
     }
 }
 
-function selectCounty(county) {
+function selectCounty(county, usedSearchbox) {
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("highlighted", false);
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("countyClicked", false);
     d3.select(".countyProfile #peerGroupMap .county.county_" + county.properties.county_fips).classed("countyClicked", true);
@@ -642,7 +642,13 @@ function selectCounty(county) {
 
     // scroll page down to top of dashboard section
     var position = $(".dashboardDrawers").offset().top - $("#header-pinned").height();
-    $("html, body").delay(500).animate({ scrollTop: position}, 1000);
+
+    if(usedSearchbox) {  // delay autoscroll if user searched for county
+        $("html, body").delay(1000).animate({ scrollTop: position}, 1000);
+    }
+    else {
+        $("html, body").delay(500).animate({ scrollTop: position}, 1000);
+    }
 
     d3.select(".clearSearchbox").classed("disabled", false);
 }
@@ -832,7 +838,7 @@ function initializeSearchbox() {
             var geoIDs = countyLookup[ui.item.label].split(",");
 
             var d_county = d3.select("#peerGroupMap .county.county_" + geoIDs[0]).datum();
-            selectCounty(d_county);
+            selectCounty(d_county, true);
 
             // zoom map into state of selected county and apply highlighting
             var d_state = d3.select("#peerGroupMap .state." + state).datum();
