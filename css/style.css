@@ -2204,7 +2204,7 @@ body.print {
     padding: 0;
 }
 
-.print .countyProfile section#strategies {
+.print .countyProfile section#strategies a {
     display: none;
 }
 
