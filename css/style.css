@@ -1117,6 +1117,7 @@ section.peerGroupMap {
 
 .selected .peerGroupBlockText {
     color: rgba(0, 0, 0, 1);
+    font-weight: bold;
 }
 
 .resetMapLink {
