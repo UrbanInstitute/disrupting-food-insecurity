@@ -577,7 +577,9 @@ d3.select(".peerGroupSummary .tooltip").on("mouseenter", function() { d3.select(
 d3.select(".peerGroupSummary .tooltip").on("mouseleave", function() { d3.select(this).classed("hidden", true); });
 
 function highlightCounty(county, mouseX, mouseY, page) {
-    d3.select("#peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true).moveToFront();
+    if(!d3.select("#peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted")) { // fix for IE which rebinds event listeners when you move DOM elements (https://stackoverflow.com/questions/39332279/anomalous-mouseover-handling-with-d3-js-in-internet-explorer-11)
+        d3.select("#peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true).moveToFront();
+    }
 
     if(page === "peerGroupProfile") {
         d3.select(".tooltip .countyName").text(county.properties.county_name + ", " + county.properties.state_abbv);
@@ -616,7 +618,9 @@ function selectCounty(county, usedSearchbox) {
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("highlighted", false);
     d3.selectAll(".countyProfile #peerGroupMap .county").classed("countyClicked", false);
     d3.select(".countyProfile #peerGroupMap .county.county_" + county.properties.county_fips).classed("countyClicked", true);
-    d3.select(".countyProfile #peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true).moveToFront();
+    if(!d3.select(".countyProfile #peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted")) { // fix for IE which rebinds event listeners when you move DOM elements (https://stackoverflow.com/questions/39332279/anomalous-mouseover-handling-with-d3-js-in-internet-explorer-11)
+        d3.select(".countyProfile #peerGroupMap .county.county_" + county.properties.county_fips).classed("highlighted", true).moveToFront();
+    }
 
     d3.selectAll(".peerGroupBlock").classed("selected", false);
     d3.select(".peerGroupBlock.peerGroup" + county.properties.peer_group).classed("selected", true);
@@ -655,7 +659,7 @@ function selectCounty(county, usedSearchbox) {
 
 function highlightState(stateAbbv, stateName) {
     d3.select(".geoLabel").text(stateName);
-    if(!d3.select(".countyProfile #peerGroupMap .state." + stateAbbv).classed("stateSelected")) {
+    if(!d3.select(".countyProfile #peerGroupMap .state." + stateAbbv).classed("stateSelected")) {  // fix for IE which rebinds event listeners when you move DOM elements (https://stackoverflow.com/questions/39332279/anomalous-mouseover-handling-with-d3-js-in-internet-explorer-11)
         d3.select(".countyProfile #peerGroupMap .state." + stateAbbv).classed("stateSelected", true).moveToFront();
     }
 }
