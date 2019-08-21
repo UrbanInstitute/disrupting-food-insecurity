@@ -522,43 +522,43 @@ a.peerGroupProfileLink.peerGroup10 {
     border-bottom-color: #73BFE2;
 }
 
-.peerGroupBullets li.bullet.peerGroup1::before {
+li.bullet.peerGroup1::before {
     color: #A4201D;
 }
 
-.peerGroupBullets li.bullet.peerGroup2::before {
+li.bullet.peerGroup2::before {
     color: #DB2B27;
 }
 
-.peerGroupBullets li.bullet.peerGroup3::before {
+li.bullet.peerGroup3::before {
     color: #CA5800;
 }
 
-.peerGroupBullets li.bullet.peerGroup4::before {
+li.bullet.peerGroup4::before {
     color: #E88E2D;
 }
 
-.peerGroupBullets li.bullet.peerGroup5::before {
+li.bullet.peerGroup5::before {
     color: #FDBF11;
 }
 
-.peerGroupBullets li.bullet.peerGroup6::before {
+li.bullet.peerGroup6::before {
     color: #FDD870;
 }
 
-.peerGroupBullets li.bullet.peerGroup7::before {
+li.bullet.peerGroup7::before {
     color: #FCE39E;
 }
 
-.peerGroupBullets li.bullet.peerGroup8::before {
+li.bullet.peerGroup8::before {
     color: #12719E;
 }
 
-.peerGroupBullets li.bullet.peerGroup9::before {
+li.bullet.peerGroup9::before {
     color: #1696d2;
 }
 
-.peerGroupBullets li.bullet.peerGroup10::before {
+li.bullet.peerGroup10::before {
     color: #73BFE2;
 }
 
@@ -1316,12 +1316,19 @@ section.peerGroupSummary p {
     padding-left: 25px;
 }
 
+.peerGroupStrategies ul {
+    font-size: 16px;
+    line-height: 1.56;
+    list-style: none;
+}
+
 .peerGroupBullets li {
     margin-bottom: 30px;
 }
 
 /* how to change color of bullets: https://www.w3schools.com/howto/howto_css_bullet_color.asp  */
-.peerGroupBullets li::before {
+.peerGroupBullets li::before,
+.strategies_list li::before {
     content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
     color: #000; /* Change the color */
     display: inline-block; /* Needed to add space between the bullet and the text */
@@ -1354,6 +1361,13 @@ section#strategies p {
     font-size: 16px;
 }
 
+section#strategies li {
+    margin-bottom: 24px;
+}
+
+section#strategies .strategyFirstSentence {
+    font-weight: bold;
+}
 
 @media screen and (max-width: 500px) {
     section#strategies h4 {

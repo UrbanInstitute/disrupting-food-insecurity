@@ -239,7 +239,7 @@ function renderPeerGroupPage(pagename, peer_group, isPrint) {
     populateLegends("peerGroupProfile", "", "", peer_group);
 
     // update strategies
-    populateStrategies(peerGroupName, peer_group);
+    populateStrategies(peer_group);
 
     if(isPrint) {
         d3.select("body").classed("print", true);
@@ -331,8 +331,8 @@ function populateBulletPoints(peerGroupNumber) {
     d3.select(".demographics_bullet").text("Demographics: " + bulletText.demographics);
 }
 
-function populateStrategies(peerGroupName, peer_group) {
-    // d3.select(".peerGroupStrategies h4 span.peerGroupName").text(peerGroupName.toLowerCase());
+function populateStrategies(peer_group) {
+    d3.select(".peerGroupStrategies ul.strategies_list").html(strategies_text["Peer Group " + peer_group]);
 }
 
 function makeBarChart(chartID, data, parentPage, isPrint) {
