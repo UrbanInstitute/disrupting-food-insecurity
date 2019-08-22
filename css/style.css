@@ -2223,6 +2223,20 @@ body.print {
     display: none;
 }
 
+.print section#strategies h4 {
+    font-size: 16px;
+    padding: 20px 0 10px;
+}
+
+.print section#strategies p,
+.print ul {
+    font-size: 12px;
+}
+
+.print section#strategies li {
+    margin-bottom: 12px;
+}
+
 .print footer {
     display: none;
 }
