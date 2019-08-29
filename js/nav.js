@@ -229,3 +229,8 @@ function deselectAllPeerGroups() {
     // make "Reset to view all peer groups" link inactive
     d3.select(".countyProfile .resetMapLink").classed("disabled", true);
 }
+
+
+/////////////// swap out data download icon on hover so it turns white ///////////////
+d3.select(".dataDownloadBtn").on("mouseover", function() { d3.select(".downloadIcon").attr("src", "img/download-icon-onhover-2x.png"); });
+d3.select(".dataDownloadBtn").on("mouseout", function() { d3.select(".downloadIcon").attr("src", "img/download-icon-2x.png"); });
