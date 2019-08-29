@@ -10,9 +10,9 @@ pg_names <- tibble(
                "High food insecurity, with economic challenges (mostly rural)",
                "High food insecurity, with the highest housing costs (mostly urban)",
                "High food insecurity, with physical health challenges (rural)",
-               "Moderate food insecurity, with tenuous economic security (mostly urban)",
-               "Moderate food insecurity, with moderate resilience (mostly rural)",
-               "Low food insecurity, with low housing costs (mostly rural)",
+               "Moderate food insecurity, with tenuous economic security",
+               "Moderate food insecurity, with moderate resilience (more rural)",
+               "Low food insecurity, with low housing costs (rural)",
                "Low food insecurity, with high resilience",
                "Low food insecurity, with high housing costs (mostly urban)")
 )
