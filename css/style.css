@@ -2219,6 +2219,10 @@ body.print {
     padding: 0;
 }
 
+.print .countyProfile section#strategies {
+    display: none;
+}
+
 .print .countyProfile section#strategies a {
     display: none;
 }
