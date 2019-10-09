@@ -326,7 +326,7 @@ function populateBulletPoints(peerGroupNumber) {
     d3.select(".food_insecurity_bullet").text("Food insecurity: " + bulletText.food_insecurity);
     d3.select(".physical_health_bullet").text("Physical health: " + bulletText.physical_health);
     d3.select(".financial_health_bullet").text("Financial and economic health: " + bulletText.financial_economic_health);
-    d3.select(".housing_cost_bullet").text("Housing cost burden: " + bulletText.housing_cost_burden);
+    d3.select(".housing_cost_bullet").text("Housing-cost burden: " + bulletText.housing_cost_burden);
     d3.select(".geography_bullet").text("Geography: " + bulletText.geography);
     d3.select(".demographics_bullet").text("Demographics: " + bulletText.demographics);
 }
