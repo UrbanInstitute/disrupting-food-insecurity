@@ -131,8 +131,8 @@ d3.csv("data/chart_data.csv", function(d) {
                 renderMap("index", "all", false);
             }
 
-            if(window.location.search !== "") {
-                // if query string has parameters, use those to populate the charts
+            if(Object.keys(params).indexOf("county") > -1) {
+                // if query string has county and state parameters, use those to populate the charts
                 var geoIDs = countyLookup[deslugify(params.county) + ", " + params.state].split(",");
 
                 // zoom map into state of selected county and apply highlighting
