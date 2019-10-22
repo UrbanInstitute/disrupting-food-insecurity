@@ -165,7 +165,7 @@ function renderCountyPage(pagename, county_id, peer_group, state_id, state_abbv,
     var peerGroupName = data.filter(function(d) { return d.geography === "peer_group"; })[0]["name"];
 
     // update county name in searchbox if using query parameters
-    if(!isCountySpecificUrl) $("#countySearch").val(countyName + ", "  + state_abbv);
+    if(isCountySpecificUrl) $("#countySearch").val(countyName + ", "  + state_abbv);
 
     // update county name in title, peer group name and peer group link in sentence beneath county name
     populateCountySentence(countyName, state_abbv, peer_group, peerGroupName);
