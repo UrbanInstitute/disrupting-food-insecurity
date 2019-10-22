@@ -144,18 +144,18 @@ d3.csv("data/chart_data.csv", function(d) {
 
                 d3.select(".geoLabel").text(deslugify(params.county) + ", " + params.state);
                 d3.select(".clearSearchbox").classed("disabled", false);
-                renderCountyPage(page, geoIDs[0], geoIDs[2], geoIDs[1], params.state, params["print"]);
+                renderCountyPage(page, geoIDs[0], geoIDs[2], geoIDs[1], params.state, params["print"], true);
             }
             else {
                 // else render page using Autauga County, AL in the dataset
-                renderCountyPage(page, "01001", "6", "01", "AL", false);
+                renderCountyPage(page, "01001", "6", "01", "AL", false, false);
             }
         }
         window.addEventListener("resize", redraw);
     });
 });
 
-function renderCountyPage(pagename, county_id, peer_group, state_id, state_abbv, isPrint) {
+function renderCountyPage(pagename, county_id, peer_group, state_id, state_abbv, isPrint, isCountySpecificUrl) {
 
     // get data
     var data = getData("county", county_id, peer_group, state_id);
@@ -165,7 +165,7 @@ function renderCountyPage(pagename, county_id, peer_group, state_id, state_abbv,
     var peerGroupName = data.filter(function(d) { return d.geography === "peer_group"; })[0]["name"];
 
     // update county name in searchbox if using query parameters
-    if(window.location.search !== "") $("#countySearch").val(countyName + ", "  + state_abbv);
+    if(!isCountySpecificUrl) $("#countySearch").val(countyName + ", "  + state_abbv);
 
     // update county name in title, peer group name and peer group link in sentence beneath county name
     populateCountySentence(countyName, state_abbv, peer_group, peerGroupName);
@@ -192,7 +192,7 @@ function renderCountyPage(pagename, county_id, peer_group, state_id, state_abbv,
         d3.select(".metricDrawer.Food_Insecurity").style("height", drawerFullHeights["Food_Insecurity"] + drawerTitleHeight + "px");
 
         // hide dashboard if loading page without a county already selected
-        if(window.location.search === "") {
+        if(!isCountySpecificUrl) {
             d3.select(".dashboardDrawers").classed("hidden", true);
         }
     }
