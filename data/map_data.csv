@@ -1141,7 +1141,7 @@ county_fips,county_name,state_fips,state_name,state_abbv,peer_group
 22053,Jefferson Davis Parish,22,Louisiana,LA,3
 22055,Lafayette Parish,22,Louisiana,LA,4
 22057,Lafourche Parish,22,Louisiana,LA,6
-22059,La Salle Parish,22,Louisiana,LA,NA
+22059,LaSalle Parish,22,Louisiana,LA,3
 22061,Lincoln Parish,22,Louisiana,LA,2
 22063,Livingston Parish,22,Louisiana,LA,6
 22065,Madison Parish,22,Louisiana,LA,2
@@ -1215,7 +1215,7 @@ county_fips,county_name,state_fips,state_name,state_abbv,peer_group
 24043,Washington County,24,Maryland,MD,6
 24045,Wicomico County,24,Maryland,MD,4
 24047,Worcester County,24,Maryland,MD,6
-24510,Baltimore city,24,Maryland,MD,NA
+24510,Baltimore City,24,Maryland,MD,4
 25001,Barnstable County,25,Massachusetts,MA,10
 25003,Berkshire County,25,Massachusetts,MA,10
 25005,Bristol County,25,Massachusetts,MA,10
@@ -1582,7 +1582,7 @@ county_fips,county_name,state_fips,state_name,state_abbv,peer_group
 29197,Schuyler County,29,Missouri,MO,5
 29199,Scotland County,29,Missouri,MO,8
 29201,Scott County,29,Missouri,MO,6
-29203,Shannon County,29,Missouri,MO,NA
+29203,Oglala Lakota County,29,Missouri,MO,5
 29205,Shelby County,29,Missouri,MO,8
 29207,Stoddard County,29,Missouri,MO,3
 29209,Stone County,29,Missouri,MO,5
@@ -2914,44 +2914,44 @@ county_fips,county_name,state_fips,state_name,state_abbv,peer_group
 51195,Wise County,51,Virginia,VA,3
 51197,Wythe County,51,Virginia,VA,7
 51199,York County,51,Virginia,VA,10
-51510,Alexandria city,51,Virginia,VA,NA
-51520,Bristol city,51,Virginia,VA,NA
-51530,Buena Vista city,51,Virginia,VA,NA
-51540,Charlottesville city,51,Virginia,VA,NA
-51550,Chesapeake city,51,Virginia,VA,NA
-51570,Colonial Heights city,51,Virginia,VA,NA
-51580,Covington city,51,Virginia,VA,NA
-51590,Danville city,51,Virginia,VA,NA
-51595,Emporia city,51,Virginia,VA,NA
-51600,Fairfax city,51,Virginia,VA,NA
-51610,Falls Church city,51,Virginia,VA,NA
-51620,Franklin city,51,Virginia,VA,NA
-51630,Fredericksburg city,51,Virginia,VA,NA
-51640,Galax city,51,Virginia,VA,NA
-51650,Hampton city,51,Virginia,VA,NA
-51660,Harrisonburg city,51,Virginia,VA,NA
-51670,Hopewell city,51,Virginia,VA,NA
-51678,Lexington city,51,Virginia,VA,NA
-51680,Lynchburg city,51,Virginia,VA,NA
-51683,Manassas city,51,Virginia,VA,NA
-51685,Manassas Park city,51,Virginia,VA,NA
-51690,Martinsville city,51,Virginia,VA,NA
-51700,Newport News city,51,Virginia,VA,NA
-51710,Norfolk city,51,Virginia,VA,NA
-51720,Norton city,51,Virginia,VA,NA
-51730,Petersburg city,51,Virginia,VA,NA
-51735,Poquoson city,51,Virginia,VA,NA
-51740,Portsmouth city,51,Virginia,VA,NA
-51750,Radford city,51,Virginia,VA,NA
-51760,Richmond city,51,Virginia,VA,NA
-51770,Roanoke city,51,Virginia,VA,NA
-51775,Salem city,51,Virginia,VA,NA
-51790,Staunton city,51,Virginia,VA,NA
-51800,Suffolk city,51,Virginia,VA,NA
-51810,Virginia Beach city,51,Virginia,VA,NA
-51820,Waynesboro city,51,Virginia,VA,NA
-51830,Williamsburg city,51,Virginia,VA,NA
-51840,Winchester city,51,Virginia,VA,NA
+51510,Alexandria City,51,Virginia,VA,10
+51520,Bristol City,51,Virginia,VA,4
+51530,Buena Vista City,51,Virginia,VA,4
+51540,Charlottesville City,51,Virginia,VA,4
+51550,Chesapeake City,51,Virginia,VA,10
+51570,Colonial Heights City,51,Virginia,VA,4
+51580,Covington City,51,Virginia,VA,4
+51590,Danville City,51,Virginia,VA,4
+51595,Emporia City,51,Virginia,VA,4
+51600,Fairfax City,51,Virginia,VA,10
+51610,Falls Church City,51,Virginia,VA,10
+51620,Franklin City,51,Virginia,VA,4
+51630,Fredericksburg City,51,Virginia,VA,4
+51640,Galax City,51,Virginia,VA,4
+51650,Hampton City,51,Virginia,VA,4
+51660,Harrisonburg City,51,Virginia,VA,4
+51670,Hopewell City,51,Virginia,VA,4
+51678,Lexington City,51,Virginia,VA,4
+51680,Lynchburg City,51,Virginia,VA,4
+51683,Manassas City,51,Virginia,VA,10
+51685,Manassas Park City,51,Virginia,VA,10
+51690,Martinsville City,51,Virginia,VA,4
+51700,Newport News City,51,Virginia,VA,4
+51710,Norfolk City,51,Virginia,VA,4
+51720,Norton City,51,Virginia,VA,4
+51730,Petersburg City,51,Virginia,VA,4
+51735,Poquoson City,51,Virginia,VA,10
+51740,Portsmouth City,51,Virginia,VA,4
+51750,Radford City,51,Virginia,VA,4
+51760,Richmond City,51,Virginia,VA,4
+51770,Roanoke City,51,Virginia,VA,4
+51775,Salem City,51,Virginia,VA,10
+51790,Staunton City,51,Virginia,VA,4
+51800,Suffolk City,51,Virginia,VA,10
+51810,Virginia Beach City,51,Virginia,VA,10
+51820,Waynesboro City,51,Virginia,VA,4
+51830,Williamsburg City,51,Virginia,VA,4
+51840,Winchester City,51,Virginia,VA,4
 53001,Adams County,53,Washington,WA,9
 53003,Asotin County,53,Washington,WA,4
 53005,Benton County,53,Washington,WA,4
