@@ -53,7 +53,7 @@ pg <- pg_dat %>%
 
 
 # read in county level data
-cnty_dat <- read_excel("source/2019-02-26_Walmart_county data_excl impute_CB Nlt50_fmt.xlsx",
+cnty_dat <- read_excel("source/2019-11-04_Walmart_county data_excl impute_CB Nlt50_fmt_ShannonCoMOfix.xlsx",
                        sheet = "cnty data_unimp_2-25_dash mets", range = c("A4:W3146"),
                        na = c("n/a*", "n/a**")) %>%
   mutate(`County Name` = replace(`County Name`, `County Name` == "District Of Columbia", "District of Columbia")) %>%
